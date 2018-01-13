@@ -6,6 +6,7 @@ package ru.job4j.calculator;
  * @version 1.0
  * @since 13.01.2018
  */
+
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
