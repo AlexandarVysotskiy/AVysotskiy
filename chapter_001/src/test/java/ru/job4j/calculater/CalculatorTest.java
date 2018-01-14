@@ -1,10 +1,8 @@
 package ru.job4j.calculator;
 /**
- * Test.
- *
- * @author Alexandar Vysotskiy (alexandar.vysotskiy@gmail.com)
+ * @author Aleksandr Vysotskiiy (Aleksandr.vysotskiiy@gmail.com)
  * @version 1.0
- * @since 13.01.2018
+ * @since 0.1
  */
 
 import org.junit.Test;
