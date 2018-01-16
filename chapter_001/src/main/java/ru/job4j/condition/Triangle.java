@@ -28,8 +28,16 @@ public class Triangle {
     }
 
     private boolean exist(double ab, double ac, double bc) {
-        if (ab <= 0, ac <= 0, bc <= 0){
-            return false;
+        if(ab+ac!=bc){
+            return true;
+        }
+        else if(ab+bc!=ac){
+            return true;
+        }
+        else if(ac+bc!=ab){
+            return true;
+        }
+        else{
+        return false;}
         }
     }
-}
