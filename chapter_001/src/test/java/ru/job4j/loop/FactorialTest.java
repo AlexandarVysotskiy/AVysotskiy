@@ -9,7 +9,7 @@ public class FactorialTest {
     @Test
     public void whenCalculateFactorialForFiveThenOneHundreedTwenty() {
         Factorial five = new Factorial();
-        int result = five.calc(5);
+        int result = five.calc(0);
         assertThat(result, is(120));
     }
 
