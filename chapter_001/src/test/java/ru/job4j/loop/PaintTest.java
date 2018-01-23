@@ -7,7 +7,7 @@ import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 
 /**
- * @author Aleksandr Vysotskiiy (Aleksandr.vysotskiiy@gmail.com)
+ * @author Aleksandr Vysotskiiy  (Aleksandr.vysotskiiy@gmail.com)
  * @version 1.0
  * @since 0.1
  */
