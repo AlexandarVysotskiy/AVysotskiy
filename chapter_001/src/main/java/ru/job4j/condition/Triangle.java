@@ -1,5 +1,11 @@
 package ru.job4j.condition;
 
+/**
+ * @author Aleksandr Vysotskiiy (Aleksandr.vysotskiiy@gmail.com)
+ * @version 1.2
+ * @since 0.1
+ */
+
 public class Triangle {
     private Point a;
     private Point b;
