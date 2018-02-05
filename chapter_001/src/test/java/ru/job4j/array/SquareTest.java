@@ -13,9 +13,10 @@ import static org.junit.Assert.assertThat;
 
 public class SquareTest {
     @Test
-    public void equals) {
+    public void equals() {
         Square number = new Square();
-        int result = number.calculate(10);
-        assertThat(result, is(10));
+        int[] result = number.calculate(2);
+        int[] a ={1,4};
+        assertThat(result, is(a));
     }
 }
