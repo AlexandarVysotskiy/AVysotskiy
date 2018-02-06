@@ -17,8 +17,8 @@ public class FactorialTest {
     public void whenCalculateFactorialForZeroThenOne() {
         Factorial nullFactorial = new Factorial();
         assertThat(
-                nullFactorial.calc(0),
-                is(1)
+                nullFactorial.calc(10),
+                is(3628800)
         );
     }
 }
