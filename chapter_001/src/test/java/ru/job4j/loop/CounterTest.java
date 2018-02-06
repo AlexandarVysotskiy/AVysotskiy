@@ -14,8 +14,8 @@ import static org.junit.Assert.assertThat;
 public class CounterTest {
     @Test
     public void whenSumEvenNumbersFromOneToTenThenThirty() {
-        Counter chicla = new Counter();
-        int result = chicla.add(0, 10);
+        Counter numbers = new Counter();
+        int result = numbers.add(0, 10);
         assertThat(result, is(30));
     }
 }
