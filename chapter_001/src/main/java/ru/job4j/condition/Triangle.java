@@ -34,16 +34,9 @@ public class Triangle {
     }
 
     private boolean exist(double ab, double ac, double bc) {
-        if(ab+ac!=bc){
-            return true;
-        }
-        else if(ab+bc!=ac){
-            return true;
-        }
-        else if(ac+bc!=ab){
-            return true;
-        }
-        else{
-        return false;}
-        }
+        boolean result;
+       if ((ab + ac == bc) & (ab + bc == ac) & (ac + bc == ab)) result=false;
+       else result = true;
+            return result;
     }
+}
