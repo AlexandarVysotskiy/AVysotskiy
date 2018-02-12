@@ -1,13 +1,20 @@
 package ru.job4j.array;
 
 public class BubbleSort {
+    /**
+     * Класс служит для сортировки массива используя алгоритм сортировки пузырьком
+     * @return - возвращает отсортированный массив
+     * @param array - сортируемый массив
+     * @author Alexandar Vysotskiy
+     * @version 1.0
+     */
     public int[] sort(int[] array) {
-        for (int i = array.length - 1; i > 0; i--) {
-            for (int j = 0; j < i; j++) {
-                if (array[j] > array[j + 1]) {
-                    int x = array[j];
-                    array[j] = array[j + 1];
-                    array[j + 1] = x;
+        for (int external = array.length - 1; external > 0; external--) {
+            for (int internal = 0; internal < external; internal++) {
+                if (array[internal] > array[internal + 1]) {
+                    int x = array[internal];
+                    array[internal] = array[internal + 1];
+                    array[internal + 1] = x;
                 }
             }
         }

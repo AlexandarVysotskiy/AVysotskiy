@@ -1,13 +1,21 @@
 package ru.job4j.loop;
 
 public class Counter {
+    /**
+     * Класс производит подсчет суммы чётных чисел в диапазоне.
+     * @param start - начало диапазона.
+     * @param finish - конец диапазона.
+     * @return - возвращает суммы чётных чисел в диапазоне от start до finish.
+     * @author Alexandar Vysotskiy
+     * @version 1.0
+     */
     public int add(int start, int finish) {
         int result = 0;
-        for (int i = start; i < finish; i++) {
-            if (i % 2 != 0) {
-                i++;
+        for (int number = start; number < finish; number++) {
+            if (number % 2 != 0) {
+                number++;
             }
-            result+=i;
+            result+=number;
         }
         return result;
     }

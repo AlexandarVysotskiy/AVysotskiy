@@ -1,6 +1,11 @@
 package ru.job4j.calculator;
 
 public class Calculator {
+    /**
+     * Метод складывает аргумент first и second и записывает результат в поле this.result.
+     * @author Alexandar Vysotskiy
+     * @version 1.0
+     */
     private double result;
 
     public void add(double first, double second) {

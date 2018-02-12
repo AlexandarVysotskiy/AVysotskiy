@@ -3,6 +3,13 @@ package ru.job4j.array;
 import java.util.Arrays;
 
 public class ArrayDuplicate {
+    /**
+     * Класс убрает все дубликаты строк из массива
+     * @return - возвращает отсортированный массив
+     * @param array - сортируемый массив
+     * @author Alexandar Vysotskiy
+     * @version 1.0
+     */
 
     public String[] remove(String[] array){
         int whole = array.length;

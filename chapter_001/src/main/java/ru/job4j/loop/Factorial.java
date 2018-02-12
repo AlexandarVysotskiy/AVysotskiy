@@ -1,10 +1,17 @@
 package ru.job4j.loop;
 
 public class Factorial {
-    public int calc(int n) {
+    /**
+     * Метод calc вычисляет факториал.
+     * @param factorial - факторил числа.
+     * @return - возвращает факторил.
+     * @author Alexandar Vysotskiy
+     * @version 1.0
+     */
+    public int calc(int factorial) {
         int result = 1;
-        for (int i = 1; i <= n; i++) {
-            result = result * i;
+        for (int number = 1; number <= factorial; number++) {
+            result = result * number;
         }
         return result;
     }

@@ -4,6 +4,7 @@ package ru.job4j.loop;
 import java.util.function.BiPredicate;
 
 /**
+ * Класс строит пирамиду в псевдографике
  * @author Aleksandr Vysotskiiy (Aleksandr.vysotskiiy@gmail.com)
  * @version 1.0
  * @since 0.1

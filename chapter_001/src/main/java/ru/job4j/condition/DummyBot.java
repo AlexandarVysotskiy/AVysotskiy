@@ -1,8 +1,5 @@
-/**
- * @author Aleksandr Vysotskiiy (Aleksandr.vysotskiiy@gmail.com)
- * @version 1.0
- * @since 0.1
- */
+package ru.job4j.condition;
+
 public class DummyBot {
     /**
      * Отвечает на вопросы.
@@ -12,7 +9,7 @@ public class DummyBot {
      */
     public String answer(String question) {
         String rsl = "Это ставит меня в тупик. Спросите другой вопрос.";
-        if ("Привет, Бот".equals(question)) {
+        if ("Привет, Бот.".equals(question)) {
             rsl = "Привет, умник.";
         } else if ("Пока.".equals(question)) {
             rsl = "До скорой встречи.";
