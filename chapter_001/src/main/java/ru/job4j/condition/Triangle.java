@@ -33,10 +33,8 @@ public class Triangle {
         return rsl;
     }
 
+
     private boolean exist(double ab, double ac, double bc) {
-        boolean result;
-       if ((ab + ac == bc) & (ab + bc == ac) & (ac + bc == ab)) result=false;
-       else result = true;
-            return result;
+        return ab <= ac + bc && bc <= ac + ab && ac <= bc + ab;
     }
 }
