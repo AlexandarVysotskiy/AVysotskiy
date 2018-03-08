@@ -35,7 +35,7 @@ class EditItem implements UserAction {
 public class MenuTracker {
     private Input input;
     private Tracker tracker;
-    private UserAction[] actions = new UserAction[6];
+    public UserAction[] actions = new UserAction[6];
 
     MenuTracker(Input input, Tracker tracker) {
         this.input = input;
