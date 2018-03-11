@@ -17,6 +17,7 @@ import static org.junit.Assert.assertThat;
  */
 
 public class PaintTest {
+    public static String newline = System.getProperty("line.separator");
     private final PrintStream stdout = System.out;
     private final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
@@ -36,12 +37,12 @@ public class PaintTest {
     public void whenDrawSquare() {
         new Paint().draw(new Square());
         assertThat(new String(this.out.toByteArray()), is(new StringBuilder()
-                                .append("+ + + +\n")
-                                .append("+     +\n")
-                                .append("+     +\n")
-                                .append("+ + + +\n")
-                                .append(System.lineSeparator())
-                                .toString()
+                        .append("+ + + +").append(newline)
+                        .append("+     +").append(newline)
+                        .append("+     +").append(newline)
+                        .append("+ + + +").append(newline)
+                        .append(System.lineSeparator())
+                        .toString()
                 )
         );
     }
@@ -49,12 +50,11 @@ public class PaintTest {
     @Test
     public void whenDrawTriangle() {
         new Paint().draw(new Triangle());
-        assertThat(new String(this.out.toByteArray()), is(new StringBuilder()
-                        .append("   +   \n")
-                        .append("  + +  \n")
-                        .append(" + + + \n")
-                        .append("+ + + +\n")
-                        .append(System.lineSeparator())
+        assertThat(new String(this.out.toByteArray()), is(new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
+                        .add("   +   ")
+                        .add("  + +  ")
+                        .add(" + + + ")
+                        .add("+ + + +")
                         .toString()
                 )
         );

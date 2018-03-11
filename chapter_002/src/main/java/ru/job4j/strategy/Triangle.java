@@ -8,12 +8,7 @@ public class Triangle implements Shape {
         triangle.append("   +   " + newline);
         triangle.append("  + +  " + newline);
         triangle.append(" + + + " + newline);
-        triangle.append("+ + + +" + newline);
+        triangle.append("+ + + +");
         return triangle.toString();
-    }
-
-    public static void main(String[] args) {
-        Triangle a = new Triangle();
-        System.out.println(a.draw());
     }
 }
