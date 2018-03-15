@@ -34,6 +34,7 @@ public class StubInput implements Input {
     public String ask(String question) {
         return this.value[this.position++];
     }
+
     @Override
     public int ask(String question, int[] range) {
         int key = Integer.valueOf(this.ask(question));
@@ -44,10 +45,9 @@ public class StubInput implements Input {
                 break;
             }
         }
-        if (exist) {
-            return key;
-        } else {
+        if (!exist) {
             throw new MenuOutException("Введите число");
         }
+        return key;
     }
 }
