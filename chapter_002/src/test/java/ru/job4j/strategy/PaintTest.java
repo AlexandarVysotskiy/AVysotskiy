@@ -36,7 +36,7 @@ public class PaintTest {
     @Test
     public void whenDrawSquare() {
         new Paint().draw(new Square());
-        assertThat(new String(this.out.toByteArray()), is(new StringBuilder()
+        assertThat(out.toString(), is(new StringBuilder()
                         .append("+ + + +").append(newline)
                         .append("+     +").append(newline)
                         .append("+     +").append(newline)
@@ -50,13 +50,12 @@ public class PaintTest {
     @Test
     public void whenDrawTriangle() {
         new Paint().draw(new Triangle());
-        assertThat(new String(this.out.toByteArray()), is(new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
-                        .add("   +   ")
-                        .add("  + +  ")
-                        .add(" + + + ")
-                        .add("+ + + +")
-                        .toString()
-                )
-        );
+        assertThat(out.toString(), is(new StringBuilder()
+                .append("   +   " + newline)
+                .append("  + +  " + newline)
+                .append(" + + + " + newline)
+                .append("+ + + +")
+                .append(System.lineSeparator())
+                .toString()));
     }
 }
