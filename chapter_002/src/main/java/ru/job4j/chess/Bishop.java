@@ -1,18 +1,21 @@
 package ru.job4j.chess;
 
-import javax.xml.transform.Source;
+/**
+ * @version $Id$
+ * @since 0.1
+ */
 
 class Bishop extends Figure {
 
-    public Bishop(Cell position) {
+    private int position = 0;
+
+    Bishop(Cell position) {
         super(position);
     }
 
     Figure copy(Cell dest) {
         return new Bishop(dest);
     }
-
-    private int position = 0;
 
     /**
      * Метод проверяет верный ли ход фигуры.

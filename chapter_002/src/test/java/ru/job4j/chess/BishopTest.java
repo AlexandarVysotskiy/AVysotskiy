@@ -5,11 +5,13 @@ import org.junit.Test;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class BioshopTest {
-    /**
-     * @version $Id$
-     * @since 0.1
-     */
+/**
+ * @version $Id$
+ * @since 0.1
+ */
+
+public class BishopTest {
+
     @Test
     public void whenFigureBishop() {
         Cell bishopStart = new Cell(6, 1);

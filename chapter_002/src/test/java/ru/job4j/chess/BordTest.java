@@ -11,7 +11,7 @@ public class BordTest {
      * @since 0.1
      */
     @Test
-    public void MethodBordTest() {
+    public void methodBordTest() {
         Board board = new Board();
         Cell source = new Cell(6, 1);
         Cell dest = new Cell(1, 6);
