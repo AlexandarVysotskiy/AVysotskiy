@@ -3,8 +3,9 @@ package ru.job4j.array;
 public class WordInWord {
     /**
      * Класс проверяет, что словo String находится в другом слове String.
+     *
      * @param origin - строка,которая содержит искомое слово.
-     * @param sub - подстрока (искомое слово).
+     * @param sub    - подстрока (искомое слово).
      * @return - возвращает результат true или false.
      * @author Alexandar Vysotskiy
      * @version 1.0

@@ -16,7 +16,7 @@ public class SquareTest {
     public void equals() {
         Square number = new Square();
         int[] result = number.calculate(2);
-        int[] a ={1,4};
+        int[] a = {1, 4};
         assertThat(result, is(a));
     }
 }

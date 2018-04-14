@@ -4,7 +4,6 @@ package ru.job4j.chess;
  * Этот класс будет описывать абстрактное поведение шахматной доски
  */
 
-
 public abstract class Figure {
     final Cell position;
 

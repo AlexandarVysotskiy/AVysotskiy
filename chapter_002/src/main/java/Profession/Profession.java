@@ -1,13 +1,14 @@
-package Profession;
+package profession;
 
 /**
  * В этом классе находятся общие поля.
+ *
  * @author Alexandar Vysotskiy
  * @version 1.0
  */
 
 public class Profession {
-    private String Profession;
+    private String profession;
     private String name;
 
     public String getName() {
@@ -19,10 +20,10 @@ public class Profession {
     }
 
     public String getProfession() {
-        return Profession;
+        return profession;
     }
 
     public void setProfession(String profession) {
-        Profession = profession;
+        this.profession = profession;
     }
 }

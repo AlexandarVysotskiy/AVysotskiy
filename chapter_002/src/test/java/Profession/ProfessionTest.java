@@ -1,11 +1,11 @@
-package Profession;
+package profession;
 
 import org.junit.Test;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
-public class ProfessionTest{
+public class ProfessionTest {
     @Test
     public void professionDoctor() {
         Doctor doc = new Doctor();
@@ -19,6 +19,7 @@ public class ProfessionTest{
         String result = teacher.teachesStudents();
         assertThat(result, is("Преподаватель Ольга Ивановна учит студента Андреева двум дисциплинам"));
     }
+
     @Test
     public void professionEnginneer() {
         Engineer engineer = new Engineer();

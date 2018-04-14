@@ -3,6 +3,7 @@ package ru.job4j.array;
 public class Square {
     /**
      * Класс заполняет массив степенями чисел.
+     *
      * @param bound - указывает на размер массива.
      * @return - возвращает заполненный массив.
      * @author Alexandar Vysotskiy
@@ -11,8 +12,8 @@ public class Square {
     public int[] calculate(int bound) {
 
         int[] rst = new int[bound];
-        for (int x=1; x<= bound; x++){
-            rst[x-1] = x*x;
+        for (int x = 1; x <= bound; x++) {
+            rst[x - 1] = x * x;
         }
         return rst;
     }

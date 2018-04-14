@@ -2,9 +2,11 @@ package ru.job4j.tracker;
 
 public class ValidateInput implements Input {
     private final Input input;
+
     public ValidateInput(Input input) {
         this.input = input;
     }
+
     @Override
     public String ask(String question) {
         return this.input.ask(question);

@@ -1,4 +1,4 @@
-package ru.job4j.Tracker;
+package ru.job4j.tracker;
 
 import org.junit.Test;
 
@@ -65,12 +65,12 @@ public class TrackerTest {
     }
 
     @Test
-    public void testMethodFindById(){
+    public void testMethodFindById() {
         Tracker tracker = new Tracker();
         Item itemFirst = new Item("test1", "testDescription1", 121L);
         tracker.add(itemFirst);
         String id = itemFirst.getId();
-        assertThat(tracker.findById(id), is (itemFirst));
+        assertThat(tracker.findById(id), is(itemFirst));
     }
 
     @Test

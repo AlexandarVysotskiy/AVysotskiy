@@ -20,6 +20,7 @@ public class CalculatorTest {
         assertThat(result, is(expected));
     }
 
+    @Test
     public void whenSubtractOneVychestOneThenOne() {
         Calculator calc = new Calculator();
         calc.subtract(1D, 1D);
@@ -28,6 +29,7 @@ public class CalculatorTest {
         assertThat(result, is(expected));
     }
 
+    @Test
     public void whenDivOneMinusOneThenZero() {
         Calculator calc = new Calculator();
         calc.div(1D, 1D);
@@ -36,6 +38,7 @@ public class CalculatorTest {
         assertThat(result, is(expected));
     }
 
+    @Test
     public void whenMultipleOneUmnoshitOneThenOne() {
         Calculator calc = new Calculator();
         calc.multiple(1D, 1D);

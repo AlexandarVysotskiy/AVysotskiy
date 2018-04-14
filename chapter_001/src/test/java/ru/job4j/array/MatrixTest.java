@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThat;
 
 public class MatrixTest {
     @Test
-    public void WhenTheMatrixWorksAsItShould() {
+    public void whenTheMatrixWorksAsItShould() {
         int[][] testAnswer = {
                 {1, 2},
                 {2, 4},

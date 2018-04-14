@@ -1,4 +1,4 @@
-package ru.job4j.PhoneDictionary;
+package ru.job4j.phone;
 
 import org.junit.Test;
 

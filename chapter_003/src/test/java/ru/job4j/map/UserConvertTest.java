@@ -13,7 +13,7 @@ public class UserConvertTest {
      * Тест метода process.
      */
     @Test
-    public void UserConvertTest() {
+    public void userConvertTest() {
         User userFirst = new User(1, "Elon", "Silicon Valley");
         User userSecond = new User(2, "Bill", "Silicon Valley");
         User userThird = new User(3, "Jobs", "Silicon Valley");

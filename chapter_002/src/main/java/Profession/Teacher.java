@@ -1,8 +1,9 @@
-package Profession;
+package profession;
 
 /**
  * Метод teachesStudents возвращает строку "Преподаватель Ольга Ивановна учит студента Андреева двум дисциплинам",
  * где "Ольга Ивановна" это поле "name" из класса Profession, а "Сергей" и "двум" - аргументы класса Students.
+ *
  * @author Alexandar Vysotskiy
  * @version 1.0
  */

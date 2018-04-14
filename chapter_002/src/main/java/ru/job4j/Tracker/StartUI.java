@@ -37,14 +37,13 @@ public class StartUI {
         do {
             menu.show();
             menu.select(input.ask("Выберети пункт меню:", ranges));
-        } while (!"y".equals(this.input.ask("Для выхода из программы нажмите (y)," +
-                " что-бы продолжить работать с программой нажмите любую другую клавишу:")));
+        } while (!"y".equals(this.input.ask("Для выхода из программы нажмите (y), что-бы продолжить работать с программой нажмите любую другую клавишу:")));
     }
 
     /**
      * Запускт программы.
      */
     public static void main(String[] args) {
-        new StartUI(new ValidateInput(), new Tracker()).init();
+        new StartUI(new ValidateInput(new ConsoleInput()), new Tracker()).init();
     }
 }

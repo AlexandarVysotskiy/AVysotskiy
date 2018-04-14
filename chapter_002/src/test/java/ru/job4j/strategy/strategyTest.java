@@ -10,15 +10,16 @@ public class StrategyTest {
      * @version $Id$
      * @since 0.1
      */
+    public static String newline = System.getProperty("line.separator");
 
     @Test
     public void whenDrawSquare() {
         Square square = new Square();
         assertThat(square.draw(), is(new StringBuilder()
-                        .append("+ + + +\n")
-                        .append("+     +\n")
-                        .append("+     +\n")
-                        .append("+ + + +\n")
+                        .append("+ + + +" + newline)
+                        .append("+     +" + newline)
+                        .append("+     +" + newline)
+                        .append("+ + + +" + newline)
                         .toString()
                 )
         );
@@ -28,10 +29,10 @@ public class StrategyTest {
     public void whenDrawTriangle() {
         Triangle triangle = new Triangle();
         assertThat(triangle.draw(), is(new StringBuilder()
-                        .append("   +   \n")
-                        .append("  + +  \n")
-                        .append(" + + + \n")
-                        .append("+ + + +\n")
+                        .append("   +   " + newline)
+                        .append("  + +  " + newline)
+                        .append(" + + + " + newline)
+                        .append("+ + + +")
                         .toString()
                 )
         );

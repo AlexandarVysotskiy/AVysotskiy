@@ -3,6 +3,7 @@ package ru.job4j.loop;
 public class Factorial {
     /**
      * Метод calc вычисляет факториал.
+     *
      * @param factorial - факторил числа.
      * @return - возвращает факторил.
      * @author Alexandar Vysotskiy

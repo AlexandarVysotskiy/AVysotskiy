@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 
 public class ConvertList {
-
     public List<Integer> convert(List<int[]> list) {
         List<Integer> result = new ArrayList<>();
         Iterator<int[]> itr = list.iterator();

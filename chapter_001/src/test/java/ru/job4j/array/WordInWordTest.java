@@ -8,15 +8,16 @@ import static org.junit.Assert.assertThat;
 
 public class WordInWordTest {
     @Test
-    public void WhenThereIsTheRightWordForWord() {
+    public void whenThereIsTheRightWordForWord() {
         WordInWord necessaryWord = new WordInWord();
         String in = "Здравствуйте";
         String out = "дра";
         Boolean result = necessaryWord.contains(in, out);
         assertThat(result, is(true));
     }
+
     @Test
-    public void WhenIsNoNecessaryTheRightWordForWord() {
+    public void whenIsNoNecessaryTheRightWordForWord() {
         WordInWord word = new WordInWord();
         String input = "Здравствуйте";
         String output = "ствуйтем";

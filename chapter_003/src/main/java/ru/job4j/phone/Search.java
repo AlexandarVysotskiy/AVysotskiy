@@ -1,4 +1,4 @@
-package ru.job4j.PhoneDictionary;
+package ru.job4j.phone;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +16,7 @@ public class Search {
      * @param key Ключ поиска.
      * @return Список подощедщих пользователей.
      */
+
     public List<Person> find(String key) {
         List<Person> result = new ArrayList<>();
         for (Person index : persons) {
