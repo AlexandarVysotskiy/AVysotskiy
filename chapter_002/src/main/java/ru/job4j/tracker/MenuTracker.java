@@ -1,5 +1,7 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+
 /**
  * Класс реализует редактирование заявок в хранилище.
  */
@@ -31,7 +33,7 @@ class EditItem extends BaseAction {
 public class MenuTracker {
     private Input input;
     private Tracker tracker;
-    public UserAction[] actions = new UserAction[6];
+    public ArrayList<UserAction> actions = new ArrayList<>();
 
     MenuTracker(Input input, Tracker tracker) {
         this.input = input;
@@ -40,21 +42,21 @@ public class MenuTracker {
 
     public void fillActions() {
         String nameAddItem = "Добавление новой заявки";
-        this.actions[0] = this.new AddItem(0, nameAddItem);
+        this.actions.add(new MenuTracker.AddItem(0, nameAddItem));
         String nameShowItems = "Показать все заявки";
-        this.actions[1] = new MenuTracker.ShowItems(1, nameShowItems);
+        this.actions.add(new MenuTracker.ShowItems(1, nameShowItems));
         String nameEditItem = "Редактирование заявки";
-        this.actions[2] = new EditItem(2, nameEditItem);
+        this.actions.add(new EditItem(2, nameEditItem));
         String nameDeleteItem = "Удаление заявки";
-        this.actions[3] = new DeleteItem(3, nameDeleteItem);
+        this.actions.add(new DeleteItem(3, nameDeleteItem));
         String nameSearchById = "Поиск заявки по ID";
-        this.actions[4] = new SearchById(4, nameSearchById);
+        this.actions.add(new SearchById(4, nameSearchById));
         String nameSearchByName = "Поиск заявки по имени";
-        this.actions[5] = new SearchByName(5, nameSearchByName);
+        this.actions.add(new SearchByName(5, nameSearchByName));
     }
 
     public void select(int key) {
-        this.actions[key].execute(this.input, this.tracker);
+        this.actions.get(key).execute(this.input, this.tracker);
     }
 
     public void show() {
@@ -96,8 +98,8 @@ public class MenuTracker {
 
         @Override
         public void execute(Input input, Tracker tracker) {
-            Item[] items = tracker.findAll();
-            System.out.println("Список всех заявок:" + items.length);
+            ArrayList<Item> items = tracker.findAll();
+            System.out.println("Список всех заявок:" + items.size());
             for (Item item : items) {
                 System.out.println("Имя: " + item.getName() + " ID: " + item.getId());
             }
@@ -137,8 +139,9 @@ public class MenuTracker {
             String question = input.ask("Введите ID заявки :");
             Item item = tracker.findById(question);
             if (item != null) {
-                Item[] items = {tracker.findById(question)};
-                System.out.println("Найдено заявок: " + items.length);
+                ArrayList<Item> items = new ArrayList<>();
+                items.add(tracker.findById(question));
+                System.out.println("Найдено заявок: " + items.size());
                 for (Item index : items) {
                     System.out.println("Имя: " + index.getName() + " ID: " + index.getId());
                 }
@@ -160,8 +163,9 @@ public class MenuTracker {
         public void execute(Input input, Tracker tracker) {
             System.out.println("------------ Поиск заявки по имени --------------");
             String question = input.ask("Введите имя заявки :");
-            Item[] items = tracker.findByName(question);
-            System.out.println("Найдено заявок: " + items.length);
+            ArrayList<Item> items = new ArrayList<>();
+            items.add((Item) tracker.findByName(question));
+            System.out.println("Найдено заявок: " + items.size());
             for (Item item : items) {
                 System.out.println("Имя: " + item.getName() + " ID: " + item.getId());
             }
