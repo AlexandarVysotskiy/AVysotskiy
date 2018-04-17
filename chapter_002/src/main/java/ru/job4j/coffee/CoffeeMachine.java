@@ -4,7 +4,7 @@ public class CoffeeMachine {
     public int[] changes(int value, int price) {
         int[] temp = new int[100];
         int index = 0;
-        int surrender = price - value;
+        int surrender = value - price;
         while (surrender != 0) {
             if (surrender >= 10) {
                 temp[index++] = 10;
