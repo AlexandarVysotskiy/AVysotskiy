@@ -2,12 +2,15 @@ package ru.job4j.tracker;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertArrayEquals;
 
 /**
- * @author Aleksandr Vysotskiiy (Aleksandr.vysotskiiy@gmail.com)
+ * @author Aleksandr Vysotskiiy (Aleksandr.vysotskiiy@gmail.com).
  * @version 1.0
  * @since 0.1
  */
@@ -18,7 +21,7 @@ public class TrackerTest {
         Tracker tracker = new Tracker();
         Item item = new Item("test1", "testDescription", 123L);
         tracker.add(item);
-        assertThat(tracker.getAll()[0], is(item));
+        assertThat(tracker.findAll().get(0), is(item));
     }
 
     @Test
@@ -32,9 +35,9 @@ public class TrackerTest {
         tracker.add(itemSecond);
         tracker.add(itemThird);
         tracker.add(itemFourth);
-        Item[] expected = {itemFirst, itemSecond, itemFourth};
+        ArrayList<Item> expected = new ArrayList<>(Arrays.asList(itemFirst, itemSecond, itemFourth));
         tracker.delete(itemThird.getId());
-        assertArrayEquals(tracker.findAll(), expected);
+        assertThat(tracker.findAll(), is(expected));
     }
 
     @Test
@@ -48,8 +51,8 @@ public class TrackerTest {
         tracker.add(itemSecond);
         tracker.add(itemThird);
         tracker.add(itemFourth);
-        Item[] expected = {itemFirst, itemSecond, itemThird, itemFourth};
-        assertArrayEquals(expected, tracker.findAll());
+        ArrayList<Item> expected = new ArrayList<>(Arrays.asList(itemFirst, itemSecond, itemThird, itemFourth));
+        assertThat(tracker.findAll(), is(expected));
     }
 
     @Test
@@ -60,7 +63,7 @@ public class TrackerTest {
         Item itemSecond = new Item("test1", "testDescription2", 122L);
         tracker.add(itemFirst);
         tracker.add(itemSecond);
-        Item[] array = {itemFirst, itemSecond};
+        ArrayList<Item> array = new ArrayList<>(Arrays.asList(itemFirst, itemSecond));
         assertThat(tracker.findByName(key), is(array));
     }
 
