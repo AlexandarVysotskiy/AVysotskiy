@@ -4,14 +4,15 @@ import java.util.List;
 
 public class ConvertList2Array {
     public int[][] twoArray(List<Integer> list, int rows) {
-        int[][] array = new int[rows][rows];
-        int cells = 0;
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array.length; j++) {
-                if (cells >= list.size()) {
-                    cells++;
+        int amount = (int) Math.ceil((double) list.size() / (double) rows);
+        int array[][] = new int[rows][amount];
+        int listIndex = 0;
+        for (int rowsIndex = 0; rowsIndex < rows; rowsIndex++) {
+            for (int amountIndex = 0; amountIndex < amount; amountIndex++) {
+                if (listIndex < list.size()) {
+                    array[rowsIndex][amountIndex] = list.get(listIndex++);
                 } else {
-                    array[i][j] = list.get(cells++);
+                    array[rowsIndex][amountIndex] = 0;
                 }
             }
         }
