@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Tracker {
 
-    private final Item[] items = new Item[100];
+    private ArrayList<Item> items = new ArrayList<>();
 
     private int position = 0;
 
@@ -12,46 +12,36 @@ public class Tracker {
 
     public Item add(Item item) {
         item.setId(this.generateId());
-        this.items[position++] = item;
+        this.items.add(position++, item);
         return item;
     }
 
     public void replace(String id, Item item) {
         int index = findId(id);
         if (index != -1) {
-            this.items[index] = item;
+            this.items.set(index, item);
         }
     }
 
     public void delete(String id) {
-        int index = findId(id);
-        if (index != -1) {
-            System.arraycopy(items, index + 1, items, index, this.position - index - 1);
-            this.position--;
-            this.items[position] = null;
-        }
-    }
-
-    public Item[] findAll() {
-        Item[] result = new Item[this.position];
-        for (int index = 0; index != this.position; index++) {
-            result[index] = this.items[index];
-        }
-        return result;
-    }
-
-    public Item[] findByName(String key) {
-        int count = 0;
-        int[] indexes = new int[this.items.length];
-        for (int i = 0; i != this.position; i++) {
-            if (items[i] != null && items[i].getName().equals(key)) {
-                indexes[count] = i;
-                count++;
+        for (Item index : items) {
+            if (index.getId().equals(id)) {
+                items.remove(index);
+                break;
             }
         }
-        Item[] result = new Item[count];
-        for (int index = 0; index != count; index++) {
-            result[index] = items[indexes[index]];
+    }
+
+    public ArrayList<Item> findAll() {
+        return this.items;
+    }
+
+    public List<Item> findByName(String key) {
+        List<Item> result = new ArrayList<>();
+        for (Item item : this.items) {
+            if (item.getName().equals(key)) {
+                result.add(item);
+            }
         }
         return result;
     }
@@ -59,7 +49,7 @@ public class Tracker {
     public Item findById(String id) {
         Item result = null;
         for (Item item : items) {
-            if (item != null && item.getId().equals(id)) {
+            if (!items.isEmpty() && item.getId().equals(id)) {
                 result = item;
                 break;
             }
@@ -71,21 +61,13 @@ public class Tracker {
         return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
 
-    public Item[] getAll() {
-        Item[] result = new Item[this.position];
-        for (int index = 0; index != this.position; index++) {
-            result[index] = this.items[index];
-        }
-        return result;
-    }
-
     /**
      * Вспомогательный метод. Метод исчет по передаваемому id нужную ячейку в массиве и возвращать ее индекс.
      */
     public int findId(String id) {
         int result = -1;
-        for (int i = 0; i != this.position; i++) {
-            if (items[i] != null && items[i].getId().equals(id)) {
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getId().equals(id)) {
                 result = i;
                 break;
             }
