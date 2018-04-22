@@ -4,91 +4,86 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.*;
 
 /**
- * @author Aleksandr Vysotskiiy (Aleksandr.vysotskiiy@gmail.com).
- * @version 1.0
- * @since 0.1
+ * @author Nikolay Meleshkin (sol.of.f@mail.ru)
+ * @version 0.1
  */
-
 public class TrackerTest {
+    private Tracker tracker = new Tracker();
+
     @Test
-    public void whenAddNewItemThenTrackerHasSameItem() {
-        Tracker tracker = new Tracker();
-        Item item = new Item("test1", "testDescription", 123L);
+    public void add() {
+        Item item = new Item("first item", "first description", 123L);
+        Item item2 = new Item("second item", "second description", 456L);
         tracker.add(item);
+        tracker.add(item2);
         assertThat(tracker.findAll().get(0), is(item));
+        assertThat(tracker.findAll().get(1), is(item2));
     }
 
     @Test
-    public void whenDelete() {
-        Item itemFirst = new Item("test1", "testDescription1", 121L);
-        Item itemSecond = new Item("test2", "testDescription2", 122L);
-        Item itemThird = new Item("test3", "testDescription3", 123L);
-        Item itemFourth = new Item("test4", "testDescription4", 124L);
-        Tracker tracker = new Tracker();
-        tracker.add(itemFirst);
-        tracker.add(itemSecond);
-        tracker.add(itemThird);
-        tracker.add(itemFourth);
-        ArrayList<Item> expected = new ArrayList<>(Arrays.asList(itemFirst, itemSecond, itemFourth));
-        tracker.delete(itemThird.getId());
-        assertThat(tracker.findAll(), is(expected));
+    public void replace() {
+        Item item = new Item("first item", "first description", 123L);
+        Item item2 = new Item("second item", "second description", 456L);
+        tracker.add(item);
+        tracker.replace(item.getId(), item2);
+        assertThat(tracker.findById(item.getId()).getName(), is("second item"));
+
     }
 
     @Test
-    public void testMethodFindAll() {
-        Item itemFirst = new Item("test1", "testDescription1", 121L);
-        Item itemSecond = new Item("test2", "testDescription2", 122L);
-        Item itemThird = new Item("test3", "testDescription3", 123L);
-        Item itemFourth = new Item("test4", "testDescription4", 124L);
-        Tracker tracker = new Tracker();
-        tracker.add(itemFirst);
-        tracker.add(itemSecond);
-        tracker.add(itemThird);
-        tracker.add(itemFourth);
-        ArrayList<Item> expected = new ArrayList<>(Arrays.asList(itemFirst, itemSecond, itemThird, itemFourth));
-        assertThat(tracker.findAll(), is(expected));
+    public void delete() {
+        Item item = new Item("first item", "first description", 123L);
+        Item item2 = new Item("second item", "second description", 456L);
+        Item item3 = new Item("third", "third description", 789L);
+        tracker.add(item);
+        tracker.add(item2);
+        tracker.add(item3);
+        tracker.delete(item2.getId());
+        assertThat(tracker.findAll().get(0), is(item));
+        assertThat(tracker.findAll().get(1), is(item3));
     }
 
     @Test
-    public void testMethodFindByName() {
-        Tracker tracker = new Tracker();
-        String key = "test1";
-        Item itemFirst = new Item("test1", "testDescription1", 121L);
-        Item itemSecond = new Item("test1", "testDescription2", 122L);
-        tracker.add(itemFirst);
-        tracker.add(itemSecond);
-        ArrayList<Item> array = new ArrayList<>(Arrays.asList(itemFirst, itemSecond));
-        assertThat(tracker.findByName(key), is(array));
+    public void findAll() {
+        Item item = new Item("first item", "first description", 123L);
+        Item item2 = new Item("second item", "second description", 456L);
+        Item item3 = new Item("third", "third description", 789L);
+        tracker.add(item);
+        tracker.add(item2);
+        tracker.add(item3);
+        List<Item> findAll = tracker.findAll();
+        List<Item> expected = new ArrayList<>(Arrays.asList(item, item2, item3));
+        assertThat(findAll, is(expected));
     }
 
     @Test
-    public void testMethodFindById() {
-        Tracker tracker = new Tracker();
-        Item itemFirst = new Item("test1", "testDescription1", 121L);
-        tracker.add(itemFirst);
-        String id = itemFirst.getId();
-        assertThat(tracker.findById(id), is(itemFirst));
+    public void findById() {
+        Item item = new Item("first item", "first description", 123L);
+        Item item2 = new Item("second item", "second description", 456L);
+        Item item3 = new Item("third", "third description", 789L);
+        tracker.add(item);
+        tracker.add(item2);
+        tracker.add(item3);
+        Item expected = tracker.findById(item2.getId());
+        assertThat(expected, is(item2));
     }
 
     @Test
-    public void whenReplaceNameThenReturnNewName() {
-        Tracker tracker = new Tracker();
-        Item previous = new Item("test1", "testDescription", 123L);
-        // Добавляем заявку в трекер. Теперь в объект проинициализирован id.
-        tracker.add(previous);
-        // Создаем новую заявку.
-        Item next = new Item("test2", "testDescription2", 1234L);
-        // Проставляем старый id из previous, который был сгенерирован выше.
-        next.setId(previous.getId());
-        // Обновляем заявку в трекере.
-        tracker.replace(previous.getId(), next);
-        // Проверяем, что заявка с таким id имеет новые имя test2.
-        assertThat(tracker.findById(previous.getId()).getName(), is("test2"));
+    public void findByName() {
+        Item item = new Item("third", "first description", 123L);
+        Item item2 = new Item("second item", "second description", 456L);
+        Item item3 = new Item("third", "third description", 789L);
+        tracker.add(item);
+        tracker.add(item2);
+        tracker.add(item3);
+        List<Item> result = tracker.findByName(item3.getName());
+        List<Item> expected = new ArrayList<>(Arrays.asList(item, item3));
+        assertThat(expected, is(result));
     }
 }
