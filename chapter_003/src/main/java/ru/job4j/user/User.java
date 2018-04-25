@@ -1,16 +1,22 @@
 package ru.job4j.user;
 
+import java.util.Objects;
+
 public class User implements Comparable<User> {
-    private Integer age;
 
     private String name;
+    private Integer age;
 
     public User(Integer age, String name) {
-        this.age = age;
         this.name = name;
+        this.age = age;
     }
 
-    public Integer getAge() {
+    public String getName() {
+        return this.name;
+    }
+
+    public int getAge() {
         return this.age;
     }
 
@@ -21,6 +27,23 @@ public class User implements Comparable<User> {
 
     @Override
     public String toString() {
-        return this.name;
+        return this.name + " (" + this.age + ")";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        User user = (User) o;
+        return Objects.equals(name, user.name) && age == user.age;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(age, name);
     }
 }
