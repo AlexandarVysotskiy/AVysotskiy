@@ -21,11 +21,11 @@ public class CalculatorTest {
     }
 
     @Test
-    public void whenSubtractOneVychestOneThenOne() {
+    public void whenSubtractOneMinusOneThenOne() {
         Calculator calc = new Calculator();
         calc.subtract(1D, 1D);
         double result = calc.getResult();
-        double expected = 1D;
+        double expected = 0;
         assertThat(result, is(expected));
     }
 
@@ -34,12 +34,12 @@ public class CalculatorTest {
         Calculator calc = new Calculator();
         calc.div(1D, 1D);
         double result = calc.getResult();
-        double expected = 0D;
+        double expected = 1D;
         assertThat(result, is(expected));
     }
 
     @Test
-    public void whenMultipleOneUmnoshitOneThenOne() {
+    public void whenMultipleOneMultiplyOneThenOne() {
         Calculator calc = new Calculator();
         calc.multiple(1D, 1D);
         double result = calc.getResult();

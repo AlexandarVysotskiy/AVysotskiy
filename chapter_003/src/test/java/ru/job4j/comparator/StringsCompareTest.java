@@ -18,7 +18,7 @@ public class StringsCompareTest {
     }
 
     @Test
-    public void WhenLeftLessThanRightResultSholdBeNegative() {
+    public void whenLeftLessThanRightResultSholdBeNegative() {
         ListCompare listCompare = new ListCompare();
         int result = listCompare.compare(
                 "Ivanov",

@@ -7,31 +7,50 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.*;
 
 /**
- * @version $Id$
+ * @author Aleksandr Vysotskiiy (Aleksandr.vysotskiiy@gmail.com)
+ * @version 1.0
  * @since 0.1
  */
 public class ValidateInputTest {
-    private final ByteArrayOutputStream mem = new ByteArrayOutputStream();
-    private final PrintStream out = System.out;
+    private ByteArrayOutputStream out = new ByteArrayOutputStream();
+    private PrintStream stdOut = System.out;
 
     @Before
-    public void loadMem() {
-        System.setOut(new PrintStream(this.mem));
+    public void loadOut() {
+        System.setOut(new PrintStream(out));
     }
 
     @After
-    public void loadSys() {
-        System.setOut(this.out);
+    public void backOut() {
+        System.setOut(stdOut);
     }
 
     @Test
-    public void whenInvalidInput() {
-        ValidateInput input = new ValidateInput(new StubInput(new String[] {"invalid", "1"}));
-        input.ask("Enter", new int[] {1});
-        assertThat(this.mem.toString(), is(String.format("Выберите пункт меню повторно.%n")));
+    public void whenInvalidInputString() {
+        String[] str = new String[] {"invalid", "6"};
+        Input input = new ValidateInput(new StubInput(str));
+        new StartUI(input, new Tracker()).init();
+        assertThat(out.toString(), containsString("Введите корректные данные"));
+    }
+
+    @Test
+    public void whenInvalidInputNumber() {
+        String[] str = new String[] {"20", "6"};
+        Input input = new ValidateInput(new StubInput(str));
+        new StartUI(input, new Tracker()).init();
+        assertThat(out.toString(), containsString("Выберите доступный пункт меню"));
+    }
+
+    @Test
+    public void whenValidateInput() {
+        String[] str = new String[] {"1", "6"};
+        Input input = new ValidateInput(new StubInput(str));
+        new StartUI(input, new Tracker()).init();
+        assertThat(out.toString(), containsString("Список всех заявок:0"));
     }
 }
