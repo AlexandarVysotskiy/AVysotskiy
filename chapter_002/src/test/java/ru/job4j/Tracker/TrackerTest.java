@@ -10,8 +10,9 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 /**
- * @author Nikolay Meleshkin (sol.of.f@mail.ru)
- * @version 0.1
+ * @author Aleksandr Vysotskiiy (Aleksandr.vysotskiiy@gmail.com)
+ * @version 1.0
+ * @since 0.1
  */
 public class TrackerTest {
     private Tracker tracker = new Tracker();
@@ -33,7 +34,6 @@ public class TrackerTest {
         tracker.add(item);
         tracker.replace(item.getId(), item2);
         assertThat(tracker.findById(item.getId()).getName(), is("second item"));
-
     }
 
     @Test

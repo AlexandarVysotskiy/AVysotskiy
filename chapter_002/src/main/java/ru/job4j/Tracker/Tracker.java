@@ -1,5 +1,11 @@
 package ru.job4j.tracker;
 
+/**
+ * @author Aleksandr Vysotskiiy (Aleksandr.vysotskiiy@gmail.com)
+ * @version 1.0
+ * @since 0.1
+ */
+
 import java.util.*;
 
 public class Tracker {
@@ -17,9 +23,13 @@ public class Tracker {
     }
 
     public void replace(String id, Item item) {
-        int index = findId(id);
-        if (index != -1) {
-            this.items.set(index, item);
+        for (Item i : items) {
+            if (i.getId().equals(id)) {
+                item.setId(i.getId());
+                items.remove(i);
+                items.add(item);
+                break;
+            }
         }
     }
 
@@ -60,18 +70,18 @@ public class Tracker {
     private String generateId() {
         return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
-
-    /**
-     * Вспомогательный метод. Метод исчет по передаваемому id нужную ячейку в массиве и возвращать ее индекс.
-     */
-    public int findId(String id) {
-        int result = -1;
-        for (int i = 0; i < items.size(); i++) {
-            if (items.get(i).getId().equals(id)) {
-                result = i;
-                break;
-            }
-        }
-        return result;
-    }
+//
+//    /**
+//     * Вспомогательный метод. Метод исчет по передаваемому id нужную ячейку в массиве и возвращать ее индекс.
+//     */
+//    public int findId(String id) {
+//        int result = -1;
+//        for (int i = 0; i < items.size(); i++) {
+//            if (items.get(i).getId().equals(id)) {
+//                result = i;
+//                break;
+//            }
+//        }
+//        return result;
+//    }
 }

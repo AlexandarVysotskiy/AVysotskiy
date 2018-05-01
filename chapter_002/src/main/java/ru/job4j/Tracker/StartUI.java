@@ -1,47 +1,53 @@
 package ru.job4j.tracker;
 
 /**
- * @version $Id$
+ * @author Aleksandr Vysotskiiy (Aleksandr.vysotskiiy@gmail.com)
+ * @version 1.0
  * @since 0.1
  */
 public class StartUI {
-    /**
-     * Получение данных от пользователя.
-     */
     private final Input input;
-
-    /**
-     * Хранилище заявок.
-     */
     private final Tracker tracker;
 
     /**
-     * Конструтор инициализирующий поля.
-     *
-     * @param input   ввод данных.
-     * @param tracker хранилище заявок.
+     * Конструктор, инициализирующий поля
+     * @param input пользовательский ввод
+     * @param tracker хранилище заявок
      */
-    public StartUI(Input input, Tracker tracker) {
+    StartUI(Input input, Tracker tracker) {
         this.input = input;
         this.tracker = tracker;
     }
 
     /**
-     * Основой цикл программы.
+     * функция для запуска основоного цикла
      */
     public void init() {
-        Tracker tracker = new Tracker();
-        MenuTracker menu = new MenuTracker(this.input, tracker);
-        menu.fillActions();
-        int[] ranges = {0, 1, 2, 3, 4, 5};
+        MenuTracker menu = new MenuTracker(input, tracker);
+        int rangeValue = menu.fillAction();
+        int[] range = new int[rangeValue];
+        fillRange(range);
+        int key;
         do {
             menu.show();
-            menu.select(input.ask("Выберети пункт меню:", ranges));
-        } while (!"y".equals(this.input.ask("Для выхода из программы нажмите (y), что-бы продолжить работать с программой нажмите любую другую клавишу:")));
+            key = input.ask("Выбор. ", range);
+            menu.select(key);
+        } while (key != 6);
     }
 
     /**
-     * Запускт программы.
+     * функция, заполняющая массив допустимых значения для ввода
+     * @param range массив для заполнения
+     */
+    private void fillRange(int[] range) {
+        for (int value = 0; value < range.length; value++) {
+            range[value] = value;
+        }
+    }
+
+    /**
+     * Запуск программы
+     * @param args аргументы командной строки6
      */
     public static void main(String[] args) {
         new StartUI(new ValidateInput(new ConsoleInput()), new Tracker()).init();

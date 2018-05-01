@@ -1,5 +1,10 @@
 package ru.job4j.tracker;
 
+/**
+ * @author Aleksandr Vysotskiiy (Aleksandr.vysotskiiy@gmail.com)
+ * @version 1.0
+ * @since 0.1
+ */
 public class ValidateInput implements Input {
     private final Input input;
 
@@ -12,17 +17,18 @@ public class ValidateInput implements Input {
         return this.input.ask(question);
     }
 
+    @Override
     public int ask(String question, int[] range) {
-        boolean invalid = true;
         int value = -1;
+        boolean invalid = true;
         do {
             try {
                 value = this.input.ask(question, range);
                 invalid = false;
-            } catch (NumberFormatException nfe) {
-                System.out.println("Выберите пункт меню повторно.");
             } catch (MenuOutException moe) {
-                System.out.println("Введите номер из пункта меню");
+                System.out.println("Выберите доступный пункт меню");
+            } catch (NumberFormatException nfe) {
+                System.out.println("Введите корректные данные");
             }
         } while (invalid);
         return value;
