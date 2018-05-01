@@ -50,7 +50,7 @@ public class StartUITest {
     }
 
     @Test
-    public void whenShowAllThenAllItems() {
+    public void whenShowAll() {
         Tracker tracker = new Tracker();
         Item item = tracker.add(new Item("test name", "decs,", 123L));
         List<Item> items = tracker.findAll();
