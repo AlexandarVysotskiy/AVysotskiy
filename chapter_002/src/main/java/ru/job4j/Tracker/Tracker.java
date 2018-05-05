@@ -70,18 +70,4 @@ public class Tracker {
     private String generateId() {
         return String.valueOf(System.currentTimeMillis() + RN.nextInt());
     }
-//
-//    /**
-//     * Вспомогательный метод. Метод исчет по передаваемому id нужную ячейку в массиве и возвращать ее индекс.
-//     */
-//    public int findId(String id) {
-//        int result = -1;
-//        for (int i = 0; i < items.size(); i++) {
-//            if (items.get(i).getId().equals(id)) {
-//                result = i;
-//                break;
-//            }
-//        }
-//        return result;
-//    }
 }
