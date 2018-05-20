@@ -40,7 +40,7 @@ public class MatrixIterator implements Iterator {
     /**
      * This is a method hasNext.
      *
-     * @return true if array != null, other return false.
+     * @return true if there is next object, other false.
      */
     @Override
     public boolean hasNext() {
