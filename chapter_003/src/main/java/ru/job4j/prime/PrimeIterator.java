@@ -7,8 +7,8 @@ import java.util.NoSuchElementException;
  * class PrimeIterator
  *
  * @author Aleksandar Visotskiy
- * @version 1.0
- * @since 15.05
+ * @version 2.0
+ * @since 22.05.18
  */
 public class PrimeIterator implements Iterator {
     /**
@@ -39,12 +39,11 @@ public class PrimeIterator implements Iterator {
     public boolean hasNext() {
         boolean result = false;
         while (this.index < array.length) {
-            if (primitive(this.array[this.index])) {
+            if (isPrime(this.array[this.index])) {
                 result = true;
                 break;
-            } else {
-                this.index++;
             }
+            this.index++;
         }
         return result;
     }
@@ -59,25 +58,16 @@ public class PrimeIterator implements Iterator {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
-        int temp = array[index];
-        while (index < array.length) {
-            if (primitive(temp)) {
-                index++;
-                break;
-            } else {
-                temp = array[++index];
-            }
-        }
-        return temp;
+        return array[index++];
     }
 
     /**
      * This is an auxiliary method
      *
      * @param num - verifiable number.
-     * @return true if verifiable number is primitive.
+     * @return true if verifiable number is isPrime.
      */
-    private boolean primitive(int num) {
+    private boolean isPrime(int num) {
         if (num <= 1) {
             return false;
         }
