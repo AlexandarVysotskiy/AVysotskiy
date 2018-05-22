@@ -7,8 +7,8 @@ import java.util.NoSuchElementException;
  * Class EvenIterator
  *
  * @author Aleksandr Vysotskiy.
- * @version 1.0
- * @since 14.05.18
+ * @version 1.5
+ * @since 22.05.18
  */
 
 public class EvenIterator implements Iterator {
@@ -57,12 +57,9 @@ public class EvenIterator implements Iterator {
      */
     @Override
     public Object next() {
-        if (this.index >= this.array.length) {
+        if (!hasNext()) {
             throw new NoSuchElementException();
         }
-
-        hasNext();
-
         return this.array[index++];
     }
 }
