@@ -36,12 +36,11 @@ public class SimpleArray<T> implements Iterable<T> {
      * @param model - added element.
      */
     public void add(T model) {
-        if (this.position < this.array.length) {
+            if (this.position >= this.array.length) {
+                throw new RuntimeException("Overflow");
+            }
             this.array[this.position++] = model;
-        } else {
-            throw new RuntimeException("Overflow");
         }
-    }
 
     /**
      * This is a method for changing elements in an array.
@@ -80,6 +79,15 @@ public class SimpleArray<T> implements Iterable<T> {
         }
         System.arraycopy(this.array, index + 1, this.array, index, position - index - 1);
         position--;
+    }
+
+    /**
+     * This is an auxiliary method.
+     *
+     * @return array length
+     */
+    public int getLength() {
+        return array.length;
     }
 
     @Override
