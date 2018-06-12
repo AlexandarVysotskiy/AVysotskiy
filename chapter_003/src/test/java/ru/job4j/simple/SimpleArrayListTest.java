@@ -21,12 +21,12 @@ public class SimpleArrayListTest {
 
     @Test
     public void whenAddThreeElementsThenUseGetOneResultTwo() {
-        assertThat(list.get(2), is(1));
+        assertThat(list.get(2), is(2));
     }
 
     @Test
     public void whenAddThreeElementsThenUseGetSizeResultThree() {
-        assertThat(list.getSize(), is(3));
+        assertThat(list.getSize(), is(4));
     }
 
     @Test
