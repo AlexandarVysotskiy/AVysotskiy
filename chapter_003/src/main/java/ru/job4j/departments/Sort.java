@@ -1,33 +1,35 @@
 package ru.job4j.departments;
 
-import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.TreeSet;
 
 /**
  * Class Sort
  *
  * @author Aleksandr Vysotskiy.
- * @version 1.5
- * @since 22.05.18
+ * @version 2.0
+ * @since 18.06.18
  */
 public class Sort {
 
     /**
-     * This is an auxiliary method, if adds the missing parent.
+     * This is an auxiliary method, he is adds the missing parent.
      *
      * @param input array of departments.
      * @return array with add missing parents.
      */
-    private ArrayList<String> addParents(ArrayList<String> input) {
-        for (int index = 0; index < input.size(); index++) {
-            if (input.get(index).contains("\\")) {
-                String path = input.get(index).substring(0, input.get(index).lastIndexOf("\\"));
+    private TreeSet<String> addParents(TreeSet<String> input) {
+        TreeSet result = new TreeSet();
+        for (String index : input) {
+            if (index.contains("\\")) {
+                String path = index.substring(0, index.lastIndexOf("\\"));
                 if (!input.contains(path)) {
-                    input.add(path);
+                    result.add(path);
                 }
             }
         }
-        return input;
+        result.addAll(input);
+        return result;
     }
 
     /**
@@ -36,16 +38,8 @@ public class Sort {
      * @param input array of departments.
      * @return sorted array in ascending order.
      */
-    public ArrayList<String> sortAscending(ArrayList<String> input) {
-        input = addParents(input);
-        input.sort(new Comparator<String>() {
-                       @Override
-                       public int compare(String o1, String o2) {
-                           return o1.compareTo(o2);
-                       }
-                   }
-        );
-        return input;
+    public TreeSet<String> sortAscending(TreeSet<String> input) {
+        return addParents(input);
     }
 
     /**
@@ -54,9 +48,8 @@ public class Sort {
      * @param input array of departments.
      * @return sorted array in diminution order.
      */
-    public ArrayList<String> diminution(ArrayList<String> input) {
-        input = addParents(input);
-        input.sort(new Comparator<String>() {
+    public TreeSet<String> diminution(TreeSet<String> input) {
+        TreeSet<String> set = new TreeSet<>(new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
                 int result;
@@ -72,6 +65,7 @@ public class Sort {
                 return result;
             }
         });
-        return input;
+        set.addAll(addParents(input));
+        return set;
     }
 }
