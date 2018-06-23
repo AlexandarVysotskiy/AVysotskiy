@@ -16,7 +16,7 @@ public class MyLinkedList<E> implements Iterable<E> {
     private int size = 0;
 
     /**
-     * Счетчик модификаций коллекций.
+     * Счетчик модификаций коллекции.
      */
     private int modCount = 0;
 
@@ -87,6 +87,26 @@ public class MyLinkedList<E> implements Iterable<E> {
             this.first = newNode;
         }
         size++;
+    }
+
+    public E deleteFirst() {
+        if (this.size < 1) {
+            throw new NoSuchElementException();
+        }
+        Node<E> result = this.first;
+        this.first = this.first.next;
+        this.size--;
+        return result.item;
+    }
+
+    public E deleteLast() {
+        if (this.size < 1) {
+            throw new NoSuchElementException();
+        }
+        Node<E> result = this.last;
+        this.last = this.last.prev;
+        this.size--;
+        return result.item;
     }
 
     private static class Node<E> {
