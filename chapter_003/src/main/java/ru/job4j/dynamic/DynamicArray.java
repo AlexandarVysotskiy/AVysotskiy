@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * Lинамический список на базе массива.
+ * Динамический список на базе массива.
  *
  * @param <E> - тип элементов.
  */
@@ -49,6 +49,10 @@ public class DynamicArray<E> implements Iterable<E> {
     private void reSize(int newSize) {
         this.modCont++;
         this.container = Arrays.copyOf(this.container, newSize);
+    }
+
+    public boolean isEmpty() {
+        return index < 1;
     }
 
     @Override
