@@ -121,6 +121,10 @@ public class MyLinkedList<E> implements Iterable<E> {
         }
     }
 
+    public int size() {
+        return this.size;
+    }
+
     @Override
     public Iterator<E> iterator() {
 
