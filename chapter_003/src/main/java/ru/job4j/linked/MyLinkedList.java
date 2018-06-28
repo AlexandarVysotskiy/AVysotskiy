@@ -96,6 +96,7 @@ public class MyLinkedList<E> implements Iterable<E> {
         Node<E> result = this.first;
         this.first = this.first.next;
         this.size--;
+        this.modCount--;
         return result.item;
     }
 
@@ -106,6 +107,7 @@ public class MyLinkedList<E> implements Iterable<E> {
         Node<E> result = this.last;
         this.last = this.last.prev;
         this.size--;
+        this.modCount--;
         return result.item;
     }
 
