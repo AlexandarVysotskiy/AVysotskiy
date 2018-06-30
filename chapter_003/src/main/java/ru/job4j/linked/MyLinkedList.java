@@ -94,6 +94,7 @@ public class MyLinkedList<E> implements Iterable<E> {
             throw new NoSuchElementException();
         }
         Node<E> result = this.first;
+        this.first.prev = null;
         this.first = this.first.next;
         this.size--;
         this.modCount++;
@@ -105,6 +106,7 @@ public class MyLinkedList<E> implements Iterable<E> {
             throw new NoSuchElementException();
         }
         Node<E> result = this.last;
+        this.last.next = null;
         this.last = this.last.prev;
         this.size--;
         this.modCount++;
