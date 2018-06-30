@@ -40,7 +40,7 @@ public class MyLinkedList<E> implements Iterable<E> {
      */
     public void add(E element) {
         linkLast(element);
-        modCount++;
+        this.modCount++;
     }
 
     /**
@@ -96,7 +96,7 @@ public class MyLinkedList<E> implements Iterable<E> {
         Node<E> result = this.first;
         this.first = this.first.next;
         this.size--;
-        this.modCount--;
+        this.modCount++;
         return result.item;
     }
 
@@ -107,7 +107,7 @@ public class MyLinkedList<E> implements Iterable<E> {
         Node<E> result = this.last;
         this.last = this.last.prev;
         this.size--;
-        this.modCount--;
+        this.modCount++;
         return result.item;
     }
 
@@ -129,10 +129,8 @@ public class MyLinkedList<E> implements Iterable<E> {
 
     @Override
     public Iterator<E> iterator() {
-
+        int expectedModCount = this.modCount;
         return new Iterator<E>() {
-
-            int expectedModCount = modCount;
 
             @Override
             public boolean hasNext() {
@@ -144,7 +142,7 @@ public class MyLinkedList<E> implements Iterable<E> {
                 if (modCount != expectedModCount) {
                     throw new ConcurrentModificationException("this collection has undergone a change");
                 }
-                if (first == null) {
+                if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
                 E item = first.item;

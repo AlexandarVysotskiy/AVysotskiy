@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -26,7 +27,7 @@ public class MyLinkedListTest {
         assertThat(myLinkedList.get(4), is(5));
     }
 
-    @Test
+    @Test(expected = NoSuchElementException.class)
     public void testForIterator() {
         Iterator<Integer> iterator = myLinkedList.iterator();
         assertThat(iterator.hasNext(), is(true));
@@ -39,6 +40,8 @@ public class MyLinkedListTest {
         assertThat(iterator.next(), is(4));
         assertThat(iterator.hasNext(), is(true));
         assertThat(iterator.next(), is(5));
+        assertThat(iterator.hasNext(), is(false));
+        assertThat(iterator.next(), is(6));
     }
 
     @Test(expected = ConcurrentModificationException.class)
