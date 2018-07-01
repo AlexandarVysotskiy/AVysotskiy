@@ -3,6 +3,7 @@ package ru.job4j.cycle;
 public class Cycle<E> {
     /**
      * Метод проверяет имеет ли спиоок цикличность.
+     *
      * @param first - элемент с которого идет проверка на цикличность.
      * @return true если список замыкается.
      */
@@ -13,7 +14,9 @@ public class Cycle<E> {
             Node<E> fast = first;
             while (!result & slow != null & fast != null) {
                 slow = slow.next;
-                fast = fast.next.next;
+                if (slow.next != null) {
+                    fast = fast.next.next;
+                }
                 if (slow.equals(fast)) {
                     result = true;
                 }
