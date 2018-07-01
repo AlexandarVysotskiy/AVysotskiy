@@ -12,7 +12,7 @@ public class Cycle<E> {
         if (first != null) {
             Node<E> slow = first;
             Node<E> fast = first;
-            while (!result & slow != null & fast != null) {
+            while (!result && slow != null && fast != null && fast.next != null) {
                 slow = slow.next;
                 if (slow.next != null) {
                     fast = fast.next.next;
