@@ -9,7 +9,7 @@ import java.util.NoSuchElementException;
 public class SimpleSet<E> implements Iterable {
     private DynamicArray<E> list = new DynamicArray();
     private int index = 0;
-    private int count = 0;
+    private int modCount = 0;
 
     /**
      * Метод проверяет наличие добавляемого елемента в коллекции.
@@ -22,40 +22,37 @@ public class SimpleSet<E> implements Iterable {
         for (Object index : list) {
             if (index.equals(element)) {
                 result = false;
+                break;
             }
         }
         return result;
     }
 
     public void add(E element) {
-        if (list.isEmpty()) {
-            count++;
+        if (list.isEmpty() || findDuplicates(element)) {
+            this.modCount++;
             list.add(element);
-        } else {
-            if (findDuplicates(element)) {
-                count++;
-                list.add(element);
-            }
         }
     }
 
     @Override
     public Iterator<E> iterator() {
+
         return new Iterator<E>() {
-            int modCount = count;
+            int expectedModCount = modCount;
 
             @Override
             public boolean hasNext() {
-                return count > index;
+                return modCount > index;
             }
 
             @Override
             public E next() {
+                if (modCount != expectedModCount) {
+                    throw new ConcurrentModificationException("this collection has undergone a change");
+                }
                 if (!hasNext()) {
                     throw new NoSuchElementException("no such element");
-                }
-                if (modCount != count) {
-                    throw new ConcurrentModificationException("this collection has undergone a change");
                 }
                 return list.get(index++);
             }
