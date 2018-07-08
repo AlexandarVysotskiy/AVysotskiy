@@ -1,5 +1,10 @@
 package ru.job4j.hash;
 
+/**
+ *Класс реализует коллекцию типа Set на базе хэш-таблицы.
+ *
+ * Version 1.2
+ */
 public class SimpleHashSet<E> {
     private Object[] array;
 
@@ -9,6 +14,8 @@ public class SimpleHashSet<E> {
     private int counter;
 
     private int size;
+
+    private int tempHashElement;
 
     public SimpleHashSet(int size) {
         this.size = size;
@@ -62,7 +69,7 @@ public class SimpleHashSet<E> {
      */
     private void grow() {
         Object[] tempArray = this.array;
-        this.array = new Object[array.length * 2];
+        this.array = new Object[findPrime(array.length * 2)];
         for (Object i : tempArray) {
             if (i != null) {
                 add((E) i);
@@ -70,27 +77,48 @@ public class SimpleHashSet<E> {
         }
     }
 
-    public boolean find(E element) {
-        boolean result = false;
-        for (Object i : array) {
-            if (i != null) {
-                if (i.equals(element)) {
-                    result = true;
-                    break;
+    private int findPrime(int min) {
+        for (int i = min + 1; true; i++) {
+            if (i % 2 == 0) {
+                i++;
+                if (isPrime(i)) {
+                    return i;
                 }
             }
+        }
+    }
+
+    private boolean isPrime(int num) {
+        boolean result = true;
+        for (int j = 2; j * j <= num; j++) {
+            if (num % j == 0) {
+                result = false;
+            }
+        }
+        return result;
+    }
+
+    public int find(E element) {
+        int result = -1;
+        int hashVal = simpleHashFunction(element);
+        int stepSize = doubleHashFunction(element);
+        while (array[hashVal] != null) {
+            if (array[hashVal].equals(element)) {
+                result = (int) array[hashVal];
+                tempHashElement = (int) array[hashVal];
+                break;
+            }
+            hashVal += stepSize;
+            hashVal %= array.length;
         }
         return result;
     }
 
     public boolean remove(E value) {
         boolean result = false;
-
-        for (int index = 0; index < array.length; index++) {
-            if (array[index] == value) {
-                this.array[index] = null;
-                result = true;
-            }
+        if (find(value) != -1) {
+            array[tempHashElement] = -1;
+            result = true;
         }
         return result;
     }
