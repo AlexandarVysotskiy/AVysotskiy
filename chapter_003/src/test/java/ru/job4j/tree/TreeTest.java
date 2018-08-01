@@ -16,7 +16,6 @@ public class TreeTest {
     public void addElementInCollection() {
         auto.add("GM", "Ford");
         auto.add("GM", "Opel");
-        auto.add("GM", "Chevrolet");
         auto.add("Opel", "Astra");
         auto.add("Astra", "Model G");
     }
@@ -41,11 +40,22 @@ public class TreeTest {
         assertThat(iterator.hasNext(), Is.is(true));
         assertThat(iterator.next(), Is.is("Opel"));
         assertThat(iterator.hasNext(), Is.is(true));
-        assertThat(iterator.next(), Is.is("Chevrolet"));
         assertThat(iterator.hasNext(), Is.is(true));
         assertThat(iterator.next(), Is.is("Astra"));
         assertThat(iterator.hasNext(), Is.is(true));
         assertThat(iterator.next(), Is.is("Model G"));
         assertThat(iterator.hasNext(), Is.is(false));
+    }
+
+    @Test
+    public void whenIsBinaryTrue() {
+        assertThat(auto.isBinary(), is(true));
+    }
+
+    @Test
+    public void whenIsBinaryFalse() {
+        auto.add("Opel", "Omega");
+        auto.add("Opel", "Calibra");
+        assertThat(auto.isBinary(), is(false));
     }
 }
