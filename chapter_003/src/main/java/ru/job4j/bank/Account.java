@@ -17,18 +17,12 @@ public class Account {
         return value;
     }
 
-    public String getRequisites() {
-        return requisites;
+    public double setValue(double value) {
+        return this.value;
     }
 
-    public boolean transferMoney(Account dest, double amount) {
-        boolean result = false;
-        if (amount <= this.value) {
-            this.value = this.value - amount;
-            dest.value = dest.value + amount;
-            result = true;
-        }
-        return result;
+    public String getRequisites() {
+        return requisites;
     }
 
     @Override

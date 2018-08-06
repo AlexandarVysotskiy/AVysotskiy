@@ -34,7 +34,11 @@ public class BankSystem {
         for (User user : this.repository.keySet()) {
             if (passport.equals(user.getPassport())) {
                 result = user;
+                break;
             }
+        }
+        if (result.getPassport() == null) {
+            throw new NullPointerException("Пользователь с таким именнем не найден.");
         }
         return result;
     }
@@ -67,6 +71,20 @@ public class BankSystem {
     }
 
     /**
+     * Вспомогательный метод возращает счет пользоваетля по паспортным данным и реквизитам.
+     */
+    private Account getAccountByPassportAndRequisites(String passport, String requisites) {
+        List<Account> userAccount = this.repository.get(getUser(passport));
+        Account result = null;
+        for (Account index : userAccount) {
+            if (userAccount.equals(index)) {
+                result = index;
+            }
+        }
+        return result;
+    }
+
+    /**
      * Метод для перечисления денег с одного счёта на другой счёт.
      *
      * @param srcPassport   - пароль пользователя со счета, с которого переводят средства.
@@ -77,10 +95,19 @@ public class BankSystem {
      * @return Если счёт не найден или не хватает денег на счёте srcAccount (с которого переводят) должен вернуть false.
      */
     public boolean transferMoney(String srcPassport, String srcRequisites, String destPassport, String dstRequisites, double amount) {
-        User srcUser = this.getUser(srcPassport);
-        User dstUser = this.getUser(destPassport);
-        return this.repository.get(srcUser).get(this.repository.get(srcUser).indexOf(new Account(0.0, srcRequisites))).transferMoney(
-                this.repository.get(dstUser).get(this.repository.get(dstUser).indexOf(new Account(0.0, dstRequisites))), amount);
+        Boolean result = false;
+        Account source = getAccountByPassportAndRequisites(srcPassport, srcRequisites);
+        Account destination = getAccountByPassportAndRequisites(destPassport, dstRequisites);
+        if (source == null & destination == null) {
+            throw new NullPointerException("Несуществующий акаунт");
+        } else if (source.getValue() <= amount) {
+            throw new NullPointerException("Недостаточное кол-во средств для перевода");
+        } else {
+            source.setValue(source.getValue() - amount);
+            destination.setValue(destination.getValue() + amount);
+            result = true;
+        }
+        return result;
     }
 
     /**
