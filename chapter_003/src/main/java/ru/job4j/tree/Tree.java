@@ -16,8 +16,6 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     @Override
     public boolean add(E parent, E child) {
         boolean result = false;
-        Optional<Node<E>> searchParent;
-        Optional<Node<E>> searchChild;
         if (root == null) {
             root = new Node<>(parent);
             root.add(new Node<>(child));
@@ -25,10 +23,8 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
             size = 1;
             result = true;
         } else {
-            searchParent = this.findBy(parent);
-            searchChild = this.findBy(child);
-            if (searchParent.isPresent() && !searchChild.isPresent()) {
-                searchParent.get().add(new Node<>(child));
+            if (findBy(parent).isPresent() && !findBy(child).isPresent()) {
+                findBy(parent).get().add(new Node<>(child));
                 modCount++;
                 size++;
                 result = true;
