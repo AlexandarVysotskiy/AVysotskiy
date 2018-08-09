@@ -48,14 +48,14 @@ public class TreeTest {
     }
 
     @Test
-    public void whenIsBinaryTrue() {
-        assertThat(auto.isBinary(), is(true));
+    public void whenIsBinaryFalse() {
+        assertThat(auto.isBinary(), is(false));
     }
 
     @Test
-    public void whenIsBinaryFalse() {
+    public void whenIsBinaryTrue() {
         auto.add("Opel", "Omega");
         auto.add("Opel", "Calibra");
-        assertThat(auto.isBinary(), is(false));
+        assertThat(auto.isBinary(), is(true));
     }
 }

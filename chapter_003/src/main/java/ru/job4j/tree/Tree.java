@@ -3,7 +3,6 @@ package ru.job4j.tree;
 import java.util.*;
 
 public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
-
     private Node<E> root;
 
     private int modCount;
@@ -57,19 +56,17 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
     }
 
     public boolean isBinary() {
-        boolean result = true;
+        boolean result = false;
         Queue<Node<E>> date = new LinkedList<>();
         date.offer(root);
         while (!date.isEmpty()) {
             Node<E> el = date.poll();
-            int count = 0;
-            for (Node<E> index : el.leaves()) {
-                date.offer(index);
-                count++;
-                if (count > 2) {
-                    result = false;
-                    break;
-                }
+            for (Node<E> element : el.leaves()) {
+                date.offer(element);
+            }
+            if (el.leaves().size() > 2) {
+                result = true;
+                break;
             }
         }
         return result;
