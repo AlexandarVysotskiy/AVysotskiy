@@ -77,7 +77,7 @@ public class BankSystem {
         List<Account> userAccount = this.repository.get(getUser(passport));
         Account result = null;
         for (Account index : userAccount) {
-            if (userAccount.equals(index)) {
+            if (requisites.equals(index.getRequisites())) {
                 result = index;
             }
         }
@@ -99,9 +99,9 @@ public class BankSystem {
         Account source = getAccountByPassportAndRequisites(srcPassport, srcRequisites);
         Account destination = getAccountByPassportAndRequisites(destPassport, dstRequisites);
         if (source == null & destination == null) {
-            throw new NullPointerException("Несуществующий акаунт");
+            System.out.println("Несуществующий акаунт");
         } else if (source.getValue() <= amount) {
-            throw new NullPointerException("Недостаточное кол-во средств для перевода");
+            System.out.println("Недостаточное кол-во средств для перевода");
         } else {
             source.setValue(source.getValue() - amount);
             destination.setValue(destination.getValue() + amount);

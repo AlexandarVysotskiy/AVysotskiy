@@ -62,7 +62,7 @@ public class BankSystemTest {
         assertThat(501.0, is(bankSystem.getUserAccount("PassportOfVasya").get(0).getValue()));
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = AssertionError.class)
     public void whenNoMoneyForTransfer() {
         bankSystem.addAccountToUser("PassportOfBill", new Account(1000, "BellRequsites"));
         bankSystem.addAccountToUser("PassportOfVasya", new Account(500, "RequisitesOfVasya"));

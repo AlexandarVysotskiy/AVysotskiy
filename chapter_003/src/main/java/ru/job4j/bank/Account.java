@@ -17,8 +17,8 @@ public class Account {
         return value;
     }
 
-    public double setValue(double value) {
-        return this.value;
+    public void setValue(double value) {
+        this.value = value;
     }
 
     public String getRequisites() {
