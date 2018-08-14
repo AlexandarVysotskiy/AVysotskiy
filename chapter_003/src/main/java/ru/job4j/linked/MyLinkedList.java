@@ -131,8 +131,8 @@ public class MyLinkedList<E> implements Iterable<E> {
 
     @Override
     public Iterator<E> iterator() {
-        int expectedModCount = this.modCount;
         return new Iterator<E>() {
+            int expectedModCount = modCount;
 
             @Override
             public boolean hasNext() {

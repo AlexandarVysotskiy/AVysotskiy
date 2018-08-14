@@ -1,8 +1,8 @@
 package ru.job4j.hash;
 
 /**
- *Класс реализует коллекцию типа Set на базе хэш-таблицы.
- *
+ * Класс реализует коллекцию типа Set на базе хэш-таблицы.
+ * <p>
  * Version 1.2
  */
 public class SimpleHashSet<E> {

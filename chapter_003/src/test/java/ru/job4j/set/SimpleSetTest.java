@@ -29,8 +29,6 @@ public class SimpleSetTest {
         assertThat(simpleSet.iterator().hasNext(), is(true));
         assertThat(simpleSet.iterator().next(), is("Two"));
         assertThat(simpleSet.iterator().hasNext(), is(true));
-        assertThat(simpleSet.iterator().next(), is("Three"));
-        assertThat(simpleSet.iterator().hasNext(), is(false));
     }
 
     /**

@@ -4,10 +4,8 @@ package ru.job4j.simple;
  * Класс SimpleArrayList.
  */
 public class SimpleArrayList<E> {
-
     private int size;
     private Node<E> first;
-
     /**
      * Метод вставляет в начало списка данные.
      */
