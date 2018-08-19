@@ -55,15 +55,13 @@ public class Tree<E extends Comparable<E>> implements SimpleTree<E> {
         boolean result = false;
         Queue<Node<E>> date = new LinkedList<>();
         date.offer(root);
-        while (!date.isEmpty()) {
+         while (!date.isEmpty()) {
             Node<E> el = date.poll();
-            for (Node<E> element : el.leaves()) {
-                date.offer(element);
-            }
             if (el.leaves().size() > 2) {
                 result = true;
                 break;
             }
+            ((LinkedList<Node<E>>) date).addAll(el.leaves());
         }
         return result;
     }
