@@ -98,7 +98,7 @@ public class BankSystem {
         Boolean result = false;
         Account source = getAccountByPassportAndRequisites(srcPassport, srcRequisites);
         Account destination = getAccountByPassportAndRequisites(destPassport, dstRequisites);
-        if (source == null & destination == null) {
+        if (source == null && destination == null) {
             System.out.println("Несуществующий акаунт");
         } else if (source.getValue() <= amount) {
             System.out.println("Недостаточное кол-во средств для перевода");
