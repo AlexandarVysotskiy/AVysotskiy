@@ -14,11 +14,11 @@ public class RectangleMove implements Runnable {
     @Override
     public void run() {
         while (true) {
-            if(rect.getX() == 0 || rect.getX() ==300){
-                x*= -1;
+            if (rect.getX() == 0 || rect.getX() == 300) {
+                x *= -1;
             }
-            if(rect.getY() == 0 || rect.getY() == 300){
-                y*= -1;
+            if (rect.getY() == 0 || rect.getY() == 300) {
+                y *= -1;
             }
             this.rect.setX(this.rect.getX() + x);
             this.rect.setY(this.rect.getY() + y);
