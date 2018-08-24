@@ -4,30 +4,39 @@ import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
+
 /**
  * Контейнер на базе связанного списка.
  *
  * @param <E> тип добавляемых елементов.
  */
+
+@ThreadSafe
 public class MyLinkedList<E> implements Iterable<E> {
     /**
      * Size - кол-во элементов в коллекии.
      */
+    @GuardedBy("this")
     private int size = 0;
 
     /**
      * Счетчик модификаций коллекции.
      */
+    @GuardedBy("this")
     private int modCount = 0;
 
     /**
      * Первый элемент в коллекции.
      */
+    @GuardedBy("this")
     private Node<E> first;
 
     /**
      * Последний элемент в коллекции.
      */
+    @GuardedBy("this")
     private Node<E> last;
 
     public MyLinkedList() {
@@ -38,7 +47,7 @@ public class MyLinkedList<E> implements Iterable<E> {
      *
      * @param element - добавляемый элемент.
      */
-    public void add(E element) {
+    public synchronized void add(E element) {
         linkLast(element);
         this.modCount++;
     }
@@ -51,7 +60,7 @@ public class MyLinkedList<E> implements Iterable<E> {
      * @throws IllegalArgumentException       - недопустимый или не соотвествующий параметр.
      * @throws ArrayIndexOutOfBoundsException - если индекс больше фактичесого.
      */
-    public E get(int index) throws IllegalArgumentException, ArrayIndexOutOfBoundsException {
+    public synchronized E get(int index) throws IllegalArgumentException, ArrayIndexOutOfBoundsException {
         return node(index).item;
     }
 
@@ -89,7 +98,7 @@ public class MyLinkedList<E> implements Iterable<E> {
         size++;
     }
 
-    public E deleteFirst() {
+    public synchronized E deleteFirst() {
         if (this.size < 1) {
             throw new NoSuchElementException();
         }
@@ -101,7 +110,7 @@ public class MyLinkedList<E> implements Iterable<E> {
         return result.item;
     }
 
-    public E deleteLast() {
+    public synchronized E deleteLast() {
         if (this.size < 1) {
             throw new NoSuchElementException();
         }
@@ -125,7 +134,7 @@ public class MyLinkedList<E> implements Iterable<E> {
         }
     }
 
-    public int size() {
+    public synchronized int size() {
         return this.size;
     }
 
