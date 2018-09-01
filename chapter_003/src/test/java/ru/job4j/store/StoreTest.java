@@ -20,12 +20,15 @@ public class StoreTest {
         oldGarage.add(new Store.User(1, "ЗАЗ 965"));
         oldGarage.add(new Store.User(2, "Москвич 415"));
         oldGarage.add(new Store.User(3, "МТЗ 80"));
+        oldGarage.add(new Store.User(4, "Opel"));
+        oldGarage.add(new Store.User(5, "Заз"));
 
         newGarage.add(new Store.User(1, "Audi RS"));
-        newGarage.add(new Store.User(2, "Велосипед"));
         newGarage.add(new Store.User(4, "Fend 930"));
         newGarage.add(new Store.User(5, "Санки"));
         newGarage.add(new Store.User(6, "BMW"));
+        newGarage.add(new Store.User(7, "Tesla"));
+        newGarage.add(new Store.User(8, "Lamborghini"));
 
     }
 
@@ -33,7 +36,7 @@ public class StoreTest {
     public void isChange() {
         HashMap result = garage.isChange(oldGarage, newGarage);
         assertThat(result.get("Amount new add: "), is(3));
-        assertThat(result.get("Amount new change: "), is(2));
-        assertThat(result.get("Amount new delete: "), is(1));
+        assertThat(result.get("Amount new change: "), is(3));
+        assertThat(result.get("Amount new delete: "), is(2));
     }
 }

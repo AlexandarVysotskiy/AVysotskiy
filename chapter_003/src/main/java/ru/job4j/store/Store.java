@@ -1,57 +1,38 @@
 package ru.job4j.store;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Store {
 
     /**
      * Метод считает кол-во изменений в коллекции.
-     * <p>
-     * Метод работает следующим образом:
-     * Если кол-во ключей из прошлой коллекции больше чем у новой растет счетчик удаления элементов.
-     * Если кол-во ключей из прошлой коллекции меньше чем у новой растет счетчик добавления элементов.
-     * Если ключи не эквивалентные то растет счетчик изменений.
      *
      * @param previous - прежняя коллекция.
      * @param current  - новоя коллекция.
      * @return карту с счетчиками.
      */
     public HashMap<String, Integer> isChange(List<User> previous, List<User> current) {
-        int newAdd = 0;
-        int newChange = 0;
-        int newDelete = 0;
+        int beforeSize = previous.size();
+        int afterSize = current.size();
 
-        Map<Integer, String> mapOfPrevious = new HashMap<>();
-        Map<Integer, String> mapOfCurrent = new HashMap<>();
+        ArrayList<User> allUsers = new ArrayList<>();
+        allUsers.addAll(previous);
+        allUsers.addAll(current);
+
+        HashMap<Integer, String> newList = new HashMap<>();
+        for (User index : allUsers) {
+            newList.put(index.getId(), index.getName());
+        }
+
+        int newListSize = newList.size();
         HashMap<String, Integer> result = new HashMap<>();
 
-        for (User indexPrevious : previous) {
-            mapOfPrevious.put(indexPrevious.getId(), indexPrevious.getName());
-        }
 
-        for (User indexCurrent : current) {
-            mapOfCurrent.put(indexCurrent.getId(), indexCurrent.getName());
-        }
-
-        for (Integer key : mapOfPrevious.keySet()) {
-            if (!mapOfCurrent.containsKey(key)) {
-                newDelete++;
-            } else if (!mapOfCurrent.get(key).equals(mapOfPrevious.get(key))) {
-                newChange++;
-            }
-        }
-
-        for (Integer key : mapOfCurrent.keySet()) {
-            if (!mapOfPrevious.containsKey(key)) {
-                newAdd++;
-            }
-        }
-
-        result.put("Amount new add: ", newAdd);
-        result.put("Amount new change: ", newChange);
-        result.put("Amount new delete: ", newDelete);
+        result.put("Amount new add: ", newListSize - beforeSize);
+        result.put("Amount new change: ", afterSize - (newListSize - beforeSize));
+        result.put("Amount new delete: ", newListSize - (newListSize - beforeSize) - (afterSize - (newListSize - beforeSize)));
 
         return result;
     }
