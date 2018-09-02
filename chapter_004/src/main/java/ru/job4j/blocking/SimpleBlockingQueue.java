@@ -17,6 +17,7 @@ public class SimpleBlockingQueue<E> {
     @GuardedBy("this")
     private Queue<E> queue = new LinkedList<>();
 
+    @GuardedBy("this")
     private E size;
 
     public SimpleBlockingQueue(E size) {
@@ -51,7 +52,7 @@ public class SimpleBlockingQueue<E> {
         return result;
     }
 
-    public int getSizeQueue() {
+    public synchronized int getSizeQueue() {
         return queue.size();
     }
 }

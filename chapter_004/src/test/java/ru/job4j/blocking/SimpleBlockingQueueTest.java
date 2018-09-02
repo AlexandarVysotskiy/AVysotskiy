@@ -29,7 +29,9 @@ public class SimpleBlockingQueueTest {
             public void run() {
                 int i = 0;
                 while (i < 6) {
+                    assertThat(blocking.getSizeQueue(), is(6 - i));
                     assertThat(blocking.poll(), is(i));
+                    assertThat(blocking.getSizeQueue(), is(6 - 1 - i));
                     i++;
                 }
             }
