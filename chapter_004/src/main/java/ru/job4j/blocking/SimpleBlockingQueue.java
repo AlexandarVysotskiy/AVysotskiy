@@ -55,4 +55,8 @@ public class SimpleBlockingQueue<E> {
     public synchronized int getSizeQueue() {
         return queue.size();
     }
+
+    public synchronized boolean isEmpty() {
+        return this.queue.isEmpty();
+    }
 }
