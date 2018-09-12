@@ -1,0 +1,32 @@
+package ru.job4j.blocking;
+
+import java.util.concurrent.ConcurrentHashMap;
+
+public class NonBlockingCash {
+
+    private ConcurrentHashMap<Integer, Model> storage = new ConcurrentHashMap<>();
+
+    public void add(Integer key, Model model) {
+        storage.putIfAbsent(key, model);
+    }
+
+    public void update(Integer key, Model model) {
+        this.storage.computeIfPresent(key, (k, v) -> {
+            if (v.getVersion() == model.getVersion()) {
+                model.change(model.getName());
+                model.setValue(model.getValue());
+                return model;
+            } else {
+                throw new OptimisticException("OptimisticException");
+            }
+        });
+    }
+
+    public void delete(Integer key) {
+        this.storage.remove(key);
+    }
+
+    public Model get(Integer key) {
+        return this.storage.get(key);
+    }
+}
