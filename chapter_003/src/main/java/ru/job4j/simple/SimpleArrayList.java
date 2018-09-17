@@ -2,18 +2,25 @@ package ru.job4j.simple;
 
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
+import ru.job4j.dynamic.DynamicArray;
+
+import java.awt.*;
+import java.util.Iterator;
 
 /**
  * Класс SimpleArrayList.
  */
 @ThreadSafe
-public class SimpleArrayList<E> {
+public class SimpleArrayList<E> implements Iterable<E> {
 
     @GuardedBy("this")
     private int size;
 
     @GuardedBy("this")
     private Node<E> first;
+
+    @GuardedBy("this")
+    private DynamicArray<E> arrayList;
 
     /**
      * Метод вставляет в начало списка данные.
@@ -52,6 +59,20 @@ public class SimpleArrayList<E> {
     public synchronized int getSize() {
         return this.size;
     }
+
+    private synchronized DynamicArray<E> copy(DynamicArray<E> dc) {
+        DynamicArray<E> result = new DynamicArray<>();
+        for (E element : dc) {
+            result.add(element);
+        }
+        return result;
+    }
+
+    @Override
+    public synchronized Iterator<E> iterator() {
+        return this.copy(this.arrayList).iterator();
+    }
+
 
     /**
      * Класс предназначен для хранения данных.
