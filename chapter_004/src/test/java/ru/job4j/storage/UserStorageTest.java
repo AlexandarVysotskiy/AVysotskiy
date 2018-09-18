@@ -34,12 +34,12 @@ public class UserStorageTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        assertThat(storage.getStorage().get(0).getAmount(), is(100));
-        assertThat(storage.getStorage().get(1).getAmount(), is(200));
-        assertThat(storage.getStorage().get(2).getAmount(), is(300));
-        assertThat(storage.getStorage().get(3).getAmount(), is(400));
-        assertThat(storage.getStorage().get(4).getAmount(), is(500));
-        assertThat(storage.getStorage().get(5).getAmount(), is(600));
+        assertThat(storage.getStorage().get(0).getId(), is(111));
+        assertThat(storage.getStorage().get(1).getId(), is(222));
+        assertThat(storage.getStorage().get(2).getId(), is(333));
+        assertThat(storage.getStorage().get(3).getId(), is(444));
+        assertThat(storage.getStorage().get(4).getId(), is(555));
+        assertThat(storage.getStorage().get(5).getId(), is(666));
     }
 
     @Test
