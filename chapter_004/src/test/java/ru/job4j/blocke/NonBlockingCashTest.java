@@ -24,22 +24,23 @@ public class NonBlockingCashTest {
         nonBlockingCash.add(2, second);
     }
 
-    @Test
-    public void deleteTest() {
-        assertThat(nonBlockingCash.get(1), is(first));
+    @Test(expected = NullPointerException.class)
+    public void deleteTest() throws CloneNotSupportedException {
+        assertThat(nonBlockingCash.get(1).getName(), is(first.getName()));
         nonBlockingCash.delete(1);
         assertNull(nonBlockingCash.get(1));
     }
 
     @Test
-    public void updateTest() {
-        Model newModel = new Model("2", "Second");
+    public void updateTest() throws CloneNotSupportedException {
         try {
-            nonBlockingCash.update(1, newModel);
+            nonBlockingCash.update(1, second);
         } catch (OptimisticException e) {
             e.printStackTrace();
         }
-        assertThat(nonBlockingCash.get(1), is(newModel));
+        assertThat(nonBlockingCash.get(1).getVersion(), is(0));
+        assertThat(nonBlockingCash.get(1).getName(), is(second.getName()));
+        second.change("Вася");
         assertThat(nonBlockingCash.get(1).getVersion(), is(1));
     }
 
@@ -48,7 +49,12 @@ public class NonBlockingCashTest {
         AtomicReference<Exception> ex = new AtomicReference<>();
         Thread threadOne = new Thread(
                 () -> {
-                    Model model = nonBlockingCash.get(1);
+                    Model model = null;
+                    try {
+                        model = nonBlockingCash.get(2);
+                    } catch (CloneNotSupportedException e) {
+                        e.printStackTrace();
+                    }
                     model.change("Вася");
                     try {
                         Thread.sleep(200);
@@ -60,7 +66,12 @@ public class NonBlockingCashTest {
         );
         Thread threadTwo = new Thread(
                 () -> {
-                    Model model = nonBlockingCash.get(1);
+                    Model model = null;
+                    try {
+                        model = nonBlockingCash.get(2);
+                    } catch (CloneNotSupportedException e) {
+                        e.printStackTrace();
+                    }
                     model.change("Илон");
                     try {
                         Thread.sleep(1000);

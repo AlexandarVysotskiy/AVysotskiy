@@ -1,6 +1,6 @@
 package ru.job4j.blocking;
 
-public class Model {
+public class Model implements Cloneable {
     private String name;
     private String value;
     private int version;
@@ -29,5 +29,9 @@ public class Model {
     public void change(String name) {
         this.name = name;
         this.version++;
+    }
+
+    public Model clone() throws CloneNotSupportedException {
+        return (Model) super.clone();
     }
 }

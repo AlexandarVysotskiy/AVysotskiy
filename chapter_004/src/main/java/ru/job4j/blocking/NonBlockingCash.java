@@ -12,13 +12,10 @@ public class NonBlockingCash {
 
     public void update(Integer key, Model model) {
         this.storage.computeIfPresent(key, (k, v) -> {
-            if (v.getVersion() == model.getVersion()) {
-                model.change(model.getName());
-                model.setValue(model.getValue());
-                return model;
-            } else {
+            if (v.getVersion() != model.getVersion()) {
                 throw new OptimisticException("OptimisticException");
             }
+            return model;
         });
     }
 
@@ -26,7 +23,7 @@ public class NonBlockingCash {
         this.storage.remove(key);
     }
 
-    public Model get(Integer key) {
-        return this.storage.get(key);
+    public Model get(Integer key) throws CloneNotSupportedException {
+        return this.storage.get(key).clone();
     }
 }
