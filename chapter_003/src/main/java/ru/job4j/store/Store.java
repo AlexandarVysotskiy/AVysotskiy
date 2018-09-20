@@ -1,6 +1,5 @@
 package ru.job4j.store;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,25 +13,32 @@ public class Store {
      * @return карту с счетчиками.
      */
     public HashMap<String, Integer> isChange(List<User> previous, List<User> current) {
+        int deleteCount = 0;
+        int changeCount = 0;
         int beforeSize = previous.size();
-        int afterSize = current.size();
 
-        ArrayList<User> allUsers = new ArrayList<>();
-        allUsers.addAll(previous);
-        allUsers.addAll(current);
+        HashMap<Integer, String> allUsers = new HashMap<>();
 
-        HashMap<Integer, String> newList = new HashMap<>();
-        for (User index : allUsers) {
-            newList.put(index.getId(), index.getName());
+        for (User index : current) {
+            allUsers.put(index.getId(), index.getName());
         }
 
-        int newListSize = newList.size();
+        for (User index : previous) {
+            if (!allUsers.containsKey(index.getId())) {
+                deleteCount++;
+            } else if (!allUsers.get(index.getId()).equals(index.getName())) {
+                changeCount++;
+            }
+            allUsers.put(index.getId(), index.getName());
+        }
+
+        int newListSize = allUsers.size();
         HashMap<String, Integer> result = new HashMap<>();
 
 
         result.put("Amount new add: ", newListSize - beforeSize);
-        result.put("Amount new change: ", afterSize - (newListSize - beforeSize));
-        result.put("Amount new delete: ", newListSize - (newListSize - beforeSize) - (afterSize - (newListSize - beforeSize)));
+        result.put("Amount new change: ", changeCount);
+        result.put("Amount new delete: ", deleteCount);
 
         return result;
     }
