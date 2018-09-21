@@ -37,7 +37,7 @@ public class SimpleBlockingQueue<E> {
         }
     }
 
-    public synchronized E poll() {
+    public synchronized E poll() throws InterruptedException {
         E result = null;
         if (queue.isEmpty()) {
             try {

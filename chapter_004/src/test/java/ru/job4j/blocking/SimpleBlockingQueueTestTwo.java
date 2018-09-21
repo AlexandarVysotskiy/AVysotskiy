@@ -25,7 +25,13 @@ public class SimpleBlockingQueueTestTwo {
         Thread consumer = new Thread(
                 () -> {
                     while (!queue.isEmpty() || !Thread.currentThread().isInterrupted()) {
-                        buffer.add(queue.poll());
+                        try {
+                            buffer.add(queue.poll());
+                        } catch (InterruptedException e) {
+                            System.out.println("Исключения типа InterruptedException перехвачено");
+                            Thread.currentThread().interrupt();
+                            e.printStackTrace();
+                        }
                     }
                 }
         );
