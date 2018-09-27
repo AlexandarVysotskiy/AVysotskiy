@@ -3,29 +3,31 @@ package ru.job4j.buffer;
 import ru.job4j.blocking.SimpleBlockingQueue;
 
 public class ParallelSearch {
-    public static void main(String[] args) {
-        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(9);
-        final Thread consumer = new Thread(
-                () -> {
-                    while (true) {
-                        System.out.println(queue.poll());
-                    }
-                }
-        );
-        consumer.setDaemon(true);
-        consumer.start();
-        new Thread(
-                () -> {
-                    for (int index = 0; index != 3; index++) {
-                        queue.offer(index);
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
 
-        ).start();
+    public static void main(String[] args) {
+        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
+        final Thread consumer = new Thread(() -> {
+            while (!Thread.currentThread().isInterrupted()) {
+                try {
+                    System.out.println(queue.poll());
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }
+        });
+        consumer.start();
+        new Thread(() -> {
+            for (int index = 0; index != 3; index++) {
+                try {
+                    queue.offer(index);
+                    if (index == 2) {
+                        consumer.interrupt();
+                    }
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 }
