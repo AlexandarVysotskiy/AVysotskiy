@@ -14,20 +14,11 @@ public class ThreadPool {
 
     public ThreadPool() {
         int size = Runtime.getRuntime().availableProcessors();
+        tasks.setSize(size);
         for (int index = 0; index < size; index++) {
             Thread thread = new Thread(
                     () -> {
                         while (!Thread.currentThread().isInterrupted()) {
-                            synchronized (tasks) {
-                                while (tasks.isEmpty()) {
-                                    try {
-                                        System.out.println(Thread.currentThread().getName() + "Waiting");
-                                        tasks.wait();
-                                    } catch (InterruptedException ie) {
-                                        ie.printStackTrace();
-                                    }
-                                }
-                            }
                             try {
                                 tasks.poll().run();
                             } catch (InterruptedException ie) {
@@ -47,10 +38,7 @@ public class ThreadPool {
      * @param job
      */
     public void work(Runnable job) {
-        synchronized (tasks) {
             tasks.offer(job);
-            tasks.notify();
-        }
     }
 
     /**

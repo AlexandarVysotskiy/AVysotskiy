@@ -18,9 +18,9 @@ public class SimpleBlockingQueue<E> {
     private Queue<E> queue = new LinkedList<>();
 
     @GuardedBy("this")
-    private E size;
+    private int size = 101;
 
-    public SimpleBlockingQueue(E size) {
+    public void setSize(int size) {
         this.size = size;
     }
 
@@ -38,7 +38,6 @@ public class SimpleBlockingQueue<E> {
     }
 
     public synchronized E poll() throws InterruptedException {
-        E result = null;
         if (queue.isEmpty()) {
             try {
                 wait();
@@ -46,10 +45,9 @@ public class SimpleBlockingQueue<E> {
                 System.out.println("Исключения типа InterruptedException перехвачено");
             }
         } else {
-            result = queue.poll();
             notify();
         }
-        return result;
+        return queue.poll();
     }
 
     public synchronized int getSizeQueue() {
