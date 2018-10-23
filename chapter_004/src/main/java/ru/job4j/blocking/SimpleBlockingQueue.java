@@ -18,14 +18,14 @@ public class SimpleBlockingQueue<E> {
     private Queue<E> queue = new LinkedList<>();
 
     @GuardedBy("this")
-    private int size = 101;
+    private int size;
 
-    public void setSize(int size) {
+    public SimpleBlockingQueue(int size){
         this.size = size;
     }
 
     public synchronized void offer(E value) {
-        if (queue.size() > (int) size) {
+        if (queue.size() > size) {
             try {
                 wait();
             } catch (InterruptedException e) {
