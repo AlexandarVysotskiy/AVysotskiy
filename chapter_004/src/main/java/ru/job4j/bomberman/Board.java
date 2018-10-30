@@ -28,9 +28,16 @@ public class Board {
     }
 
     /**
-     * @return This is method will return locked cell by coordinates.
+     * @return This is method return locked cell by coordinates.
      */
     public ReentrantLock getCell(int x, int y) {
         return this.board[x][y];
+    }
+
+    /**
+     * The method is blocking a cell of field, where must not going.
+     */
+    public void cellLock(int x, int y) {
+        getCell(x, y).lock();
     }
 }

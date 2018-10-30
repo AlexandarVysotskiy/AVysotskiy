@@ -5,22 +5,25 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * @Version 1.0
+ * @Version 2.0
  */
-public class Hero implements Runnable {
-    private Board board;
+public  class Personage implements Runnable {
+    Board board;
 
-    private int x;
+    int x;
 
-    private int y;
+    int y;
 
-    private ReentrantLock cell;
+    private String namePersonage;
 
-    private volatile boolean stopped = false;
+    ReentrantLock cell;
 
-    public Hero(Board board, int x, int y) {
+    volatile boolean stopped = false;
+
+    public Personage(Board board, String namePersonage, int x, int y) {
         this.x = x;
         this.y = y;
+        this.namePersonage = namePersonage;
         this.board = board;
         this.cell = this.board.getCell(x, y);
     }
@@ -34,7 +37,7 @@ public class Hero implements Runnable {
      *
      * @return random select way.
      */
-    private byte[] getDirection() {
+    byte[] getDirection() {
         Random random = new Random();
         byte[] move = new byte[2];
         switch (random.nextInt(4)) {
@@ -66,7 +69,7 @@ public class Hero implements Runnable {
      *
      * @throws InterruptedException
      */
-    private void moveHero(int xMove, int yMove) throws InterruptedException {
+    void movePersonage(int xMove, int yMove) throws InterruptedException {
         ReentrantLock moveCell = this.board.getCell(xMove, yMove);
         boolean move = moveCell.tryLock(500, TimeUnit.MILLISECONDS);
 
@@ -76,15 +79,14 @@ public class Hero implements Runnable {
             this.cell.unlock();
             this.cell = moveCell;
 
-            System.out.println("Hero coordinates x:" + x + " y:" + y);
+            System.out.println(namePersonage + " coordinates x:" + x + " y:" + y);
 
             Thread.sleep(1000);
         }
     }
 
-    public void doStop() {
-        Thread.currentThread().interrupt();
-        this.stopped = true;
+    public String getNamePersonage() {
+        return this.namePersonage;
     }
 
     public void run() {
@@ -96,7 +98,7 @@ public class Hero implements Runnable {
 
             if (moveX >= 0 && moveX < board.getWidth() && moveY >= 0 && moveY < board.getHeight()) {
                 try {
-                    moveHero(moveX, moveY);
+                    movePersonage(moveX, moveY);
                 } catch (InterruptedException ex) {
                     ex.printStackTrace();
                 }
