@@ -1,5 +1,8 @@
 package ru.job4j.bomberman;
 
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
+
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
@@ -7,16 +10,23 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * @Version 2.0
  */
-public  class Personage implements Runnable {
+@ThreadSafe
+public class Personage implements Runnable {
+
+    @GuardedBy("this")
     Board board;
 
-    int x;
+    @GuardedBy("this")
+    private int x;
 
-    int y;
+    @GuardedBy("this")
+    private int y;
 
-    private String namePersonage;
+    @GuardedBy("this")
+    private final String namePersonage;
 
-    ReentrantLock cell;
+    @GuardedBy("this")
+    private ReentrantLock cell;
 
     volatile boolean stopped = false;
 
@@ -37,7 +47,7 @@ public  class Personage implements Runnable {
      *
      * @return random select way.
      */
-    byte[] getDirection() {
+    private byte[] getDirection() {
         Random random = new Random();
         byte[] move = new byte[2];
         switch (random.nextInt(4)) {
@@ -69,7 +79,7 @@ public  class Personage implements Runnable {
      *
      * @throws InterruptedException
      */
-    void movePersonage(int xMove, int yMove) throws InterruptedException {
+    private void movePersonage(int xMove, int yMove) throws InterruptedException {
         ReentrantLock moveCell = this.board.getCell(xMove, yMove);
         boolean move = moveCell.tryLock(500, TimeUnit.MILLISECONDS);
 
@@ -89,6 +99,7 @@ public  class Personage implements Runnable {
         return this.namePersonage;
     }
 
+    @Override
     public void run() {
         this.cell.lock();
         while (!stopped) {

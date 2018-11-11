@@ -1,10 +1,20 @@
 package ru.job4j.bomberman;
 
+import jdk.nashorn.internal.ir.annotations.Immutable;
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
+
 import java.util.concurrent.locks.ReentrantLock;
 
+@ThreadSafe
 public class Board {
+    @GuardedBy("this")
     private final ReentrantLock[][] board;
+
+    @Immutable
     private final int width;
+
+    @Immutable
     private final int height;
 
     Board(int width, int height) {

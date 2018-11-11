@@ -1,11 +1,19 @@
 package ru.job4j.bomberman;
 
+import jdk.nashorn.internal.ir.annotations.Immutable;
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
+
 import java.util.ArrayList;
 
+@ThreadSafe
 public class Game {
-    Board board;
 
-    ArrayList<Personage> personages;
+    @Immutable
+    private final Board board;
+
+    @GuardedBy("this")
+    private final ArrayList<Personage> personages;
 
     Game(int width, int height) {
         board = new Board(width, height);
