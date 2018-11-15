@@ -12,16 +12,4 @@ public class CountingToFunctionInRange {
         }
         return result;
     }
-
-    List<Double> linear(int start, int end) {
-        return diapason(start, end, f -> f);
-    }
-
-    List<Double> quadratic(int start, int end) {
-        return diapason(start, end, f -> Math.pow(f, 2));
-    }
-
-    List<Double> logarithmic(int start, int end) {
-        return diapason(start, end, Math::log);
-    }
 }

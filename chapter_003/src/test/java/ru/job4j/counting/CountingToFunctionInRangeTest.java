@@ -15,17 +15,18 @@ public class CountingToFunctionInRangeTest {
     @Test
     public void linearTest() {
         List<Double> result = new ArrayList<>(Arrays.asList(1D, 2D, 3D, 4D, 5D));
-        assertThat(result, is(cfr.linear(1, 5)));
+        assertThat(result, is(cfr.diapason(1, 5, f -> f)));
     }
 
     @Test
     public void quadraticTest() {
         List<Double> result = new ArrayList<>(Arrays.asList(1D, 4D, 9D, 16D, 25D));
-        assertThat(result, is(cfr.quadratic(1, 5)));
+        assertThat(result, is(cfr.diapason(1, 5, f -> Math.pow(f, 2))));
     }
 
     @Test
     public void logarithmic() {
-        List<Double> result = new ArrayList<>(Arrays.asList(Math.log(1D), Math.log(2D), Math.log(3D)));
+        List<Double> result = new ArrayList<>(Arrays.asList(Math.log(1D), Math.log(2D)));
+        assertThat(result, is(cfr.diapason(1, 2, Math::log)));
     }
 }
