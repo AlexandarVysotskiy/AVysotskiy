@@ -2,6 +2,7 @@ package ru.job4j.tracker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Класс, реализующий удаление выбранной заявки из трекера
@@ -75,10 +76,10 @@ public class MenuTracker {
     /**
      * Функция вывода меню
      */
-    public void show() {
+    public void show(Consumer<String> print) {
         for (UserAction action : this.actions) {
             if (action != null) {
-                System.out.println(action.info());
+                print.accept(action.info());
             }
         }
     }
