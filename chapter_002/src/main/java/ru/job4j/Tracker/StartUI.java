@@ -29,7 +29,7 @@ public class StartUI {
         fillRange(range);
         int key;
         do {
-            menu.show();
+            menu.show(System.out::println);
             key = input.ask("Выбор. ", range);
             menu.select(key);
         } while (key != 6);
