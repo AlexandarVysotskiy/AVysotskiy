@@ -2,14 +2,14 @@ package ru.job4j.tracker;
 
 /**
  * @author Aleksandr Vysotskiiy (Aleksandr.vysotskiiy@gmail.com)
- * @version 1.0
+ * @version 2.0
  * @since 0.1
  */
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Tracker {
+public class Tracker implements ITracker {
 
     private ArrayList<Item> items = new ArrayList<>();
 

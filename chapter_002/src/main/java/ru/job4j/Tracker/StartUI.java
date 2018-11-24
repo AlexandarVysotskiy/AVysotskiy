@@ -7,14 +7,14 @@ package ru.job4j.tracker;
  */
 public class StartUI {
     private final Input input;
-    private final Tracker tracker;
+    private final ITracker tracker;
 
     /**
      * Конструктор, инициализирующий поля
      * @param input пользовательский ввод
      * @param tracker хранилище заявок
      */
-    StartUI(Input input, Tracker tracker) {
+    StartUI(Input input, ITracker tracker) {
         this.input = input;
         this.tracker = tracker;
     }

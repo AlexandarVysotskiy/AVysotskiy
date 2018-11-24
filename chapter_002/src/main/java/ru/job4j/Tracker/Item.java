@@ -1,9 +1,10 @@
 package ru.job4j.tracker;
 
+import java.util.Objects;
+
 /**
  * @author Aleksandr Vysotskiiy (Aleksandr.vysotskiiy@gmail.com)
- * @version 1.0
- * @since 0.1
+ * @version 2.0
  */
 
 public class Item {
@@ -16,6 +17,13 @@ public class Item {
         this.name = name;
         this.description = description;
         this.create = create;
+    }
+
+    public Item(String id, String name, String description, long create) {
+        this.name = name;
+        this.description = description;
+        this.create = create;
+        this.id = id;
     }
 
     public String getName() {
@@ -48,5 +56,25 @@ public class Item {
 
     public void setCreate(long create) {
         this.create = create;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Item item = (Item) o;
+        return create == item.create
+                && Objects.equals(name, item.name)
+                && Objects.equals(description, item.description)
+                && Objects.equals(id, item.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, create, id);
     }
 }
