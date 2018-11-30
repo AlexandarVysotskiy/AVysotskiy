@@ -19,26 +19,31 @@
 --insert into product(name, type_id, expired_date, price) values ('ice cream with smoke', (select id from type where name = 'Ice cream'), '2018-12-21', 12);
 
 -- 1. 1. Написать запрос получение всех продуктов с типом "СЫР".
-select name from product where type_id  = (select id from type where name = 'Milk');
+select p.name from product as p left JOIN type as t ON p.type_id  = t.id group by p.name, t.name having t.name = 'Cheese';
 
 --2. Написать запрос получения всех продуктов, у кого в имени есть слово "мороженное".
 select name from product where name like '%Ice cream%';
 
 --3. Написать запрос, который выводит все продукты, срок годности которых заканчивается в следующем месяце.
 select name from product where EXTRACT(MONTH FROM expired_date) = EXTRACT(MONTH FROM now())+1;
-																		  
+
 --4. Написать запрос, который выводит самый дорогой продукт.
 select name, price from product where price = (select max(price) from product);
-																		  
+
 --5. Написать запрос, который выводит количество всех продуктов определенного типа.
-select count(name) from type;
-																		  
+--5.1 Кол-во всех сыров.
+select count(p.name) from product as p left JOIN type as t ON p.type_id  = t.id where t.name = 'Cheese';
+--5.2 Кол-во всего молока.
+select count(p.name) from product as p left JOIN type as t ON p.type_id  = t.id where t.name = 'Milk';
+--5.3 Кол-во всего мороженного.
+select count(p.name) from product as p left JOIN type as t ON p.type_id  = t.id where t.name = 'Ice cream';
+
 --6. Написать запрос получение всех продуктов с типом "СЫР" и "МОЛОКО".
-select name from product where type_id in ((select id from type where name = 'Cheese'), (select id from type where name = 'Milk'));
-																		  
---7. Написать запрос, который выводит тип продуктов, которых осталось меньше 10 штук.
+select p.name from product as p left JOIN type as t ON p.type_id  = t.id group by p.name, t.name having t.name = 'Cheese' or t.name ='Milk';
+
+--7. Написать запрос, который выводит тип продуктов, которых осталось меньше 4 штук.
 --insert into product(name, type_id, expired_date, price) values ('ice cream with strawberry', (select id from type where name = 'Ice cream'), '2018-12-22', 12);
-select name from type where (select count(p.id) from product as p where p.type_id = type.id) < 4;
-																						 
+select t.name from type AS t left JOIN product AS p ON t.id = p.type_id GROUP BY t.name HAVING count(p.type_id = t.id) < 4;
+
 --8. Вывести все продукты и их тип.
-select p.name, t.name from product as p left join type as t on t.id = p.type_id;
+select p.name, t.name from product AS p left join type as t on t.id = p.type_id;
