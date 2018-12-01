@@ -1,0 +1,42 @@
+--CREATE TABLE Company(
+--id integer NOT NULL,
+--name character varying,
+--CONSTRAINT company_pkey PRIMARY KEY(id));
+
+--CREATE TABLE Person(
+--id integer NOT NULL,
+--name character varying,
+--company_id integer,
+--CONSTRAINT person_pkey PRIMARY KEY(id));
+
+--insert into Company(id, name) values(1, 'Microsoft');
+--insert into Company(id, name) values(2, 'Google');
+--insert into Company(id, name) values(3, 'SpaceX');
+--insert into Company(id, name) values(4, 'Apple');
+--insert into Company(id, name) values(5, 'Tesla');
+
+--insert into Person(id, name, company_id) values(1, 'Peter', 1);
+--insert into Person(id, name, company_id) values(2, 'Tellor', 2);
+--insert into Person(id, name, company_id) values(3, 'Vasya', 3);
+--insert into Person(id, name, company_id) values(4, 'George', 4);
+--insert into Person(id, name, company_id) values(5, 'Oliver', 5);
+--insert into Person(id, name, company_id) values(6, 'Harry', 1);
+--insert into Person(id, name, company_id) values(7, 'Leo', 2);
+--insert into Person(id, name, company_id) values(8, 'Archie', 3);
+--insert into Person(id, name, company_id) values(9, 'Max', 4);
+--insert into Person(id, name, company_id) values(10, 'Olivia', 5);
+--insert into Person(id, name, company_id) values(11, 'Isla', 1);
+--insert into Person(id, name, company_id) values(12, 'Mia', 2);
+--insert into Person(id, name, company_id) values(13, 'Poppy', 3);
+--insert into Person(id, name, company_id) values(14, 'Sophia', 4);
+--insert into Person(id, name, company_id) values(15, 'Daisy', 5);
+--insert into Person(id, name, company_id) values(16, 'Anna', 1);
+
+-- 1) Retrieve in a single query:
+-- - names of all persons that are NOT in the company with id = 5
+-- - company name for each person
+SELECT p.name, c.name FROM Person AS p INNER JOIN Company AS c ON p.company_id = c.id group by p.name, c.name, c.id having c.id != 5;
+
+--2) Select the name of the company with the maximum number of persons + number of persons in this company
+SELECT c.name, count(*) AS CountCompany FROM Company as c INNER JOIN Person as p on c.id = p.company_id GROUP BY c.name
+ORDER BY CountCompany DESC LIMIT 1;
