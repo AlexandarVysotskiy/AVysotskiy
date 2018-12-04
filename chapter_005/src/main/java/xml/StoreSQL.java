@@ -88,9 +88,9 @@ public class StoreSQL implements AutoCloseable, Closeable {
         try (PreparedStatement statement = connection.prepareStatement("INSERT INTO entry(field) VALUES (?)")) {
             for (int i = 1; i <= n; i++) {
                 statement.setInt(1, i);
-                statement.executeUpdate();
+                statement.addBatch();
             }
-            connection.commit();
+            statement.executeBatch();
         } catch (SQLException e) {
             connection.rollback();
             LOG.error(e.getMessage(), e);
