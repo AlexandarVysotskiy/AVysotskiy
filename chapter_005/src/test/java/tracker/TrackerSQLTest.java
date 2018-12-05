@@ -22,7 +22,7 @@ public class TrackerSQLTest {
 
     @Test
     public void checkConnection() {
-        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("app.properties")) {
+        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("tracker.properties")) {
             Properties config = new Properties();
             config.load(in);
             try (TrackerSQL sql = new TrackerSQL(config)) {
@@ -35,7 +35,7 @@ public class TrackerSQLTest {
 
     @Test
     public void whenAddItem() {
-        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("app.properties")) {
+        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("tracker.properties")) {
             Properties config = new Properties();
             config.load(in);
             try (TrackerSQL trackerSQL = new TrackerSQL(config)) {
@@ -51,7 +51,7 @@ public class TrackerSQLTest {
 
     @Test
     public void whenDeleteItem() {
-        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("app.properties")) {
+        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("tracker.properties")) {
             Properties config = new Properties();
             config.load(in);
             try (TrackerSQL trackerSQL = new TrackerSQL(config)) {
@@ -69,7 +69,7 @@ public class TrackerSQLTest {
 
     @Test
     public void whenFindById() {
-        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("app.properties")) {
+        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("tracker.properties")) {
             Properties config = new Properties();
             config.load(in);
             try (TrackerSQL trackerSQL = new TrackerSQL(config)) {
@@ -88,7 +88,7 @@ public class TrackerSQLTest {
 
     @Test
     public void whenFindByName() {
-        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("app.properties")) {
+        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("tracker.properties")) {
             Properties config = new Properties();
             config.load(in);
             try (TrackerSQL trackerSQL = new TrackerSQL(config)) {
@@ -109,7 +109,7 @@ public class TrackerSQLTest {
 
     @Test
     public void whenReplaceByName() {
-        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("app.properties")) {
+        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("tracker.properties")) {
             Properties config = new Properties();
             config.load(in);
             try (TrackerSQL trackerSQL = new TrackerSQL(config)) {
@@ -128,7 +128,7 @@ public class TrackerSQLTest {
 
     @Test
     public void findByAllTest() {
-        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("app.properties")) {
+        try (InputStream in = TrackerSQL.class.getClassLoader().getResourceAsStream("tracker.properties")) {
             Properties config = new Properties();
             config.load(in);
             try (TrackerSQL trackerSQL = new TrackerSQL(config)) {
