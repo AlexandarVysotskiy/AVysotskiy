@@ -1,6 +1,5 @@
 package parser;
 
-import jdk.nashorn.internal.runtime.ParserException;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -11,21 +10,22 @@ import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Properties;
 import java.util.TimerTask;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Parser extends TimerTask {
     private static final Logger LOG = Logger.getLogger(Parser.class);
 
-    Properties properties;
+    private Properties properties;
 
     /**
      * Дата, с которой начинается поиск ваканский.
      */
-    String start;
+    private String start;
 
-    DataBase dataBase;
+    private DataBase dataBase;
 
     Parser(Properties properties) {
         this.properties = properties;
@@ -39,7 +39,6 @@ public class Parser extends TimerTask {
         LOG.info("Парсинг вакансий запущен");
         this.start = this.lastParsingDate();
         this.parsePages();
-        this.updateProperties();
         LOG.info("Парсинг вакансий закончен");
     }
 
@@ -98,7 +97,7 @@ public class Parser extends TimerTask {
                      * Проверка на релевантность и на дубликат. Если есть заявка одинаковыми именем и описанием то false.
                      */
                     if (isRelevance(title)) {
-                        dataBase.addVacancy(title, description, link);
+                        dataBase.addVacancy(title, description, link, date);
                     }
                 }
             }
@@ -143,8 +142,6 @@ public class Parser extends TimerTask {
             if (startDate.after(vacancyDate)) {
                 result = false;
             }
-        } catch (ParserException e) {
-            LOG.error(e.getMessage(), e);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -152,12 +149,12 @@ public class Parser extends TimerTask {
     }
 
     /**
-     * Получение даты последнего запуска.
+     * Получение даты последнего объявления.
      *
      * @return дату последнего запуска из параметров или 1 января текущего года
      */
     private String lastParsingDate() {
-        String date = properties.getProperty("lastDayLaunched");
+        String date = normDate(dataBase.getLastData());
         if (date.equals("")) {
             SimpleDateFormat format = new SimpleDateFormat("dd MM yyyy HH:mm");
             date = String.format("01 01 2018 00:00", format.format(new Date()));
@@ -168,33 +165,14 @@ public class Parser extends TimerTask {
     /**
      * Проверка на релевантность вакансии.
      *
-     * @param text текст вакансии.
-     * @return true если заговоло содержит java и не содекжит script;
+     * @param text заговолок вакансии.
+     * @return true если заговолок содержит java и не содекжит script;
      */
     public boolean isRelevance(String text) {
-        boolean result = false;
-        String low = text.toLowerCase();
-        if (low.contains("java")) {
-            result = true;
-        }
-        if (low.contains("script")) {
-            result = false;
-        }
+        boolean result;
+        Pattern pattern = Pattern.compile("\\bJava\\b");
+        Matcher matcher = pattern.matcher(text);
+        result = matcher.find();
         return result;
-    }
-
-    /**
-     * Обновление даты последнего запуска в в файле с параметрами.
-     */
-    private void updateProperties() {
-        try (Writer writer = new OutputStreamWriter(new FileOutputStream("chapter_005\\src\\main\\resources\\parsing.properties"))) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd MM yy HH:mm", new Locale("ru"));
-            String today = sdf.format(new Date());
-            properties.setProperty("lastDayLaunched", today);
-            properties.store(writer, null);
-        } catch (IOException e) {
-            LOG.error(e.getMessage(), e);
-            e.printStackTrace();
-        }
     }
 }

@@ -9,17 +9,20 @@ import java.util.Properties;
 /**
  * Класс базы для сохранения вакансий.
  */
-public class DataBase implements Closeable{
+public class DataBase implements Closeable {
 
     private static Logger LOG = Logger.getLogger(DataBase.class);
 
-    Connection connection;
+    private Connection connection;
 
-    Properties config;
+    private Properties config;
 
     public DataBase(Properties config) {
         this.config = config;
         makeConnection();
+    }
+
+    public DataBase() {
     }
 
     public Properties getProperties() {
@@ -54,15 +57,16 @@ public class DataBase implements Closeable{
      * Создает таблицу если она не существует
      */
     private void createTable() {
-        String query = "CREATE TABLE IF NOT EXISTS vacancies(\n" +
-                "--id - первичный ключ\n" +
-                "id SERIAL PRIMARY KEY,\n" +
-                "--name - имя вакансии\n" +
-                "name VARCHAR(100),\n" +
-                "--text - текст вакансии\n" +
-                "text VARCHAR(1000),\n" +
-                "--link - текст, ссылка на вакансию\n" +
-                "link VARCHAR(200));";
+        String query = "CREATE TABLE IF NOT EXISTS vacancies( \n" +
+                "\t--id - первичный ключ\\n\" \n" +
+                "\tid SERIAL PRIMARY KEY, --name - имя вакансии\\n \n" +
+                "\tname VARCHAR(100), \n" +
+                "\t--text - текст вакансии\\\n" +
+                "\ttext VARCHAR(1000), \n" +
+                "\t--link - текст, ссылка на вакансию \n" +
+                "\tlink VARCHAR(200),\n" +
+                "\t--date - дата вакансии \n" +
+                "\tdateAdd VARCHAR(50)); ";
 
         try (Statement st = connection.createStatement()) {
             st.executeUpdate(query);
@@ -74,25 +78,42 @@ public class DataBase implements Closeable{
 
     /**
      * Добавляет заявку в БД
+     *
      * @param name - имя
      * @param text - описание
      * @param link - адрес заявки
      */
-    public void addVacancy(String name, String text, String link) {
-        this.createTable();
-
+    public void addVacancy(String name, String text, String link, String date) {
+        createTable();
         String query = "\n" +
-                "INSERT INTO vacancies(name, text, link) VALUES (?,?,?);";
+                "INSERT INTO vacancies(name, text, link, dateAdd) VALUES (?,?,?,?);";
 
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, name);
             ps.setString(2, text);
             ps.setString(3, link);
+            ps.setString(4, date);
             ps.executeUpdate();
         } catch (SQLException e) {
             LOG.error(e.getMessage(), e);
             e.printStackTrace();
         }
+    }
+
+    public String getLastData(){
+        String result = null;
+        String query = "SELECT MIN(dateAdd) FROM vacancies";
+        try (PreparedStatement ps = connection.prepareStatement(query)) {
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                result = rs.getString("min");
+            }
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     @Override
