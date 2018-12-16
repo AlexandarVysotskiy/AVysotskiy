@@ -11,9 +11,10 @@ public class ValidateService implements Validate {
 
     private static ValidateService instance = new ValidateService();
 
-    private ValidateService(){};
+    private ValidateService() {
+    }
 
-    public static Validate getInstance(){
+    public static Validate getInstance() {
         return instance;
     }
 
@@ -40,10 +41,10 @@ public class ValidateService implements Validate {
      * @return true если не существует.
      */
     @Override
-    public boolean update(User user) {
+    public boolean update(int id, User user) {
         boolean result = false;
         if (userIsNotExist(user)) {
-            storage.update(user);
+            storage.update(id, user);
             result = true;
         }
         return result;
@@ -55,9 +56,10 @@ public class ValidateService implements Validate {
      * @return true если существует.
      */
     @Override
-    public boolean delete(UUID id) {
+    public boolean delete(Integer id) {
+        storage.delete(id);
         boolean result = false;
-        if (userIsNotExist(storage.findById(id))) {
+        if (!userIsNotExist(storage.findById(id))) {
             storage.delete(id);
             result = true;
         }
@@ -80,7 +82,7 @@ public class ValidateService implements Validate {
      * @return Возвращает пользователя по id если он существует.
      */
     @Override
-    public User findById(UUID id) {
+    public User findById(Integer id) {
         User result = null;
         if (userIsNotExist(storage.findById(id))) {
             result = storage.findById(id);
@@ -114,9 +116,8 @@ public class ValidateService implements Validate {
      */
     private boolean userIsNotExist(User user) {
         boolean result = true;
-        if (storage.findById(user.getId()) == null) {
+        if (!storage.findAll().isEmpty() && storage.findAll().iterator().next().getLogin().equals(user.getLogin())) {
             result = false;
-        } else {
             throw new UserError("User isn't exist");
         }
         return result;

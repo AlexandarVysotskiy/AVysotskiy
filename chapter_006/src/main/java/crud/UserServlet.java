@@ -7,50 +7,65 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.UUID;
 
-@WebServlet("/crud")
+/**
+ * Класс открывает таблицу со всеми пользователями;
+ */
+@WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
 
     private final Validate storage = ValidateService.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        PrintWriter writer = new PrintWriter(resp.getOutputStream());
+        StringBuilder sb = new StringBuilder("<table>");
         try {
-            resp.setContentType("text/html");
-            PrintWriter writer = new PrintWriter(resp.getOutputStream());
-            writer.append(storage.findAll().toString());
+            sb.append("<br>List of users</br>");
+            for (User user : storage.findAll()) {
+
+                sb.append("<tr><td>" + "User login: " + user.getLogin() + "</td>" +
+                        "<body>" +
+                        "<td>" +
+                        "<form action=' " + req.getContextPath() + "/UserServlet' method='post'>" +
+                        "<p><button name='id' type  = 'hidden' value=" + user.getId() + ">Delete</button></p>" +
+                        "</form>" +
+                        "<td/>" +
+                        "<td>" +
+                        "<form action=" + req.getContextPath() + "/UserUpdateServlet/?id=" + user.getId() + ">" +
+                        "<a href=" + req.getContextPath() + "/UserUpdateServlet?id=" + user.getId() + ">Update</a>" +
+                        "<td/>" +
+                        "</form>" +
+                        "</tr>");
+            }
+            sb.append("</table>");
+
+        } catch (UserError u) {
+            writer.append("<br>User list is empty</br>");
+            u.printStackTrace();
+        } finally {
+            writer.append(
+                    "<!DOCTYPE html>" +
+                            "<html lang=\"en\">" +
+                            "<head>" +
+                            "    <meta charset=\"UTF-8\">" +
+                            "    <title>List of users</title>" +
+                            "</head>" +
+                            "<br/>" +
+                            "<a href=" + req.getContextPath() + "/UserCreateServlet?id=>Create new user</a>" +
+                            sb.toString() +
+                            "</body>" +
+                            "</html>");
             writer.flush();
-        } catch (UserError e) {
-            e.printStackTrace();
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String action = req.getParameter("action");
-        String name = req.getParameter("name");
-        String login = req.getParameter("login");
-        String email = req.getParameter("email");
-        String id = req.getParameter("id");
-        if (action != null) {
-            switch (action) {
-                case "add":
-                    storage.add(new User(name, login, email));
-                    break;
-                case "update":
-                    storage.update(new User(name, login, email));
-                    break;
-                case "delete":
-                    storage.delete(UUID.fromString(req.getParameter(id)));
-                    break;
-                case "all":
-                    storage.findAll();
-                    break;
-                case "find":
-                    storage.findById(UUID.fromString(req.getParameter(id)));
-                    break;
-            }
-        }
+        resp.setContentType("text/html");
+        Integer id = Integer.valueOf(req.getParameter("id"));
+        storage.delete(id);
+        doGet(req, resp);
     }
 }

@@ -2,36 +2,36 @@ package crud;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Класс содержит методы для оперирования над пользователями.
  */
 public class MemoryStore implements Store {
-    private  ConcurrentHashMap<UUID, User> store = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Integer, User> store = new ConcurrentHashMap<>();
 
     private static MemoryStore instance = new MemoryStore();
 
-    private MemoryStore(){}
+    private MemoryStore() {
+    }
 
-    public static MemoryStore getInstance(){
+    public static MemoryStore getInstance() {
         return instance;
     }
 
     @Override
     public void add(User user) {
-        UUID id = user.getId();
+        Integer id = user.getId();
         store.put(id, user);
     }
 
     @Override
-    public void update(User user) {
-        store.replace(user.getId(), user);
+    public void update(int id, User user) {
+        store.replace(id, user);
     }
 
     @Override
-    public void delete(UUID id) {
+    public void delete(Integer id) {
         store.remove(id);
     }
 
@@ -41,7 +41,7 @@ public class MemoryStore implements Store {
     }
 
     @Override
-    public User findById(UUID id) {
+    public User findById(Integer id) {
         return store.get(id);
     }
 }
