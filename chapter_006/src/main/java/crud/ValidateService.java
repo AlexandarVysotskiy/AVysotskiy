@@ -35,6 +35,14 @@ public class ValidateService implements Validate {
         return result;
     }
 
+    @Override
+    public int getId(User user) {
+        if(storage.findAll().isEmpty()){
+            throw new UserError("List is empty");
+        }
+        return storage.getId(user);
+    }
+
     /**
      * Проверяет существует ли заменяющий пользователь.
      *
@@ -112,11 +120,12 @@ public class ValidateService implements Validate {
      * Метод проверяет существует ли пользователь.
      *
      * @param user - проверяемый пользователь.
-     * @return true если есть.
+     * @return true если нет.
      */
     private boolean userIsNotExist(User user) {
         boolean result = true;
-        if (!storage.findAll().isEmpty() && storage.findAll().iterator().next().getLogin().equals(user.getLogin())) {
+        if (!storage.findAll().isEmpty() && storage.findById(getId(user)) != user
+                && storage.findAll().iterator().next().getLogin().equals(user.getLogin())) {
             result = false;
             throw new UserError("User isn't exist");
         }

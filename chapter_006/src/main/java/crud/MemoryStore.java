@@ -8,12 +8,11 @@ import java.util.concurrent.ConcurrentHashMap;
  * Класс содержит методы для оперирования над пользователями.
  */
 public class MemoryStore implements Store {
+    private int id = 0;
+
     private ConcurrentHashMap<Integer, User> store = new ConcurrentHashMap<>();
 
     private static MemoryStore instance = new MemoryStore();
-
-    private MemoryStore() {
-    }
 
     public static MemoryStore getInstance() {
         return instance;
@@ -21,8 +20,18 @@ public class MemoryStore implements Store {
 
     @Override
     public void add(User user) {
-        Integer id = user.getId();
-        store.put(id, user);
+        store.put(id++, user);
+    }
+
+    @Override
+    public int getId(User user) {
+        int result = 0;
+        for (int key : store.keySet()) {
+            if (store.get(key).equals(user)) {
+                result = key;
+            }
+        }
+        return result;
     }
 
     @Override

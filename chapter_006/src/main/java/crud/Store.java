@@ -5,6 +5,8 @@ import java.util.List;
 public interface Store {
     void add (User user);
 
+    int getId(User user);
+
     void update(int Id, User user);
 
     void delete(Integer id);

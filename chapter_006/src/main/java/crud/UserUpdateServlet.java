@@ -52,8 +52,17 @@ public class UserUpdateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         User user = new User(req.getParameter("name"), req.getParameter("login"), req.getParameter("email"));
-        user.setId(id);
-        storage.update(id, user);
-        resp.sendRedirect(req.getContextPath() + "/UserServlet");
+        try {
+            storage.update(id, user);
+            resp.sendRedirect(req.getContextPath() + "/UserServlet");
+        } catch (UserError u) {
+            PrintWriter writer = new PrintWriter(resp.getOutputStream());
+            writer.append("This login is exist already");
+            writer.append("<br><a href=" + req.getContextPath() + "/UserUpdateServlet?id=" + id + ">Try again</a></br>");
+            writer.append("<br><a href=" + req.getContextPath() + "/UserServlet>Show list of users</a></br>");
+            u.printStackTrace();
+            writer.flush();
+            u.printStackTrace();
+        }
     }
 }

@@ -29,12 +29,12 @@ public class UserServlet extends HttpServlet {
                         "<body>" +
                         "<td>" +
                         "<form action=' " + req.getContextPath() + "/UserServlet' method='post'>" +
-                        "<p><button name='id' type  = 'hidden' value=" + user.getId() + ">Delete</button></p>" +
+                        "<p><button name='id' type  = 'hidden' value=" + storage.getId(user) + ">Delete</button></p>" +
                         "</form>" +
                         "<td/>" +
                         "<td>" +
-                        "<form action=" + req.getContextPath() + "/UserUpdateServlet/?id=" + user.getId() + ">" +
-                        "<a href=" + req.getContextPath() + "/UserUpdateServlet?id=" + user.getId() + ">Update</a>" +
+                        "<form action=" + req.getContextPath() + "/UserUpdateServlet/?id=" + storage.getId(user) + ">" +
+                        "<a href=" + req.getContextPath() + "/UserUpdateServlet?id=" + storage.getId(user) + ">Update</a>" +
                         "<td/>" +
                         "</form>" +
                         "</tr>");
@@ -53,7 +53,7 @@ public class UserServlet extends HttpServlet {
                             "    <title>List of users</title>" +
                             "</head>" +
                             "<br/>" +
-                            "<a href=" + req.getContextPath() + "/UserCreateServlet?id=>Create new user</a>" +
+                            "<a href=" + req.getContextPath() + "/UserCreateServlet>Create new user</a>" +
                             sb.toString() +
                             "</body>" +
                             "</html>");
