@@ -131,9 +131,9 @@ public class ValidateService implements Validate {
     }
 
     /**
-     * Метод проверяет существует ли пользователь.
+     * Метод проверяет существует ли логин.
      *
-     * @param user - проверяемый пользователь.
+     * @param user - проверяемый логин.
      * @return true если нет.
      */
     private boolean isUserLoginIsExist(User user) {
