@@ -15,7 +15,7 @@ import java.io.PrintWriter;
  */
 @WebServlet("/UserCreateServlet")
 public class UserCreateServlet extends HttpServlet {
-    private Validate storage = ValidateService.getInstance();
+    private final Validate storage = ValidateService.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -3,11 +3,11 @@ package crud;
 import java.util.List;
 
 public interface Store {
-    void add (User user);
+    User add(User model);
 
     int getId(User user);
 
-    void update(int Id, User user);
+    void update(int id, User user);
 
     void delete(Integer id);
 

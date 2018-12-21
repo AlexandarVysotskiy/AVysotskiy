@@ -1,7 +1,6 @@
 package crud;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.regex.Pattern;
 
 /**
@@ -9,16 +8,16 @@ import java.util.regex.Pattern;
  */
 public class ValidateService implements Validate {
 
-    private static ValidateService instance = new ValidateService();
+    private static final ValidateService INSTANCE = new ValidateService();
 
     private ValidateService() {
     }
 
     public static Validate getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
-    private static Store storage = MemoryStore.getInstance();
+    private static final Store STORAGE = DbStore.getInstance();
 
     /**
      * Проверяет существует ли уже такой пользователь и корректный ли email.
@@ -28,8 +27,8 @@ public class ValidateService implements Validate {
     @Override
     public boolean add(User user) {
         boolean result = false;
-        if (userIsNotExist(user) && validateEmail(user.getEmail())) {
-            storage.add(user);
+        if (isUserLoginIsExist(user) && validateEmail(user.getEmail())) {
+            STORAGE.add(user);
             result = true;
         }
         return result;
@@ -37,10 +36,11 @@ public class ValidateService implements Validate {
 
     @Override
     public int getId(User user) {
-        if(storage.findAll().isEmpty()){
-            throw new UserError("List is empty");
+        int result = STORAGE.getId(user);
+        if (STORAGE.findAll().isEmpty() && result == 0) {
+            throw new UserError("There isn't user");
         }
-        return storage.getId(user);
+        return result;
     }
 
     /**
@@ -51,8 +51,8 @@ public class ValidateService implements Validate {
     @Override
     public boolean update(int id, User user) {
         boolean result = false;
-        if (userIsNotExist(user)) {
-            storage.update(id, user);
+        if (isUserLoginIsExist(user)) {
+            STORAGE.update(id, user);
             result = true;
         }
         return result;
@@ -65,10 +65,9 @@ public class ValidateService implements Validate {
      */
     @Override
     public boolean delete(Integer id) {
-        storage.delete(id);
         boolean result = false;
-        if (!userIsNotExist(storage.findById(id))) {
-            storage.delete(id);
+        if (userIsNotExist(STORAGE.findById(id))) {
+            STORAGE.delete(id);
             result = true;
         }
         return result;
@@ -79,10 +78,10 @@ public class ValidateService implements Validate {
      */
     @Override
     public List<User> findAll() {
-        if (storage.findAll().isEmpty()) {
-            throw new UserError("In this storage isn't users");
+        if (STORAGE.findAll().isEmpty()) {
+            throw new UserError("In this STORAGE isn't users");
         }
-        return storage.findAll();
+        return STORAGE.findAll();
     }
 
 
@@ -92,8 +91,8 @@ public class ValidateService implements Validate {
     @Override
     public User findById(Integer id) {
         User result = null;
-        if (userIsNotExist(storage.findById(id))) {
-            result = storage.findById(id);
+        if (userIsNotExist(STORAGE.findById(id))) {
+            result = STORAGE.findById(id);
         }
         return result;
     }
@@ -124,10 +123,24 @@ public class ValidateService implements Validate {
      */
     private boolean userIsNotExist(User user) {
         boolean result = true;
-        if (!storage.findAll().isEmpty() && storage.findById(getId(user)) != user
-                && storage.findAll().iterator().next().getLogin().equals(user.getLogin())) {
+        if (STORAGE.findAll().isEmpty() && user.getLogin().equals(null) && user.getEmail().equals(null) && user.getName().equals(null)) {
             result = false;
             throw new UserError("User isn't exist");
+        }
+        return result;
+    }
+
+    /**
+     * Метод проверяет существует ли пользователь.
+     *
+     * @param user - проверяемый пользователь.
+     * @return true если нет.
+     */
+    private boolean isUserLoginIsExist(User user) {
+        boolean result = true;
+        if (!STORAGE.findAll().isEmpty() && STORAGE.findAll().iterator().next().getLogin().equals(user.getLogin())) {
+            result = false;
+            throw new UserError("User login isn't exist");
         }
         return result;
     }

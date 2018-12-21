@@ -5,6 +5,7 @@ import net.jcip.annotations.GuardedBy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Класс содержит методы для оперирования над пользователями.
@@ -12,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MemoryStore implements Store {
 
     @GuardedBy("this")
-    private int id = 0;
+    private AtomicInteger id = new AtomicInteger(0);
 
     private ConcurrentHashMap<Integer, User> store = new ConcurrentHashMap<>();
 
@@ -22,16 +23,13 @@ public class MemoryStore implements Store {
         return instance;
     }
 
-    private synchronized int getSynchronizedId(){
-        return id++;
+    @Override
+    public User add(User user) {
+        store.put(id.incrementAndGet(), user);
+        return user;
     }
 
-    @Override
-    public void add(User user) {
-        store.put(getSynchronizedId(), user);
-    }
 
-    @Override
     public int getId(User user) {
         int result = 0;
         for (int key : store.keySet()) {

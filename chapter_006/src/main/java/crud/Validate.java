@@ -8,7 +8,7 @@ public interface Validate {
 
     int getId(User user);
 
-    boolean update(int Id, User user);
+    boolean update(int id, User user);
 
     boolean delete(Integer id);
 

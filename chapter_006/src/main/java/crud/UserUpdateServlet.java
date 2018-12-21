@@ -13,7 +13,7 @@ import java.io.PrintWriter;
  */
 @WebServlet("/UserUpdateServlet")
 public class UserUpdateServlet extends HttpServlet {
-    private Validate storage = ValidateService.getInstance();
+    private final Validate storage = ValidateService.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
