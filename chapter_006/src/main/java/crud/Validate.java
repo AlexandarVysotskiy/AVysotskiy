@@ -6,7 +6,7 @@ import java.util.List;
 public interface Validate {
     boolean add(User user);
 
-    int getId(User user);
+    int getId(String login);
 
     boolean update(int id, User user);
 

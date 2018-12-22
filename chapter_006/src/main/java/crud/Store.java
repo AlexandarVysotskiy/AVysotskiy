@@ -5,7 +5,7 @@ import java.util.List;
 public interface Store {
     User add(User model);
 
-    int getId(User user);
+    int getId(String login);
 
     void update(int id, User user);
 

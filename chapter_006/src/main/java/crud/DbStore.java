@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DbStore implements Store {
     private static final BasicDataSource SOURCE = new BasicDataSource();
-    private static DbStore instance = new DbStore();
+    private static final DbStore instance = new DbStore();
     private static Logger log = Logger.getLogger(DbStore.class);
 
     public DbStore() {
@@ -80,9 +80,8 @@ public class DbStore implements Store {
     }
 
     @Override
-    public int getId(User user) {
+    public int getId(String login) {
         Integer result = null;
-        String login = user.getLogin();
         String query = "select id from databasestore where login = ?";
         try (Connection connection = SOURCE.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {

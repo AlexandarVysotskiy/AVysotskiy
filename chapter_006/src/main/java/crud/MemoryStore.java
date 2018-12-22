@@ -29,14 +29,19 @@ public class MemoryStore implements Store {
         return user;
     }
 
-
-    public int getId(User user) {
+    /**
+     * This method is deprecate
+     * @param login
+     * @return
+     */
+    @Override
+    public int getId(String login) {
         int result = 0;
-        for (int key : store.keySet()) {
-            if (store.get(key).equals(user)) {
-                result = key;
-            }
-        }
+//        for (int key : store.keySet()) {
+//            if (store.get(key).equals(user)) {
+//                result = key;
+//            }
+//        }
         return result;
     }
 

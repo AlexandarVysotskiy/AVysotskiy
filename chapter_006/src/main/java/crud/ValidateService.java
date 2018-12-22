@@ -35,8 +35,8 @@ public class ValidateService implements Validate {
     }
 
     @Override
-    public int getId(User user) {
-        int result = STORAGE.getId(user);
+    public int getId(String login) {
+        int result = STORAGE.getId(login);
         if (STORAGE.findAll().isEmpty() && result == 0) {
             throw new UserError("There isn't user");
         }
