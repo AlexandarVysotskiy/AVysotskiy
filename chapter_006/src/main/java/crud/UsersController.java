@@ -4,6 +4,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -15,23 +16,35 @@ public class UsersController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            if (!storage.findAll().isEmpty()) {
-                req.setAttribute("users", storage.findAll());
+        HttpSession session = req.getSession(false);
+        if (session == null || session.getAttribute("role") == null) {
+            resp.sendRedirect(req.getContextPath() + "/AuthFilterServlet");
+        } else {
+            try {
+                if (!storage.findAll().isEmpty()) {
+                    req.setAttribute("users", storage.findAll());
+                    req.setAttribute("login", session.getAttribute("login"));
+                    req.setAttribute("role", session.getAttribute("role"));
+                }
+            } catch (UserError u) {
+                u.printStackTrace();
+            } finally {
+                req.getRequestDispatcher("/WEB-INF/views/listOfUser.jsp").forward(req, resp);
             }
-        } catch (UserError u) {
-            u.printStackTrace();
-        } finally {
-            req.getRequestDispatcher("/WEB-INF/views/listOfUser.jsp").forward(req, resp);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        HttpSession session = req.getSession(false);
+        String exist = req.getParameter("exist");
+        if (exist != null) {
+            session.invalidate();
+        } else {
+            Integer id = Integer.valueOf(req.getParameter("id"));
+            storage.delete(id);
+        }
         resp.setContentType("text/html");
-        String login = (req.getParameter("login"));
-        int id = storage.getId(login);
-        storage.delete(id);
         resp.sendRedirect(req.getContextPath() + "/");
     }
 }

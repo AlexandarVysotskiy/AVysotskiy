@@ -79,7 +79,7 @@ public class ValidateService implements Validate {
     @Override
     public List<User> findAll() {
         if (STORAGE.findAll().isEmpty()) {
-            throw new UserError("In this STORAGE isn't users");
+            throw new UserError("In this storage isn't users");
         }
         return STORAGE.findAll();
     }
@@ -122,12 +122,10 @@ public class ValidateService implements Validate {
      * @return true если нет.
      */
     private boolean userIsNotExist(User user) {
-        boolean result = true;
-        if (STORAGE.findAll().isEmpty() && user.getLogin().equals(null) && user.getEmail().equals(null) && user.getName().equals(null)) {
-            result = false;
+        if (STORAGE.findAll().isEmpty() && user.getLogin() == null && user.getEmail().equals(null) && user.getName().equals(null)) {
             throw new UserError("User isn't exist");
         }
-        return result;
+        return true;
     }
 
     /**
@@ -138,9 +136,26 @@ public class ValidateService implements Validate {
      */
     private boolean isUserLoginIsExist(User user) {
         boolean result = true;
-        if (!STORAGE.findAll().isEmpty() && STORAGE.findAll().iterator().next().getLogin().equals(user.getLogin())) {
+        if (!user.equals(null) && !STORAGE.findAll().isEmpty() && STORAGE.findAll().iterator().next().getLogin().equals(user.getLogin())) {
             result = false;
             throw new UserError("User login isn't exist");
+        }
+        return result;
+    }
+
+    /**
+     * Метод проверяет существует ли логин пользоваетель с таким паролем и логином.
+     *
+     * @return возвращает роль пользоваетля (user, admin).
+     */
+    @Override
+    public Role getRole(String login, String password) {
+        Role result = null;
+        for (User user : findAll()) {
+            if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
+                result = user.getRole();
+                break;
+            }
         }
         return result;
     }

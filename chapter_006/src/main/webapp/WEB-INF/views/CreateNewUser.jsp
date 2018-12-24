@@ -9,12 +9,17 @@
     Name : <input type='text' name='name'/>
     Login : <input type='text' name='login'/>
     Email : <input type='text' name='email'/>
+    password : <input type='text' name='password'/>
+    <select name="role">
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+    </select>
     <input type='submit'>
 </form>
 <c:forEach items="${users}" var="user">
-<tr>
-    <td><p>User: ${user.login} has add</p></td>
-</tr>
+    <tr>
+        <td><p>User: ${user.login} has add</p></td>
+    </tr>
 </c:forEach>
 <c:if test="${users == null}">
     <p>User list is empty</p>

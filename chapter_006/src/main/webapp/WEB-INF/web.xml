@@ -40,11 +40,11 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>AdminController</servlet-name>
-        <servlet-class>crud.AdminController</servlet-class>
+        <servlet-name>AuthFilterServlet</servlet-name>
+        <servlet-class>crud.AuthFilterServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AdminController</servlet-name>
-        <url-pattern>/AdminController</url-pattern>
+        <servlet-name>AuthFilterServlet</servlet-name>
+        <url-pattern>/AuthFilterServlet</url-pattern>
     </servlet-mapping>
 </web-app>

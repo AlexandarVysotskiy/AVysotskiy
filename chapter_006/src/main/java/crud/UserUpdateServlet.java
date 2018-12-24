@@ -4,6 +4,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -15,11 +16,14 @@ public class UserUpdateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Integer userId = storage.getId(req.getParameter("login"));
-        User user = storage.findById(userId);
+        HttpSession session = req.getSession(false);
+        String userId = req.getParameter("id");
+        User user = storage.findById(Integer.valueOf(userId));
         req.setAttribute("loginUpdate", user.getLogin());
         req.setAttribute("nameUpdate", user.getName());
         req.setAttribute("emailUpdate", user.getEmail());
+        req.setAttribute("passwordUpdate", user.getPassword());
+        req.setAttribute("role", session.getAttribute("role"));
         req.setAttribute("id", userId);
         req.getRequestDispatcher("/WEB-INF/views/UpdateUser.jsp").forward(req, resp);
     }
@@ -27,7 +31,8 @@ public class UserUpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
-        User user = new User(req.getParameter("name"), req.getParameter("login"), req.getParameter("email"));
+        User user = new User(req.getParameter("name"), req.getParameter("login"), req.getParameter("email"),
+                req.getParameter("password"), Role.valueOf(req.getParameter("role")));
         int id = Integer.valueOf(req.getParameter("id"));
         try {
             storage.update(id, user);

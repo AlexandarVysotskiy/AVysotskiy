@@ -32,7 +32,9 @@ public class UserCreateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         try {
-            storage.add(new User(req.getParameter("name"), req.getParameter("login"), req.getParameter("email")));
+            storage.add(new User(req.getParameter("name"), req.getParameter("login"), req.getParameter("email"),
+                    req.getParameter("password"),
+                    Role.valueOf(req.getParameter("role"))));
             resp.sendRedirect(req.getContextPath() + "/");
         } catch (UserError u) {
             PrintWriter writer = new PrintWriter(resp.getOutputStream());

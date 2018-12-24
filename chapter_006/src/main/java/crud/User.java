@@ -8,12 +8,27 @@ public class User {
     private String login;
     private String email;
     private LocalDate createDate;
+    private String password;
+    private Role role;
+    private int id;
 
-    public User(String name, String login, String email) {
+    public User(String name, String login, String email, String password, Role role) {
         this.name = name;
         this.login = login;
         this.email = email;
         this.createDate = LocalDate.now();
+        this.password = password;
+        this.role = role;
+    }
+
+    public User(int id, String name, String login, String email, String password, Role role) {
+        this.id = id;
+        this.name = name;
+        this.login = login;
+        this.email = email;
+        this.createDate = LocalDate.now();
+        this.password = password;
+        this.role = role;
     }
 
     public String getName() {
@@ -28,7 +43,19 @@ public class User {
         return email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
     public LocalDate getCreateDate() {
         return createDate;
+    }
+
+    public int getId() {
+        return this.id;
     }
 }

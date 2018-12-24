@@ -9,7 +9,7 @@ import java.util.List;
 
 public class DbStore implements Store {
     private static final BasicDataSource SOURCE = new BasicDataSource();
-    private static final DbStore instance = new DbStore();
+    private static final DbStore INSTANCE = new DbStore();
     private static Logger log = Logger.getLogger(DbStore.class);
 
     public DbStore() {
@@ -23,7 +23,7 @@ public class DbStore implements Store {
     }
 
     public static DbStore getInstance() {
-        return instance;
+        return INSTANCE;
     }
 
     /**
@@ -44,7 +44,7 @@ public class DbStore implements Store {
     @Override
     public User add(User user) {
         createTable();
-        String query = "INSERT INTO databaseStore(login, email, name, dateAdd) VALUES (?,?,?,?);";
+        String query = "INSERT INTO databaseStore (login, email, name, password, dateadd, role_id) VALUES (?, ?, ?, ?, ?, (select r.id from role as r where r.rolename = ?));";
         String dateAdd = user.getCreateDate().toString();
         try (Connection connection = SOURCE.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)
@@ -52,7 +52,9 @@ public class DbStore implements Store {
             ps.setString(1, user.getLogin());
             ps.setString(2, user.getEmail());
             ps.setString(3, user.getName());
-            ps.setString(4, dateAdd);
+            ps.setString(4, user.getPassword());
+            ps.setString(5, dateAdd);
+            ps.setString(6, String.valueOf(user.getRole()));
             ps.executeUpdate();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -64,15 +66,14 @@ public class DbStore implements Store {
     @Override
     public List<User> findAll() {
         List<User> result = new ArrayList<>();
-        String query = "select login,email,name  from databaseStore;";
+        String query = "select d.id, d.name, d.login, d.email, d.password, r.roleName from databasestore as d left outer join role as r on d.role_id = r.id;";
         try (Connection connection = SOURCE.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                result.add(new User(rs.getString("name"), rs.getString("login"), rs.getString("email")));
+                result.add(new User(rs.getInt("id"), rs.getString("name"), rs.getString("login"), rs.getString("email"), rs.getString("password"), Role.valueOf(rs.getString("roleName"))));
             }
             rs.close();
-            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -100,13 +101,15 @@ public class DbStore implements Store {
 
     @Override
     public void update(int id, User user) {
-        String query = String.format("UPDATE databasestore SET login = ?,email = ?,name = ?WHERE id = ?");
+
+        String query = String.format("UPDATE databasestore SET login = ?,email = ?,name = ?, role_id = (select r.id from role as r where r.rolename = ?) WHERE id = ?");
         try (Connection connection = SOURCE.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, user.getLogin());
             ps.setString(2, user.getEmail());
             ps.setString(3, user.getName());
-            ps.setInt(4, Integer.valueOf(id));
+            ps.setString(4, String.valueOf(user.getRole()));
+            ps.setInt(5, Integer.valueOf(id));
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -128,16 +131,15 @@ public class DbStore implements Store {
     @Override
     public User findById(Integer id) {
         User result = null;
-        String query = "select * from databaseStore where id = ?";
+        String query = "select d.id, d.name, d.login, d.email, d.password, r.roleName from databasestore as d left outer join role as r on d.role_id = r.id where d.id = ?";
         try (Connection connection = SOURCE.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                result = new User(rs.getString("name"), rs.getString("login"), rs.getString("email"));
+                result = new User(rs.getInt("id"), rs.getString("name"), rs.getString("login"), rs.getString("email"), rs.getString("password"), Role.valueOf(rs.getString("roleName")));
             }
             rs.close();
-            ps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

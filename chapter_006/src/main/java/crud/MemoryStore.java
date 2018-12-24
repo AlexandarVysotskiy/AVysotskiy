@@ -31,6 +31,7 @@ public class MemoryStore implements Store {
 
     /**
      * This method is deprecate
+     *
      * @param login
      * @return
      */
