@@ -9,7 +9,7 @@
     Name : <input type='text' name='name'/>
     Login : <input type='text' name='login'/>
     Email : <input type='text' name='email'/>
-    password : <input type='text' name='password'/>
+    password : <input type='password' name='password'/>
     <select name="role">
         <option value="user">User</option>
         <option value="admin">Admin</option>
