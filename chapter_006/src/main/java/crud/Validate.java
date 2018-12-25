@@ -4,7 +4,7 @@ import java.util.List;
 
 
 public interface Validate {
-    boolean add(User user);
+    User add(User user);
 
     int getId(String login);
 
@@ -12,7 +12,7 @@ public interface Validate {
 
     boolean delete(Integer id);
 
-    List<User> findAll();
+    List<User> getAll();
 
     User findById(Integer id);
 

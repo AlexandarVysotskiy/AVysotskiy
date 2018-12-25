@@ -21,8 +21,8 @@ public class UsersController extends HttpServlet {
             resp.sendRedirect(req.getContextPath() + "/AuthFilterServlet");
         } else {
             try {
-                if (!storage.findAll().isEmpty()) {
-                    req.setAttribute("users", storage.findAll());
+                if (!storage.getAll().isEmpty()) {
+                    req.setAttribute("users", storage.getAll());
                     req.setAttribute("login", session.getAttribute("login"));
                     req.setAttribute("role", session.getAttribute("role"));
                 }
@@ -38,11 +38,11 @@ public class UsersController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
         String exist = req.getParameter("exist");
+        String id = (req.getParameter("id"));
         if (exist != null) {
             session.invalidate();
-        } else {
-            Integer id = Integer.valueOf(req.getParameter("id"));
-            storage.delete(id);
+        } else if(id != null) {
+            storage.delete(Integer.valueOf(id));
         }
         resp.setContentType("text/html");
         resp.sendRedirect(req.getContextPath() + "/");

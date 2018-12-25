@@ -25,13 +25,11 @@ public class ValidateService implements Validate {
      * @return true если все данные корректные.
      */
     @Override
-    public boolean add(User user) {
-        boolean result = false;
+    public User add(User user) {
         if (isUserLoginIsExist(user) && validateEmail(user.getEmail())) {
             STORAGE.add(user);
-            result = true;
         }
-        return result;
+        return user;
     }
 
     @Override
@@ -77,7 +75,7 @@ public class ValidateService implements Validate {
      * @return Возращает список всех пользователей если хранилище не пустое.
      */
     @Override
-    public List<User> findAll() {
+    public List<User> getAll() {
         if (STORAGE.findAll().isEmpty()) {
             throw new UserError("In this storage isn't users");
         }
@@ -151,7 +149,7 @@ public class ValidateService implements Validate {
     @Override
     public Role getRole(String login, String password) {
         Role result = null;
-        for (User user : findAll()) {
+        for (User user : getAll()) {
             if (user.getLogin().equals(login) && user.getPassword().equals(password)) {
                 result = user.getRole();
                 break;

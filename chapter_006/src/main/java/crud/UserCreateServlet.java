@@ -18,8 +18,8 @@ public class UserCreateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            if (!storage.findAll().isEmpty()) {
-                req.setAttribute("users", storage.findAll());
+            if (!storage.getAll().isEmpty()) {
+                req.setAttribute("users", storage.getAll());
             }
         } catch (UserError u) {
             u.printStackTrace();
