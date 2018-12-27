@@ -10,13 +10,13 @@
         <c:out value="${error}"/>
     </div>
 </c:if>
-<form action="${pageContext.servletContext.contextPath}/AuthFilterServlet" method="post">
+<form action="${pageContext.servletContext.contextPath}/authFilter" method="post">
     Login: <input type="text" name="login"><br/>
     Password: <input type="password" name="password"><br/>
     <input type="submit">
 </form>
 
-<form action="${pageContext.servletContext.contextPath}/AuthFilterServlet" method="post">
+<form action="${pageContext.servletContext.contextPath}/authFilter" method="post">
     <p>
         <button name="enterHowGuest" type="hidden" value="${user.id}">Enter how guest</button>
     </p>

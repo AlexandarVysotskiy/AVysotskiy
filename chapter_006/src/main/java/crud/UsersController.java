@@ -16,22 +16,20 @@ public class UsersController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("role") == null) {
-            resp.sendRedirect(req.getContextPath() + "/AuthFilterServlet");
-        } else {
+        HttpSession session = req.getSession();
             try {
                 if (!storage.getAll().isEmpty()) {
                     req.setAttribute("users", storage.getAll());
                     req.setAttribute("login", session.getAttribute("login"));
                     req.setAttribute("role", session.getAttribute("role"));
+                    req.getRequestDispatcher("/WEB-INF/views/listOfUser.jsp").forward(req, resp);
                 }
             } catch (UserError u) {
                 u.printStackTrace();
-            } finally {
+            }
+            finally {
                 req.getRequestDispatcher("/WEB-INF/views/listOfUser.jsp").forward(req, resp);
             }
-        }
     }
 
     @Override

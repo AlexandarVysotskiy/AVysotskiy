@@ -12,12 +12,22 @@
         <servlet-name>EchoServlet</servlet-name>
         <url-pattern>/echo</url-pattern>
     </servlet-mapping>
+
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>crud.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>*</url-pattern>
+    </filter-mapping>
+
     <servlet>
-        <servlet-name>Users controller servlet</servlet-name>
+        <servlet-name>UsersController</servlet-name>
         <servlet-class>crud.UsersController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>Users controller servlet</servlet-name>
+        <servlet-name>UsersController</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
@@ -45,6 +55,6 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AuthFilterServlet</servlet-name>
-        <url-pattern>/AuthFilterServlet</url-pattern>
+        <url-pattern>/authFilter</url-pattern>
     </servlet-mapping>
 </web-app>
