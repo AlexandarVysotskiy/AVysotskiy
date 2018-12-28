@@ -24,6 +24,20 @@
             }
             return result;
         }
+        function addRow() {
+            var arr = [$('#name'), $('#surname'), $('#description')];
+            var radio = $('input[name=sex]:checked');
+            var result = validate(arr, radio);
+            if (result) {
+                var akk = "";
+                $(arr).each(function () {
+                    akk += '<td>' + this.val() + '</td>';
+                });
+                akk+='<td>' + ($(radio).val()) + '</td>';
+                $('#table tr:last').after('<tr>' + akk + '</tr>')
+            }
+            return result;
+        }
     </script>
     <style>
         body {
@@ -52,44 +66,28 @@
     <textarea class="form-control" rows="1" id="surname" placeholder="Form surname is empty"></textarea>
 </div>
 <div class="center">
-<label class="radio-inline"><input type="radio" name="sex" checked id="sexMale">Male</label>
-<label class="radio-inline"><input type="radio" name="sex" id="sexFemale">Female</label>
+<label class="radio-inline"><input type="radio" name="sex" checked id="sexMale" value="male"/>Male</label>
+<label class="radio-inline"><input type="radio" name="sex" id="sexFemale" value="female"/>Female</label>
 </div>
 <div class="center">
     <label for="description">Description:</label>
     <textarea class="form-control" rows="1" id="description" placeholder="Form description is empty"></textarea>
 </div>
 <div class="center">
-<button type="submit" class="btn btn-primary" onclick="return validate()">Submit</button>
+<button type="submit" class="btn btn-primary" onclick="return addRow()">Submit</button>
 </div>
 <div class="container">
     <h2>Person Table</h2>
     <p>Description of person:</p>
-    <table class="table">
+    <table class="table" id="table">
         <thead>
         <tr>
             <th>Name</th>
             <th>Surname</th>
+            <th>Description</th>
             <th>Sex</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>Male</td>
-        </tr>
-        <tr>
-            <td>Mary</td>
-            <td>Moe</td>
-            <td>Male</td>
-        </tr>
-        <tr>
-            <td>July</td>
-            <td>Dooley</td>
-            <td>Female</td>
-        </tr>
-        </tbody>
     </table>
 </div>
 
