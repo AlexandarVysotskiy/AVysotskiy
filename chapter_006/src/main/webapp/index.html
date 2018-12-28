@@ -7,29 +7,61 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function validate() {
+            var result = false;
+            function check(value) {
+                if (value.val() === "") {
+                    alert(value.attr('placeholder'));
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            if (check($('#name')) && check($('#surname'))
+                && check($('#description'))) {
+                result = true;
+            }
+            return result;
+        }
+    </script>
+    <style>
+        body {
+            background: #333; /* Цвет фона */
+            color: #ef8f1a; /* Цвет текста */
+        }
+        .center {
+            width: 400px; /* Ширина элемента в пикселах */
+            padding: 10px; /* Поля вокруг текста */
+            margin: auto; /* Выравниваем по центру */
+        }
+    </style>
 </head>
 <body>
 
-<div class="container-fluid">
-    <h1>My First Bootstrap Page</h1>
-    <p>This is some text.</p>
+<div class="center">
+    <h1>Create an account</h1>
+    <p>There is form for your data.</p>
 </div>
-<div class="form-inline">
+<div class="center">
     <label for="name">Name:</label>
-    <textarea class="form-control" rows="1" id="name"></textarea>
+    <textarea class="form-control" rows="1" id="name" placeholder="Form name is empty"></textarea>
 </div>
-<div class="form-inline">
+<div class="center">
     <label for="surname">Surname:</label>
-    <textarea class="form-control" rows="1" id="surname"></textarea>
+    <textarea class="form-control" rows="1" id="surname" placeholder="Form surname is empty"></textarea>
 </div>
-<label class="radio-inline"><input type="radio" name="sex" checked>Male</label>
-<label class="radio-inline"><input type="radio" name="sex">Female</label>
-<div class="form-inline">
+<div class="center">
+<label class="radio-inline"><input type="radio" name="sex" checked id="sexMale">Male</label>
+<label class="radio-inline"><input type="radio" name="sex" id="sexFemale">Female</label>
+</div>
+<div class="center">
     <label for="description">Description:</label>
-    <textarea class="form-control" rows="1" id="description"></textarea>
+    <textarea class="form-control" rows="1" id="description" placeholder="Form description is empty"></textarea>
 </div>
-
-
+<div class="center">
+<button type="submit" class="btn btn-primary" onclick="return validate()">Submit</button>
+</div>
 <div class="container">
     <h2>Person Table</h2>
     <p>Description of person:</p>
