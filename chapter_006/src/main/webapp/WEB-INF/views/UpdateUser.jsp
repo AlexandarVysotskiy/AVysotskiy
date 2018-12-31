@@ -9,7 +9,7 @@
     <tr>
         <td>Parameter's user: <c:out value="${loginUpdate}"/>
             <form action="${pageContext.servletContext.contextPath}/UserUpdateServlet" method="post">
-                Name : <input type="text" value="${nameUpdate} " name="name"/>
+                Name : <input type="text" value="${nameUpdate}" name="name"/>
                 Login : <input type="text" value="${loginUpdate}" name="login"/>
                 Email : <input type="text" value="${emailUpdate}" name="email"/>
                 Password : <input type="text" value="${passwordUpdate}" name="email"/>
@@ -24,7 +24,7 @@
             </form>
         </td>
     </tr>
-    <a href="${pageContext.servletContext.contextPath}/">Return to list of user</a>
+    <a href="${pageContext.servletContext.contextPath}/controller">Return to list of user</a>
 </table>
 </body>
 </html>

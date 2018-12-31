@@ -24,6 +24,6 @@
 <c:if test="${users == null}">
     <p>User list is empty</p>
 </c:if>
-<a href="${pageContext.servletContext.contextPath}/">Show list of user</a>
+<a href="${pageContext.servletContext.contextPath}/controller">Show list of user</a>
 </body>
 </html>

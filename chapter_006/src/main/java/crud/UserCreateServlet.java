@@ -35,7 +35,7 @@ public class UserCreateServlet extends HttpServlet {
             storage.add(new User(req.getParameter("name"), req.getParameter("login"), req.getParameter("email"),
                     req.getParameter("password"),
                     Role.valueOf(req.getParameter("role"))));
-            resp.sendRedirect(req.getContextPath() + "/");
+            resp.sendRedirect(req.getContextPath() + "/controller");
         } catch (UserError u) {
             PrintWriter writer = new PrintWriter(resp.getOutputStream());
             writer.append("Email isn't correct or user with this login has already");

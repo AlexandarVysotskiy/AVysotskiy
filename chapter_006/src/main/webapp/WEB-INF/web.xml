@@ -28,7 +28,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>UsersController</servlet-name>
-        <url-pattern>/</url-pattern>
+        <url-pattern>/controller</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -57,4 +57,17 @@
         <servlet-name>AuthFilterServlet</servlet-name>
         <url-pattern>/authFilter</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>JsonServlet</servlet-name>
+        <servlet-class>json.JsonServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>JsonServlet</servlet-name>
+        <url-pattern>/json</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+
 </web-app>

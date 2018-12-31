@@ -43,6 +43,6 @@ public class UsersController extends HttpServlet {
             storage.delete(Integer.valueOf(id));
         }
         resp.setContentType("text/html");
-        resp.sendRedirect(req.getContextPath() + "/");
+        resp.sendRedirect(req.getContextPath() + "/controller");
     }
 }

@@ -36,13 +36,13 @@ public class UserUpdateServlet extends HttpServlet {
         int id = Integer.valueOf(req.getParameter("id"));
         try {
             storage.update(id, user);
-            resp.sendRedirect(req.getContextPath() + "/");
+            resp.sendRedirect(req.getContextPath() + "/controller");
         } catch (UserError u) {
             PrintWriter writer = new PrintWriter(resp.getOutputStream());
             writer.append("This login is exist already");
             writer.append("<br><a href=" + req.getContextPath() + "/UpdateUser.jsp?id=" + id + ">Try again</a></br>");
             writer.append("<br><a href=" + req.getContextPath() + "/>Show list of users</a></br>");
-            resp.sendRedirect(req.getContextPath() + "/");
+            resp.sendRedirect(req.getContextPath() + "/controller");
             u.printStackTrace();
             writer.flush();
             u.printStackTrace();

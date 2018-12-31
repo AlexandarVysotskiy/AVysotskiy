@@ -1,49 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bootstrap Example</title>
+    <title>Create an account</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script>
-        function validate() {
-            var result = false;
-            function check(value) {
-                if (value.val() === "") {
-                    alert(value.attr('placeholder'));
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-            if (check($('#name')) && check($('#surname'))
-                && check($('#description'))) {
-                result = true;
-            }
-            return result;
-        }
-        function addRow() {
-            var arr = [$('#name'), $('#surname'), $('#description')];
-            var radio = $('input[name=sex]:checked');
-            var result = validate(arr, radio);
-            if (result) {
-                var akk = "";
-                $(arr).each(function () {
-                    akk += '<td>' + this.val() + '</td>';
-                });
-                akk+='<td>' + ($(radio).val()) + '</td>';
-                $('#table tr:last').after('<tr>' + akk + '</tr>')
-            }
-            return result;
-        }
-    </script>
+    <script type="text/javascript" src="viewJson/load.js"></script>
     <style>
         body {
             background: #333; /* Цвет фона */
             color: #ef8f1a; /* Цвет текста */
         }
+
         .center {
             width: 400px; /* Ширина элемента в пикселах */
             padding: 10px; /* Поля вокруг текста */
@@ -66,15 +36,15 @@
     <textarea class="form-control" rows="1" id="surname" placeholder="Form surname is empty"></textarea>
 </div>
 <div class="center">
-<label class="radio-inline"><input type="radio" name="sex" checked id="sexMale" value="male"/>Male</label>
-<label class="radio-inline"><input type="radio" name="sex" id="sexFemale" value="female"/>Female</label>
+    <label class="radio-inline"><input type="radio" name="sex" checked id="sexMale" value="male"/>Male</label>
+    <label class="radio-inline"><input type="radio" name="sex" id="sexFemale" value="female"/>Female</label>
 </div>
 <div class="center">
     <label for="description">Description:</label>
     <textarea class="form-control" rows="1" id="description" placeholder="Form description is empty"></textarea>
 </div>
 <div class="center">
-<button type="submit" class="btn btn-primary" onclick="return addRow()">Submit</button>
+    <button type="submit" class="btn btn-primary" onclick="createUser()">Submit</button>
 </div>
 <div class="container">
     <h2>Person Table</h2>
@@ -82,14 +52,15 @@
     <table class="table" id="table">
         <thead>
         <tr>
+            <th>Id</th>
             <th>Name</th>
             <th>Surname</th>
             <th>Description</th>
             <th>Sex</th>
         </tr>
         </thead>
+        <tbody></tbody>
     </table>
 </div>
-
 </body>
 </html>

@@ -25,11 +25,11 @@ public class AuthFilterServlet extends HttpServlet {
             HttpSession session = req.getSession();
             session.setAttribute("role", role);
             session.setAttribute("login", login);
-            resp.sendRedirect(req.getContextPath() + "/");
+            resp.sendRedirect(req.getContextPath() + "/controller");
         } else if (enter != null) {
             HttpSession session = req.getSession();
             session.setAttribute("role", Role.guest);
-            resp.sendRedirect(req.getContextPath() + "/");
+            resp.sendRedirect(req.getContextPath() + "/controller");
         } else {
             req.setAttribute("error", "User isn't exist");
             doGet(req, resp);
