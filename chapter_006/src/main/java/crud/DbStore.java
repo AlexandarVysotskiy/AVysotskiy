@@ -43,7 +43,7 @@ public class DbStore implements Store {
 
     @Override
     public User add(User user) {
-        createTable();
+//        createTable();
         String query = "INSERT INTO databaseStore (login, email, name, password, dateadd, role_id) VALUES (?, ?, ?, ?, ?, (select r.id from role as r where r.rolename = ?));";
         String dateAdd = user.getCreateDate().toString();
         try (Connection connection = SOURCE.getConnection();

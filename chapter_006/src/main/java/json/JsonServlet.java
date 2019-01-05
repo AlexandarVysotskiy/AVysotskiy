@@ -28,7 +28,6 @@ public class JsonServlet extends HttpServlet {
         PrintWriter pr = resp.getWriter();
         pr.append(new ObjectMapper().writeValueAsString(this.storage));
         pr.flush();
-
     }
 
     @Override

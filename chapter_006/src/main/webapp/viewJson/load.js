@@ -13,7 +13,6 @@ function loadUsers() {
                 $('#table tbody').append('<tr>' + akk + '</tr>');
             });
         }
-
     });
 }
 

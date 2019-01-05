@@ -1,9 +1,12 @@
 package crud;
 
+import com.google.gson.Gson;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -28,10 +31,25 @@ public class UserCreateServlet extends HttpServlet {
         }
     }
 
+
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
+        resp.setContentType("text/json");
+        resp.setCharacterEncoding("UTF-8");
+        BufferedReader reader = req.getReader();
+        StringBuilder sb = new StringBuilder();
+        String s;
+        while ((s = reader.readLine()) != null) {
+            System.out.println(s);
+            sb.append(s);
+        }
+        reader.close();
+        CityCountry cityCountry = new Gson().fromJson(sb.toString(), CityCountry.class);
+        System.out.println(cityCountry.getCity());
+        System.out.println(cityCountry.getCountry());
         try {
+            resp.setContentType("text/html");
             storage.add(new User(req.getParameter("name"), req.getParameter("login"), req.getParameter("email"),
                     req.getParameter("password"),
                     Role.valueOf(req.getParameter("role"))));
