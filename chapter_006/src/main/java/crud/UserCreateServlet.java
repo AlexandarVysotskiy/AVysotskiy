@@ -45,14 +45,14 @@ public class UserCreateServlet extends HttpServlet {
             sb.append(s);
         }
         reader.close();
-        CityCountry cityCountry = new Gson().fromJson(sb.toString(), CityCountry.class);
-        System.out.println(cityCountry.getCity());
-        System.out.println(cityCountry.getCountry());
+        User user = new Gson().fromJson(sb.toString(), User.class);
+        System.out.println(user.getLogin());
+        System.out.println(user.getCity());
+        System.out.println(user.getCountry());
         try {
             resp.setContentType("text/html");
-            storage.add(new User(req.getParameter("name"), req.getParameter("login"), req.getParameter("email"),
-                    req.getParameter("password"),
-                    Role.valueOf(req.getParameter("role"))));
+            storage.add(user);
+            System.out.println("Успех");
             resp.sendRedirect(req.getContextPath() + "/controller");
         } catch (UserError u) {
             PrintWriter writer = new PrintWriter(resp.getOutputStream());

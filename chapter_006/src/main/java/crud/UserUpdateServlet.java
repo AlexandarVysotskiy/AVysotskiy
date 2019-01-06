@@ -32,7 +32,7 @@ public class UserUpdateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         User user = new User(req.getParameter("name"), req.getParameter("login"), req.getParameter("email"),
-                req.getParameter("password"), Role.valueOf(req.getParameter("role")));
+                req.getParameter("password"), (req.getParameter("role")), "Gbnth", "vjj");
         int id = Integer.valueOf(req.getParameter("id"));
         try {
             storage.update(id, user);

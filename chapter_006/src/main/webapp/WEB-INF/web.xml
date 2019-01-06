@@ -57,6 +57,7 @@
         <servlet-name>AuthFilterServlet</servlet-name>
         <url-pattern>/authFilter</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>JsonServlet</servlet-name>
         <servlet-class>json.JsonServlet</servlet-class>
