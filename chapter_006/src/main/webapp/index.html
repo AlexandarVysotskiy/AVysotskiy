@@ -1,62 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
 <head>
-    <title>Create an account</title>
+    <title>Бронирование мест на сеанс</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="viewJson/load.js"></script>
+    <script type="text/javascript" src="viewJson/cinema.js"></script>
     <style>
         body {
             background: #333; /* Цвет фона */
             color: #ef8f1a; /* Цвет текста */
         }
-
-        .center {
-            width: 400px; /* Ширина элемента в пикселах */
-            padding: 10px; /* Поля вокруг текста */
-            margin: auto; /* Выравниваем по центру */
-        }
     </style>
 </head>
-<body>
+</head>
+<br>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-<div class="center">
-    <h1>Create an account</h1>
-    <p>There is form for your data.</p>
-</div>
-<div class="center">
-    <label for="name">Name:</label>
-    <textarea class="form-control" rows="1" id="name" placeholder="Form name is empty"></textarea>
-</div>
-<div class="center">
-    <label for="surname">Surname:</label>
-    <textarea class="form-control" rows="1" id="surname" placeholder="Form surname is empty"></textarea>
-</div>
-<div class="center">
-    <label class="radio-inline"><input type="radio" name="sex" checked id="sexMale" value="male"/>Male</label>
-    <label class="radio-inline"><input type="radio" name="sex" id="sexFemale" value="female"/>Female</label>
-</div>
-<div class="center">
-    <label for="description">Description:</label>
-    <textarea class="form-control" rows="1" id="description" placeholder="Form description is empty"></textarea>
-</div>
-<div class="center">
-    <button type="submit" class="btn btn-primary" onclick="createUser()">Submit</button>
-</div>
 <div class="container">
-    <h2>Person Table</h2>
-    <p>Description of person:</p>
+    <div class="row pt-3">
+        <h4>
+            Бронирование мест на сеанс
+        </h4>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th style="width: 120px;">Ряд / Место</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>1</th>
+                <td><input type="radio" name="place" value="11"> Ряд 1, Место 2</td>
+                <td><input type="radio" name="place" value="12"> Ряд 1, Место 2</td>
+                <td><input type="radio" name="place" value="13"> Ряд 1, Место 3</td>
+            </tr>
+            <tr>
+                <th>2</th>
+                <td><input type="radio" name="place" value="21"> Ряд 2, Место 1</td>
+                <td><input type="radio" name="place" value="22"> Ряд 2, Место 2</td>
+                <td><input type="radio" name="place" value="23"> Ряд 2, Место 3</td>
+            </tr>
+            <tr>
+                <th>3</th>
+                <td><input type="radio" name="place" value="31"> Ряд 3, Место 1</td>
+                <td><input type="radio" name="place" value="32"> Ряд 3, Место 2</td>
+                <td><input type="radio" name="place" value="33"> Ряд 3, Место 3</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row float-right">
+        <button type="submit" class="btn btn-success" onclick="getPlace()">Оплатить</button>
+    </div>
+</div>
+    <div class="container">
+    <p>Занятые места:</p>
     <table class="table" id="table">
         <thead>
         <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Description</th>
-            <th>Sex</th>
+            <th>Ряд</th>
+            <th>Место</th>
         </tr>
         </thead>
         <tbody></tbody>
