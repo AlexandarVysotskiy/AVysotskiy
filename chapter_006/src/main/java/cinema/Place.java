@@ -5,10 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Place {
 
     @JsonProperty("row")
-    String row;
+    private String row;
 
     @JsonProperty("column")
-    String column;
+    private String column;
 
     public Place(String row, String column) {
         this.row = row;

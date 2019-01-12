@@ -15,8 +15,9 @@ public class CinemaController implements CinemaControllerIntarface {
 
     private static final Db STORAGE = CinemaDB.getInstance();
 
-    public void addAccount(Account account) {
+    public boolean addAccount(Account account) {
         STORAGE.addNewAccount(account);
+        return true;
     }
 
     public List<Place> getPlace() {

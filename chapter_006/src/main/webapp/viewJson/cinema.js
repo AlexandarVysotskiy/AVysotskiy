@@ -18,16 +18,9 @@ function loadPlace() {
 
 function getPlace() {
     var place = $('input[name=place]:checked');
-    var resp = {"place": place.val()};
     if (place.val() === undefined) {
         alert("Select the place, please!");
     } else {
-        $.ajax({
-            type: "POST",
-            url: "cinema",
-            data: JSON.stringify(resp),
-            dataType: "json",
-            success: window.location.href = 'as?place=' + place.val()
-        });
+        window.location.href = 'as?place=' + place.val();
     }
 }

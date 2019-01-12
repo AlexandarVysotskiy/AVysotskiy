@@ -52,7 +52,6 @@ public class UserCreateServlet extends HttpServlet {
         try {
             resp.setContentType("text/html");
             storage.add(user);
-            System.out.println("Успех");
             resp.sendRedirect(req.getContextPath() + "/controller");
         } catch (UserError u) {
             PrintWriter writer = new PrintWriter(resp.getOutputStream());

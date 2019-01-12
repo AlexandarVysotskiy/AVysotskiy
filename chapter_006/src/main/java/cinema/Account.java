@@ -2,16 +2,18 @@ package cinema;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 public class Account {
 
     @JsonProperty("phone")
-    String phone;
+    private String phone;
 
     @JsonProperty("fullName")
-    String fullName;
+    private String fullName;
 
 
-    Place place;
+    private Place place;
 
     public Account(String phone, String fullName, Place place) {
         this.phone = phone;
@@ -41,5 +43,20 @@ public class Account {
 
     public void setPlace(Place place) {
         this.place = place;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return phone.equals(account.phone) &&
+                fullName.equals(account.fullName) &&
+                place.equals(account.place);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(phone, fullName, place);
     }
 }
