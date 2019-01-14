@@ -82,5 +82,26 @@
         <module>chapter_003</module>
         <module>chapter_005</module>
         <module>chapter_006</module>
+        <module>chapter_007</module>
     </modules>
+    <profiles>
+        <profile>
+            <id>test</id>
+            <properties>
+                <db.url>jdbc:postgresql://localhost:5432/DBStore</db.url>
+                <db.username>postgres</db.username>
+                <db.password>password</db.password>
+                <db.driver>org.postgresql.Driver</db.driver>
+            </properties>
+        </profile>
+        <profile>
+            <id>production</id>
+            <properties>
+                <db.url>jdbc:postgresql://localhost:5432/DBStore</db.url>
+                <db.username>postgres</db.username>
+                <db.password>password</db.password>
+                <db.driver>org.postgresql.Driver</db.driver>
+            </properties>
+        </profile>
+    </profiles>
 </project>
