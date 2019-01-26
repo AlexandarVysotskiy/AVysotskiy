@@ -11,7 +11,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 
 /**
  * Class ConsoleBot;
- *
+ * <p>
  * Программа консольный чат.
  * Пользователь вводит слово-фразу, программа берет случайную фразу из текстового файла и выводит в ответ.
  * Программа замолкает если пользователь вводит слово «стоп» при этом пользователь может продолжать отправлять сообщения в чат.
@@ -39,14 +39,17 @@ public class ConsoleBot {
             botAnswer = getRandomStringFromFile(fileWithPhrase);
             log.info(userInput);
             log.info(botAnswer);
+            if (!isPause) {
+                System.out.println(botAnswer);
+            }
+            if (userInput.equals("стоп")) {
+                isPause = true;
+            }
+            if (userInput.equals("продолжить")) {
+                isPause = false;
+            }
             if (userInput.equals("закончить")) {
                 isFinish = true;
-            } else if (userInput.equals("стоп")) {
-                isPause = true;
-            } else if (userInput.equals("продолжить")) {
-                isPause = false;
-            } else if (!isPause) {
-                System.out.println(botAnswer);
             }
         }
     }
@@ -68,6 +71,9 @@ public class ConsoleBot {
         return result.substring(result.lastIndexOf("\\") + 1);
     }
 
+    /**
+     * Файл answer_database.txt скачан с сети интернет и может содержать ненормативную лексику.
+     */
     public static void main(String[] args) {
         ConsoleBot consoleBot = new ConsoleBot();
         File input = new File(ConsoleBot.class.getClassLoader().getResource("answer_database.txt").getPath());
