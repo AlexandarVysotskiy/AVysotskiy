@@ -4,6 +4,7 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
          http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
          version="2.4">
+
     <servlet>
         <servlet-name>EchoServlet</servlet-name>
         <servlet-class>servlets.EchoServlet</servlet-class>
@@ -21,6 +22,15 @@
         <!--<filter-name>AuthFilter</filter-name>-->
         <!--<url-pattern>*</url-pattern>-->
     <!--</filter-mapping>-->
+
+    <filter>
+    <filter-name>CinemaFiltrate</filter-name>
+    <filter-class>cinema.filtrates.CinemaFiltrate</filter-class>
+    </filter>
+    <filter-mapping>
+    <filter-name>CinemaFiltrate</filter-name>
+    <url-pattern>*</url-pattern>
+    </filter-mapping>
 
     <servlet>
         <servlet-name>UsersController</servlet-name>
@@ -69,7 +79,7 @@
 
     <servlet>
         <servlet-name>HallServlet</servlet-name>
-        <servlet-class>cinema.HallServlet</servlet-class>
+        <servlet-class>cinema.servlets.HallServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HallServlet</servlet-name>
@@ -78,7 +88,7 @@
 
     <servlet>
         <servlet-name>AccountServlet</servlet-name>
-        <servlet-class>cinema.AccountServlet</servlet-class>
+        <servlet-class>cinema.servlets.AccountServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>AccountServlet</servlet-name>
@@ -86,7 +96,26 @@
     </servlet-mapping>
 
     <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
+        <welcome-file>index.html</welcome-file>
     </welcome-file-list>
+
+    <servlet>
+        <servlet-name>ListenerTester</servlet-name>
+        <servlet-class>listener.ListenerTester</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ListenerTester</servlet-name>
+        <url-pattern>/java.do</url-pattern>
+    </servlet-mapping>
+
+    <context-param>
+        <param-name>name</param-name>>
+        <param-value>This is a old cat</param-value>>
+    </context-param>
+    <listener>
+        <listener-class>
+            listener.ServletContestListenerTest
+        </listener-class>
+    </listener>
 
 </web-app>
