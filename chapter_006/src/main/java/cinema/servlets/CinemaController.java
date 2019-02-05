@@ -1,4 +1,9 @@
-package cinema;
+package cinema.servlets;
+
+import cinema.data.CinemaDB;
+import cinema.data.Db;
+import cinema.models.Account;
+import cinema.models.Place;
 
 import java.util.List;
 

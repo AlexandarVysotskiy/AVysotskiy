@@ -1,4 +1,4 @@
-package cinema;
+package cinema.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -47,12 +47,16 @@ public class Account {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Account account = (Account) o;
-        return phone.equals(account.phone) &&
-                fullName.equals(account.fullName) &&
-                place.equals(account.place);
+        return phone.equals(account.phone)
+                && fullName.equals(account.fullName)
+                && place.equals(account.place);
     }
 
     @Override

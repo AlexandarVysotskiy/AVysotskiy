@@ -1,5 +1,7 @@
-package cinema;
+package cinema.data;
 
+import cinema.models.Account;
+import cinema.models.Place;
 import crud.DbStore;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.log4j.Logger;
@@ -11,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CinemaDB implements Db {
-    private Account account;
     private static final BasicDataSource SOURCE = new BasicDataSource();
     private static final CinemaDB INSTANCE = new CinemaDB();
     private static Logger log = Logger.getLogger(DbStore.class);
@@ -29,7 +30,6 @@ public class CinemaDB implements Db {
 
     @Override
     public Account addNewAccount(Account account) {
-        this.account = account;
         String addAccount = "INSERT INTO accounts (phone, fullname, row, blockcolumn) values(?, ?, ?, ?);";
         try (Connection connection = SOURCE.getConnection();
              PreparedStatement ps = connection.prepareStatement(addAccount)
@@ -45,19 +45,19 @@ public class CinemaDB implements Db {
             log.error(e.getMessage(), e);
             e.printStackTrace();
         }
-        addPlace();
+        addPlace(account);
         return account;
     }
 
 
-    private void addPlace() {
+    private void addPlace(Account account) {
         String addHalls = "INSERT INTO halls (row, blockcolumn) values(?,?);";
         try (Connection connection = SOURCE.getConnection();
              PreparedStatement ps = connection.prepareStatement(addHalls)
         ) {
             connection.setAutoCommit(false);
-            ps.setString(1, this.account.getPlace().getRow());
-            ps.setString(2, this.account.getPlace().getColumn());
+            ps.setString(1, account.getPlace().getRow());
+            ps.setString(2, account.getPlace().getColumn());
             ps.executeUpdate();
             connection.commit();
         } catch (Exception e) {

@@ -1,4 +1,4 @@
-package cinema;
+package cinema.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

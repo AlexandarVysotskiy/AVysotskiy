@@ -1,7 +1,10 @@
-package cinema;
+package cinema.servlets;
 
+import cinema.models.Account;
+import cinema.models.Place;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,20 +18,23 @@ public class AccountServlet extends HttpServlet {
 
     private final CinemaControllerIntarface storage = CinemaController.getInstance();
 
-    private String place;
+    private static Logger log = Logger.getLogger(AccountServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String p = req.getParameter("place");
         if (p != null) {
-            this.place = p;
+            synchronized (getServletContext()) {
+                getServletContext().setAttribute("place", p);
+            }
             resp.sendRedirect("/chapter_006/payment.html");
         }
         resp.setContentType("text/json");
         resp.setCharacterEncoding("UTF-8");
         PrintWriter pr = resp.getWriter();
         StringBuilder sb = new StringBuilder();
-        sb.append("Вы выбрали ряд ").append(place.charAt(0)).append(" место ").append(place.charAt(1)).append(", Сумма : 2$");
+        sb.append("Вы выбрали ряд ").append(p.charAt(0)).append(" место ").append(p.charAt(1)).append(", Сумма : 2$");
+        log.info(sb.toString());
         pr.append(new ObjectMapper().writeValueAsString(sb));
         pr.flush();
     }
@@ -36,13 +42,18 @@ public class AccountServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         boolean isFree = true;
-        if (place != null) {
+        String pl;
+        synchronized (getServletContext()) {
+            pl = (String) getServletContext().getAttribute("place");
+        }
+        if (pl != null) {
             if (!storage.getPlace().isEmpty()) {
                 for (Place p : storage.getPlace()) {
-                    if ((String.valueOf(place.charAt(1))).equals(p.getColumn()) & (String.valueOf(place.charAt(0))).equals(p.getRow())) {
+                    if ((String.valueOf(pl.charAt(1))).equals(p.getColumn()) & (String.valueOf(pl.charAt(0))).equals(p.getRow())) {
                         System.out.println("error");
                         PrintWriter writer = resp.getWriter();
                         String error = "Place isn't free, please select other place!";
+                        log.info(error);
                         writer.append(new ObjectMapper().writeValueAsString(error));
                         writer.flush();
                         isFree = false;
@@ -61,11 +72,12 @@ public class AccountServlet extends HttpServlet {
                 }
                 reader.close();
                 Account account = new Gson().fromJson(sb.toString(), Account.class);
-                account.setPlace(new Place(String.valueOf(place.charAt(0)), String.valueOf(place.charAt(1))));
+                account.setPlace(new Place(String.valueOf(pl.charAt(0)), String.valueOf(pl.charAt(1))));
                 storage.addAccount(account);
                 System.out.println("success");
                 PrintWriter writer = resp.getWriter();
                 String success = "You ticket has added!";
+                log.info(success);
                 writer.append(new ObjectMapper().writeValueAsString(success));
                 writer.flush();
             }
