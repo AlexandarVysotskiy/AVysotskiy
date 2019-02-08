@@ -1,24 +1,29 @@
 package manager;
 
+import bot.ConsoleBot;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.*;
+import java.util.logging.Logger;
 
 
 /**
  * Class ServerFileManager
  *
  * @author Alexandar Vysotskiy
- * @version 1.0 demo
+ * @version 1.1
  * @since 08.02.19
  */
 
-public class ServerFileManager {
+public class ServerFileManager implements ServerInt {
 
-    private Socket socket;
+    private final Socket socket;
+
+    private static Logger log = Logger.getLogger(ConsoleBot.class.getName());
 
     public ServerFileManager(Socket socket) {
         this.socket = socket;
@@ -27,53 +32,60 @@ public class ServerFileManager {
     private File path;
 
     /**
-     * Что бы подняться в родительский каталог введите 0.
-     * для перемещения файла в существующую директории нажмите "d" или "D" и укажите полный путь к файлу.
+     * If user input 0, it will be up in parent directory;
+     * It is for copy file in opened directory, it need input absolute source path to file.
      *
-     * @param startPath - каталог с каторого запускается программа.
+     * @param startPath - it is directory with the program starts.
      */
-    public void start(String startPath) throws IOException {
-        PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-        BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        File fileList = new File(startPath);
-        int n = 1;
-        for (File f : fileList.listFiles()) {
-            out.println(n++ + " " + f.toString());
-        }
-        out.println();
-        boolean isStop = false;
-        int i = 1;
-        String userRequest;
-        do {
-            userRequest = in.readLine();
-            if (!(userRequest.contains(".")) & !(userRequest.equals("stop"))) {
-                fileList = getListFileInDirectory(Integer.valueOf(userRequest), fileList);
-                this.path = fileList;
-                if (fileList.isDirectory()) {
-                    for (File f : fileList.listFiles()) {
-                        out.println(i++ + " " + f.toString());
-                    }
-                    out.println();
-                    i = 1;
-                } else {
-                    out.println(fileList.toString());
-                    out.println();
-                }
-            } else if (userRequest.contains(".")) {
-                File fileCopyPath = new File(userRequest);
-                String newFileCopyPath = fileCopyPath.toString().substring(fileCopyPath.toString().lastIndexOf("\\"));
-                System.out.println(newFileCopyPath);
-                File dest = new File(this.path + newFileCopyPath);
-                download(fileCopyPath, dest);
-                out.println();
-            } else if (userRequest.equals("stop")) {
-                isStop = true;
+    public void start(String startPath) {
+        try (PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+            File fileList = new File(startPath);
+            int n = 1;
+            for (File f : fileList.listFiles()) {
+                out.println(n++ + " " + f.toString());
             }
-        } while (!isStop);
+            out.println();
+            boolean isStop = false;
+            int i = 1;
+            String userRequest;
+            do {
+                userRequest = in.readLine();
+                if (!(userRequest.contains(".")) & !(userRequest.equals("stop"))) {
+                    this.path = fileList;
+                    fileList = getListFilesInDirectory(Integer.valueOf(userRequest), fileList);
+                    if (!fileList.isFile()) {
+                        this.path = fileList;
+                    }
+                    if (fileList.isDirectory()) {
+                        for (File f : fileList.listFiles()) {
+                            System.out.println(f.toString());
+                            out.println(i++ + " " + f.toString());
+                            this.path = fileList;
+                        }
+                        out.println();
+                    } else {
+                        out.println(i++ + " " + fileList.toString());
+                        out.println();
+                    }
+                    i = 1;
+                } else if (userRequest.contains(".")) {
+                    File fileCopyPath = new File(userRequest);
+                    String newFileCopyPath = fileCopyPath.toString().substring(fileCopyPath.toString().lastIndexOf("\\"));
+                    File dest = new File(this.path + newFileCopyPath);
+                    download(fileCopyPath, dest);
+                    out.println();
+                } else if (userRequest.equals("stop")) {
+                    isStop = true;
+                }
+            } while (!isStop);
+        } catch (IOException e) {
+            log.info(e.getMessage());
+        }
     }
 
 
-    public File getListFileInDirectory(int number, File file) {
+    public File getListFilesInDirectory(int number, File file) {
         File result;
         File[] f = file.listFiles();
         if (number == 0) {
@@ -86,19 +98,19 @@ public class ServerFileManager {
 
 
     /**
-     * В случае если файл существует он перезаписывается.
+     * Method copies a file from a path to other a path.
+     * <p>
+     * If file is exist in this directory, it will be rewritten.
      *
-     * @param src
-     * @param dest
-     * @return
+     * @param src  absolute path for file.
+     * @param dest absolute new path for file.
      */
-    public String download(File src, File dest) {
+    public void download(File src, File dest) {
         try {
             Files.copy(src.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "success";
     }
 
 
