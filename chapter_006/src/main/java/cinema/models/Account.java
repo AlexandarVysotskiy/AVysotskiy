@@ -2,23 +2,49 @@ package cinema.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "accounts")
 public class Account {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
     @JsonProperty("phone")
+    @Column(name = "phone")
     private String phone;
 
     @JsonProperty("fullName")
+    @Column(name = "fullname")
     private String fullName;
 
+    @JsonProperty("row")
+    @Column(name = "row")
+    private String row;
 
-    private Place place;
+    @JsonProperty("blockcolumn")
+    @Column(name = "blockcolumn")
+    private String blockcolumn;
 
-    public Account(String phone, String fullName, Place place) {
+    public Account(String phone, String fullName, String row, String blockcolumn) {
         this.phone = phone;
         this.fullName = fullName;
-        this.place = place;
+        this.row = row;
+        this.blockcolumn = blockcolumn;
+    }
+
+    public Account() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getPhone() {
@@ -37,30 +63,19 @@ public class Account {
         this.fullName = fullName;
     }
 
-    public Place getPlace() {
-        return place;
+    public String getRow() {
+        return row;
     }
 
-    public void setPlace(Place place) {
-        this.place = place;
+    public void setRow(String row) {
+        this.row = row;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Account account = (Account) o;
-        return phone.equals(account.phone)
-                && fullName.equals(account.fullName)
-                && place.equals(account.place);
+    public String getBlockcolumn() {
+        return blockcolumn;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(phone, fullName, place);
+    public void setBlockcolumn(String blockcolumn) {
+        this.blockcolumn = blockcolumn;
     }
 }

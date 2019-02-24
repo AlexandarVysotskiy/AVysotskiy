@@ -7,12 +7,15 @@ public class Place {
     @JsonProperty("row")
     private String row;
 
-    @JsonProperty("column")
-    private String column;
+    @JsonProperty("blockcolumn")
+    private String blockcolumn;
 
     public Place(String row, String column) {
         this.row = row;
-        this.column = column;
+        this.blockcolumn = column;
+    }
+
+    public Place() {
     }
 
     public String getRow() {
@@ -23,11 +26,11 @@ public class Place {
         this.row = row;
     }
 
-    public String getColumn() {
-        return column;
+    public String getBlockcolumn() {
+        return blockcolumn;
     }
 
-    public void setColumn(String column) {
-        this.column = column;
+    public void setBlockcolumn(String blockcolumn) {
+        this.blockcolumn = blockcolumn;
     }
 }

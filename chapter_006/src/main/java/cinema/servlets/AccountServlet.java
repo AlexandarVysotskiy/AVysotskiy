@@ -1,7 +1,6 @@
 package cinema.servlets;
 
 import cinema.models.Account;
-import cinema.models.Place;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.apache.log4j.Logger;
@@ -47,10 +46,10 @@ public class AccountServlet extends HttpServlet {
             pl = (String) getServletContext().getAttribute("place");
         }
         if (pl != null) {
-            if (!storage.getPlace().isEmpty()) {
-                for (Place p : storage.getPlace()) {
-                    if ((String.valueOf(pl.charAt(1))).equals(p.getColumn()) & (String.valueOf(pl.charAt(0))).equals(p.getRow())) {
-                        System.out.println("error");
+            if (!storage.getAccounts().isEmpty()) {
+                for (Account a : storage.getAccounts()) {
+                    if ((String.valueOf(pl.charAt(1))).equals(a.getBlockcolumn()) & (String.valueOf(pl.charAt(0))).equals(a.getRow())) {
+                        log.info("Place isn't free");
                         PrintWriter writer = resp.getWriter();
                         String error = "Place isn't free, please select other place!";
                         log.info(error);
@@ -69,12 +68,13 @@ public class AccountServlet extends HttpServlet {
                 String s;
                 while ((s = reader.readLine()) != null) {
                     sb.append(s);
+                    System.out.println(sb);
                 }
                 reader.close();
                 Account account = new Gson().fromJson(sb.toString(), Account.class);
-                account.setPlace(new Place(String.valueOf(pl.charAt(0)), String.valueOf(pl.charAt(1))));
+                account.setBlockcolumn(String.valueOf(pl.charAt(1)));
+                account.setRow(String.valueOf(pl.charAt(0)));
                 storage.addAccount(account);
-                System.out.println("success");
                 PrintWriter writer = resp.getWriter();
                 String success = "You ticket has added!";
                 log.info(success);
