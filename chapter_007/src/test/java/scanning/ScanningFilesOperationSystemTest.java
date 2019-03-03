@@ -55,6 +55,7 @@ public class ScanningFilesOperationSystemTest {
 
     @Test
     public void files() {
+        System.out.println(path + "testFolderForJava");
         List<File> fileList = scanning.files(path + "testFolderForJava", listExt);
         assertArrayEquals(expected, fileList.toArray(new File[0]));
     }

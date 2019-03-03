@@ -1,6 +1,6 @@
 package paterns.factorymethod.factory;
 
-import paterns.factorymethod.Auto.Auto;
+import paterns.factorymethod.auto.Auto;
 
 /**
  * Class Factory.

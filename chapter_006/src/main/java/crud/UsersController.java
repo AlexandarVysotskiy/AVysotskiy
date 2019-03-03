@@ -1,4 +1,5 @@
 package crud;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,8 +26,7 @@ public class UsersController extends HttpServlet {
             }
         } catch (UserError u) {
             u.printStackTrace();
-        }
-        finally {
+        } finally {
             req.getRequestDispatcher("/WEB-INF/views/listOfUser.jsp").forward(req, resp);
         }
     }
@@ -35,10 +35,13 @@ public class UsersController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
         String exist = req.getParameter("exist");
+        System.out.println("first");
+        System.out.println("It is session " + exist);
+        System.out.println("second");
         String id = (req.getParameter("id"));
         if (exist != null) {
             session.invalidate();
-        } else if(id != null) {
+        } else if (id != null) {
             storage.delete(Integer.valueOf(id));
         }
         resp.setContentType("text/html");

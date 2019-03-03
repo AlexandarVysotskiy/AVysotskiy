@@ -30,7 +30,6 @@ public class UserUpdateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        System.out.println("UserCreateServlet");
         resp.setContentType("text/html");
         User user = new User(req.getParameter("name"), req.getParameter("login"), req.getParameter("email"),
                 req.getParameter("password"), (req.getParameter("role")), "Gbnth", "vjj");

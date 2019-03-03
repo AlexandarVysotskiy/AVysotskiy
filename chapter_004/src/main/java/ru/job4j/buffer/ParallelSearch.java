@@ -5,7 +5,7 @@ import ru.job4j.blocking.SimpleBlockingQueue;
 public class ParallelSearch {
 
     public static void main(String[] args) {
-        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>();
+        SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(8);
         final Thread consumer = new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
                 try {

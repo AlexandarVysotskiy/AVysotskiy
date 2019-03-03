@@ -6,7 +6,7 @@ import paterns.abstractfactory.details.Transmission;
 import paterns.abstractfactory.factory.Volkswagen;
 
 /**
- * Class Auto
+ * Class auto
  *
  * @author Alexandar Vysotskiy
  * @version 1.0

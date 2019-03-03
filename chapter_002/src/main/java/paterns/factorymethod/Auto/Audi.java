@@ -1,8 +1,8 @@
-package paterns.factorymethod.Auto;
+package paterns.factorymethod.auto;
 
 /**
- * Class Audi
- * Audi auto implementation
+ * Class AudiRS8
+ * AudiRS8 auto implementation
  *
  * @author Alexandar Vysotskiy
  * @version 1.0
@@ -10,6 +10,6 @@ package paterns.factorymethod.Auto;
 
 public class Audi implements Auto {
     public String getBrand() {
-        return (" Audi");
+        return (" AudiRS8");
     }
 }

@@ -8,7 +8,7 @@ public class ThreadPoolTest {
 
     @Test
     public void whenUpdateBase() {
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
             pool.work(() -> {
                 System.out.println(Thread.currentThread().getName() + "Working");
             });

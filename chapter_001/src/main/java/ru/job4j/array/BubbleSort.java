@@ -4,21 +4,22 @@ public class BubbleSort {
     /**
      * Класс служит для сортировки массива используя алгоритм сортировки пузырьком
      *
-     * @param array - сортируемый массив
+     * @param inputArray - сортируемый массив
      * @return - возвращает отсортированный массив
      * @author Alexandar Vysotskiy
      * @version 1.0
      */
-    public int[] sort(int[] array) {
-        for (int external = array.length - 1; external > 0; external--) {
-            for (int internal = 0; internal < external; internal++) {
-                if (array[internal] > array[internal + 1]) {
-                    int x = array[internal];
-                    array[internal] = array[internal + 1];
-                    array[internal + 1] = x;
+    public int[] sort(int[] inputArray) {
+        int[] result = inputArray;
+        for (int i = result.length - 1; i >= 1; i--) {
+            for (int j = 0; j < i; j++) {
+                if (result[j] > result[j + 1]) {
+                    int temp = result[j + 1];
+                    result[j + 1] = result[j];
+                    result[j] = temp;
                 }
             }
         }
-        return array;
+        return result;
     }
 }

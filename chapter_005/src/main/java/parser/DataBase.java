@@ -11,7 +11,7 @@ import java.util.Properties;
  */
 public class DataBase implements Closeable {
 
-    private static Logger LOG = Logger.getLogger(DataBase.class);
+    private static Logger log = Logger.getLogger(DataBase.class);
 
     private Connection connection;
 
@@ -32,7 +32,7 @@ public class DataBase implements Closeable {
             properties.load(reader);
             reader.close();
         } catch (IOException e) {
-            LOG.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);
             e.printStackTrace();
         }
         return properties;
@@ -57,21 +57,19 @@ public class DataBase implements Closeable {
      * Создает таблицу если она не существует
      */
     private void createTable() {
-        String query = "CREATE TABLE IF NOT EXISTS vacancies( \n" +
-                "\t--id - первичный ключ\\n\" \n" +
-                "\tid SERIAL PRIMARY KEY, --name - имя вакансии\\n \n" +
-                "\tname VARCHAR(100), \n" +
-                "\t--text - текст вакансии\\\n" +
-                "\ttext VARCHAR(1000), \n" +
-                "\t--link - текст, ссылка на вакансию \n" +
-                "\tlink VARCHAR(200),\n" +
-                "\t--date - дата вакансии \n" +
-                "\tdateAdd VARCHAR(50)); ";
-
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("CREATE TABLE IF NOT EXISTS vacancies( \n");
+        stringBuilder.append("\t--id - первичный ключ\\n\" \n");
+        stringBuilder.append("\tid SERIAL PRIMARY KEY, --name - имя вакансии\\n \n");
+        stringBuilder.append("\tname VARCHAR(100), \n").append("\t--text - текст вакансии\\\n");
+        stringBuilder.append("\ttext VARCHAR(1000), \n").append("\t--link - текст, ссылка на вакансию \n");
+        stringBuilder.append("\tlink VARCHAR(200),\n");
+        stringBuilder.append("\t--date - дата вакансии \n").append("\tdateAdd VARCHAR(50)); ");
+        String query = stringBuilder.toString();
         try (Statement st = connection.createStatement()) {
             st.executeUpdate(query);
         } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);
             e.printStackTrace();
         }
     }
@@ -85,8 +83,7 @@ public class DataBase implements Closeable {
      */
     public void addVacancy(String name, String text, String link, String date) {
         createTable();
-        String query = "\n" +
-                "INSERT INTO vacancies(name, text, link, dateAdd) VALUES (?,?,?,?);";
+        String query = new StringBuilder().append("\n").append("INSERT INTO vacancies(name, text, link, dateAdd) VALUES (?,?,?,?);").toString();
 
         try (PreparedStatement ps = connection.prepareStatement(query)) {
             ps.setString(1, name);
@@ -95,12 +92,12 @@ public class DataBase implements Closeable {
             ps.setString(4, date);
             ps.executeUpdate();
         } catch (SQLException e) {
-            LOG.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);
             e.printStackTrace();
         }
     }
 
-    public String getLastData(){
+    public String getLastData() {
         String result = null;
         String query = "SELECT MIN(dateAdd) FROM vacancies";
         try (PreparedStatement ps = connection.prepareStatement(query)) {

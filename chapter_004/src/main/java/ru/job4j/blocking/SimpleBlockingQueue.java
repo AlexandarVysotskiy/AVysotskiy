@@ -20,7 +20,7 @@ public class SimpleBlockingQueue<E> {
     @GuardedBy("this")
     private int size;
 
-    public SimpleBlockingQueue(int size){
+    public SimpleBlockingQueue(int size) {
         this.size = size;
     }
 

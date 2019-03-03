@@ -2,6 +2,7 @@ package ru.job4j.phone;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Search {
     private List<Person> persons = new ArrayList<Person>();
@@ -18,12 +19,14 @@ public class Search {
      */
 
     public List<Person> find(String key) {
-        List<Person> result = new ArrayList<>();
-        for (Person index : persons) {
-            if (index.getName().contains(key) || index.getSurname().contains(key) || index.getAddress().contains(key) || index.getPhone().contains(key)) {
-                result.add(index);
-            }
-        }
+        List<Person> result;
+        result = persons.stream().filter(
+                person -> ((
+                        person.getAddress().contains(key))
+                        || (person.getName().contains(key))
+                        || (person.getSurname().contains(key))
+                        || (person.getPhone().contains(key))))
+                .collect(Collectors.toList());
         return result;
     }
 }

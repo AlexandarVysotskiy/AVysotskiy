@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 @ThreadSafe
 public class UserStorage {
-
     @GuardedBy("this")
     private ArrayList<User> storage = new ArrayList();
 
