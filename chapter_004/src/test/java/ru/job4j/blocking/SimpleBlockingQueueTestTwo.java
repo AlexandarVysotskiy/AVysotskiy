@@ -13,7 +13,7 @@ public class SimpleBlockingQueueTestTwo {
     @Test
     public void whenFetchAllThenGetIt() throws InterruptedException {
         final CopyOnWriteArrayList<Integer> buffer = new CopyOnWriteArrayList<>();
-        final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(5);
+        final SimpleBlockingQueue<Integer> queue = new SimpleBlockingQueue<>(8);
         Thread producer = new Thread(
                 () -> {
                     IntStream.range(1, 5).forEach(

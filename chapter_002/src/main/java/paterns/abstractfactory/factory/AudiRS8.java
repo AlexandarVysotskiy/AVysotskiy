@@ -24,8 +24,12 @@ public class AudiRS8 implements Volkswagen {
     }
 
     public String getInfo() {
-        return "Model Audi RS8 " + "body " + createBody().getBody() +
-                "engine " + createEngine().getEngine() +
-                "transmission " + createTransmission().getTransmission();
+        return "Model Audi RS8 "
+                + "body "
+                + createBody().getBody()
+                + "engine "
+                + createEngine().getEngine()
+                + "transmission "
+                + createTransmission().getTransmission();
     }
 }

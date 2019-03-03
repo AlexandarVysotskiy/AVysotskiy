@@ -1,6 +1,7 @@
 package ru.job4j.bank;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 public class BankSystem {
     private Map<User, List<Account>> repository = new HashMap<User, List<Account>>();
@@ -30,13 +31,9 @@ public class BankSystem {
      * @param passport - ключ, по которому осуществяется поиск.
      */
     public User getUser(String passport) {
-        User result = new User();
-        for (User user : this.repository.keySet()) {
-            if (passport.equals(user.getPassport())) {
-                result = user;
-                break;
-            }
-        }
+        User result;
+        Stream<User> streamUsers = repository.keySet().stream();
+        result = streamUsers.filter(i -> (i.getPassport().equals(passport))).findFirst().get();
         if (result.getPassport() == null) {
             throw new NullPointerException("Пользователь с таким именнем не найден.");
         }
@@ -74,13 +71,9 @@ public class BankSystem {
      * Вспомогательный метод возращает счет пользоваетля по паспортным данным и реквизитам.
      */
     private Account getAccountByPassportAndRequisites(String passport, String requisites) {
-        List<Account> userAccount = this.repository.get(getUser(passport));
-        Account result = null;
-        for (Account index : userAccount) {
-            if (requisites.equals(index.getRequisites())) {
-                result = index;
-            }
-        }
+        Account result;
+        Stream<Account> streamUserAccount = this.repository.get(getUser(passport)).stream();
+        result = streamUserAccount.filter(i -> (i.getRequisites().equals(requisites))).findFirst().get();
         return result;
     }
 

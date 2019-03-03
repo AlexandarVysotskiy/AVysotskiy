@@ -1,7 +1,7 @@
-package paterns.factorymethod.Auto;
+package paterns.factorymethod.auto;
 
 /**
- * Class Auto
+ * Class auto
  *
  * Common interface for all auto.
  *

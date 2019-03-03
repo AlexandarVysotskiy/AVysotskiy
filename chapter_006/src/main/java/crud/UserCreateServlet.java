@@ -3,12 +3,14 @@ package crud;
 import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 
 /**
  * Задание: реализовать веб приложение для управления пользователями.
@@ -20,17 +22,16 @@ public class UserCreateServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try {
-            if (!storage.getAll().isEmpty()) {
-                req.setAttribute("users", storage.getAll());
-            }
-        } catch (UserError u) {
-            u.printStackTrace();
-        } finally {
-            req.getRequestDispatcher("/WEB-INF/views/CreateNewUser.jsp").forward(req, resp);
-        }
+//        try {
+//            if (!storage.getAll().isEmpty()) {
+//                req.setAttribute("users", storage.getAll());
+//            }
+//        } catch (UserError u) {
+//            u.printStackTrace();
+//        } finally {
+//            req.getRequestDispatcher("/WEB-INF/views/CreateNewUser.jsp").forward(req, resp);
+//        }
     }
-
 
 
     @Override

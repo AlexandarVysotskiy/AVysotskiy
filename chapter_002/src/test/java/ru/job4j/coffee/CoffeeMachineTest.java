@@ -9,8 +9,8 @@ public class CoffeeMachineTest {
     @Test
     public void changesTest() {
         CoffeeMachine coffeeMachine = new CoffeeMachine();
-        int[] result = coffeeMachine.changes(50, 35);
-        int[] expected = {10, 5};
+        int[] result = coffeeMachine.changes(98, 30);
+        int[] expected = {10, 10, 10, 10, 10, 10, 5, 2, 1};
         assertThat(expected, is(result));
     }
 }

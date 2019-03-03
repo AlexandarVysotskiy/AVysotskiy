@@ -1,4 +1,4 @@
-package paterns.factorymethod.Auto;
+package paterns.factorymethod.auto;
 
 /**
  * Class BMW

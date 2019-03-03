@@ -1,7 +1,6 @@
 package socketbot;
 
 import com.google.common.base.Joiner;
-import org.apache.logging.log4j.core.jmx.Server;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;

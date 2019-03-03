@@ -1,6 +1,6 @@
 package paterns.factorymethod;
 
-import paterns.factorymethod.Auto.Auto;
+import paterns.factorymethod.auto.Auto;
 import paterns.factorymethod.factory.Factory;
 import paterns.factorymethod.factory.GermanyAuto;
 import paterns.factorymethod.factory.RussianAuto;
@@ -23,7 +23,7 @@ public class Client {
         Auto auto = russianAuto.orderAuto("Lada");
         System.out.println("Client A bought" + auto.getBrand());
 
-        auto = germanyAuto.orderAuto("Audi");
+        auto = germanyAuto.orderAuto("AudiRS8");
         System.out.println("Client B bought" + auto.getBrand());
     }
 }

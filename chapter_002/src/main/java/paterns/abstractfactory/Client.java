@@ -30,12 +30,18 @@ public class Client {
     }
 
     public static void main(String[] args) {
-        System.out.println("Model Audi RS8 " + "body: " + configureApplication("RS8").body.getBody() +
-                " engine: " + configureApplication("RS8").engine.getEngine() +
-                " transmission: " + configureApplication("RS8").transmission.getTransmission());
+        System.out.println("Model Audi RS8 "
+                + "body: "
+                + configureApplication("RS8").body.getBody()
+                + " engine: " + configureApplication("RS8").engine.getEngine()
+                + " transmission: " + configureApplication("RS8").transmission.getTransmission());
 
-        System.out.println("Model Skoda Scala " + "body: " + configureApplication("Scala").body.getBody() +
-                " engine: " + configureApplication("Scala").engine.getEngine() +
-                " transmission: " + configureApplication("Scala").transmission.getTransmission());
+        System.out.println("Model Skoda Scala "
+                + "body: "
+                + configureApplication("Scala").body.getBody()
+                + " engine: "
+                + configureApplication("Scala").engine.getEngine()
+                + " transmission: "
+                + configureApplication("Scala").transmission.getTransmission());
     }
 }

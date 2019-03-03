@@ -9,12 +9,12 @@ import java.util.List;
  * This is class realizations pool of threads.
  */
 public class ThreadPool {
+    int size = Runtime.getRuntime().availableProcessors();
     private final List<Thread> threads = new LinkedList<>();
-    private final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>();
+    private final SimpleBlockingQueue<Runnable> tasks = new SimpleBlockingQueue<>(size);
 
     public ThreadPool() {
-        int size = Runtime.getRuntime().availableProcessors();
-        tasks.setSize(size);
+
         for (int index = 0; index < size; index++) {
             Thread thread = new Thread(
                     () -> {
@@ -38,7 +38,7 @@ public class ThreadPool {
      * @param job
      */
     public void work(Runnable job) {
-            tasks.offer(job);
+        tasks.offer(job);
     }
 
     /**

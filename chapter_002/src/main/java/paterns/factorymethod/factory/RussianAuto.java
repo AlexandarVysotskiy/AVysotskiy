@@ -1,8 +1,8 @@
 package paterns.factorymethod.factory;
 
-import paterns.factorymethod.Auto.Auto;
-import paterns.factorymethod.Auto.Lada;
-import paterns.factorymethod.Auto.UAZ;
+import paterns.factorymethod.auto.Auto;
+import paterns.factorymethod.auto.Lada;
+import paterns.factorymethod.auto.UAZ;
 
 /**
  * Class RussianAuto.

@@ -43,7 +43,7 @@ public class ValidateStub implements Validate {
     }
 
     @Override
-    public List<User> getAll(){
+    public List<User> getAll() {
         return new ArrayList<User>(this.store.values());
     }
 

@@ -89,8 +89,10 @@ public class StoreSQL implements AutoCloseable, Closeable {
             for (int i = 1; i <= n; i++) {
                 statement.setInt(1, i);
                 statement.addBatch();
+                if (i % 100 == 0) {
+                    statement.executeBatch();
+                }
             }
-            statement.executeBatch();
         } catch (SQLException e) {
             connection.rollback();
             LOG.error(e.getMessage(), e);
