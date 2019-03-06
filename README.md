@@ -17,3 +17,7 @@ chapter_005 about SQL, JDBC
 chapter_006 about Serlvet, JSP
 
 chapter_007 about Input-output, Socket
+
+
+TODO: setup Docker
+
