@@ -47,7 +47,7 @@ public class TestTask {
     private int count = 0;
 
     /**
-     * Метод делает все возможные комбинации из чисел и проверят выражение их них на равенство.
+     * Метод делает все возможные комбинации из чисел и проверят выражение из них на равенство.
      *
      * @param nums - массив из чисел.
      * @param num  - число равно которому будет выражение (можно использовать не только 24).
@@ -99,7 +99,7 @@ public class TestTask {
      * @param pieces    массив входных чисел.
      * @param operators массив арифметических знаков.
      * @param num       - заданное число, которому должно быть равно выражение.
-     * @return true если выражение равно числу.
+     * @return количесвто выражение.
      */
     private int combineAndPrint(String[] pieces, String[] operators, int num) {
         if (pieces.length == 1) {
