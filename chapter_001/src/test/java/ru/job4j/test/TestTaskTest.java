@@ -9,9 +9,34 @@ public class TestTaskTest {
 
     private TestTask ts = new TestTask();
 
+
+    @Test
+    public void whenNumFourSixEightNineThenTrue() {
+        int[] one = {4, 6, 8, 9};
+        assertThat(ts.canBeEqualTo24(one, 24), is(true));
+    }
+
+    @Test
+    public void whenNumOneThreeEightNineThenTrue() {
+        int[] one = {1, 3, 8, 9};
+        assertThat(ts.canBeEqualTo24(one, 24), is(true));
+    }
+
+    @Test
+    public void whenNumSixSixSixSixThenTrue() {
+        int[] one = {6, 6, 6, 6};
+        assertThat(ts.canBeEqualTo24(one, 24), is(true));
+    }
+
+    @Test
+    public void whenNumThreeEightNineNineThenTrue() {
+        int[] one = {3, 8, 9, 9};
+        assertThat(ts.canBeEqualTo24(one, 24), is(true));
+    }
+
     @Test
     public void whenNum24AndThenTrueNumbersFromTask() {
-        int[] one = {4, 1, 8, 7};
+        int[] one = {3, 3, 7, 7};
         assertThat(ts.canBeEqualTo24(one, 24), is(true));
     }
 
@@ -42,6 +67,24 @@ public class TestTaskTest {
     @Test
     public void whenNum24AndThenFalse() {
         int[] three = {6, 7, 8, 9};
+        assertThat(ts.canBeEqualTo24(three, 24), is(false));
+    }
+
+    @Test
+    public void whenNumEightEightSevenSevenThenFalse() {
+        int[] three = {8, 8, 7, 7};
+        assertThat(ts.canBeEqualTo24(three, 24), is(false));
+    }
+
+    @Test
+    public void whenNumOneTwoThreeOneThenFalse() {
+        int[] three = {1, 2, 3, 1};
+        assertThat(ts.canBeEqualTo24(three, 24), is(false));
+    }
+
+    @Test
+    public void whenNumEightEightOneOneThenFalse() {
+        int[] three = {8, 8, 1, 1};
         assertThat(ts.canBeEqualTo24(three, 24), is(false));
     }
 }

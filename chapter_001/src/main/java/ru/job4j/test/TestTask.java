@@ -47,7 +47,7 @@ public class TestTask {
     private int count = 0;
 
     /**
-     * Метод делает все возможные комбинации из чисел и проверят выражение из них на равенство.
+     * Метод делает все возможные комбинации из чисел и проверят выражения из них на равенство.
      *
      * @param nums - массив из чисел.
      * @param num  - число равно которому будет выражение (можно использовать не только 24).
@@ -105,12 +105,12 @@ public class TestTask {
         if (pieces.length == 1) {
             // если не пустой то идет проверка на равенство.
             if (parsingExpressionWithoutBrackets(pieces[0], num)) {
-                count++;
+                this.count++;
                 System.out.println(pieces[0]);
             }
             HashSet temp = addBracketsAndParsing(pieces[0], num);
             if (!temp.isEmpty()) {
-                count++;
+                this.count++;
                 for (Object s : temp) {
                     System.out.println(s);
                 }
@@ -172,7 +172,7 @@ public class TestTask {
                 fifthFromCharArray, sixthFromCharArray, seventhFromCharArray};
         try {
             for (String s : temp) {
-                if ((int) engine.eval(s) == number) {
+                if ((double) engine.eval(s) == number) {
                     result.add(s);
                 }
             }
