@@ -172,7 +172,7 @@ public class TestTask {
                 fifthFromCharArray, sixthFromCharArray, seventhFromCharArray};
         try {
             for (String s : temp) {
-                if ((double) engine.eval(s) == number) {
+                if (Math.ceil((double) engine.eval(s)) == number) {
                     result.add(s);
                 }
             }
