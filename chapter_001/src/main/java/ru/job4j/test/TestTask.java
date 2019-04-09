@@ -1,8 +1,8 @@
 package ru.job4j.test;
 
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
+import net.objecthunter.exp4j.Expression;
+import net.objecthunter.exp4j.ExpressionBuilder;
+
 import java.util.HashSet;
 
 /**
@@ -41,9 +41,6 @@ import java.util.HashSet;
  */
 
 public class TestTask {
-
-    private ScriptEngineManager mgr = new ScriptEngineManager();
-    private ScriptEngine engine = mgr.getEngineByName("JavaScript");
     private int count = 0;
 
     /**
@@ -137,11 +134,14 @@ public class TestTask {
     private boolean parsingExpressionWithoutBrackets(String in, int number) {
         boolean result = false;
         try {
-            if ((int) engine.eval(in) == number) {
+            Expression e = new ExpressionBuilder(in)
+                    .build();
+            double exp = Math.ceil((double) e.evaluate());
+            if (exp == number) {
                 result = true;
             }
-        } catch (ScriptException s) {
-            s.printStackTrace();
+        } catch (ArithmeticException e) {
+            System.out.println("Произошло деление на 0");
         } finally {
             return result;
         }
@@ -151,7 +151,7 @@ public class TestTask {
      * Вспомогательный метод.
      * Добавляет скобки, распарсивает строковое выражение и проверет равен ли результат вычесленией заданному числу.
      */
-    private HashSet addBracketsAndParsing(String in, int number) {
+    private HashSet addBracketsAndParsing(String in, double number) {
         HashSet result = new HashSet();
         char[] cn = in.toCharArray();
         char[] first = {'(', cn[0], cn[1], cn[2], ')', cn[3], cn[4], cn[5], cn[6]};
@@ -170,16 +170,18 @@ public class TestTask {
         String seventhFromCharArray = new String(seventh);
         String[] temp = {firstFromCharArray, secondFromCharArray, thirdFromCharArray, fourthFromCharArray,
                 fifthFromCharArray, sixthFromCharArray, seventhFromCharArray};
-        try {
-            for (String s : temp) {
-                if (Math.ceil((double) engine.eval(s)) == number) {
+        for (String s : temp) {
+            try {
+                Expression e = new ExpressionBuilder(s)
+                        .build();
+                double exp = Math.ceil((double) e.evaluate());
+                if (exp == number) {
                     result.add(s);
                 }
+            } catch (ArithmeticException e) {
+                System.out.println("Произошло деление на 0");
             }
-        } catch (ScriptException s) {
-            s.printStackTrace();
-        } finally {
-            return result;
         }
+        return result;
     }
 }
